@@ -1,0 +1,30 @@
+# Python
+backend/venv/
+backend/data/
+backend/config/*.lic
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+backend/scratch/
+
+# Node/Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# IDEs and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# DuckDB / Local Database files
+*.db
+*.db.tmp
+*.wal
+*.log

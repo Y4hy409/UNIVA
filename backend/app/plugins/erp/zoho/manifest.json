@@ -1,0 +1,11 @@
+{
+  "plugin_id": "zoho",
+  "name": "Zoho Books Connector",
+  "category": "erp",
+  "version": "1.0.0",
+  "plugin_api_version": 1,
+  "min_clarius_version": "1.0.0",
+  "required_capabilities": ["clarius.data_import"],
+  "entry_point": "app.plugins.erp.zoho.connector:ZohoBooksConnector",
+  "description": "Sync customer invoices, estimates, and expenses from Zoho Books API"
+}
