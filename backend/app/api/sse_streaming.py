@@ -95,7 +95,9 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
             
             context = "\n\n".join([f"Document: {p['metadata'].get('title', 'Policy')}\nContent: {p['content']}" for p in passages])
             prompt = (
-                f"You are CLARIUS. Answer the user query based ONLY on the provided document references:\n\n"
+                f"You are CLARIUS. Answer the user query based ONLY on the provided document references. "
+                f"Be as concise as possible while still fully answering the request. "
+                f"Do not invent information or speculate. Do not explain the RAG process or mention document retrieval.\n\n"
                 f"Context:\n{context}\n\n"
                 f"Question: {query_text}"
             )
@@ -151,8 +153,13 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
             policy_context = "\n\n".join([f"Document: {p['metadata'].get('title', 'Policy')}\nContent: {p['content']}" for p in passages]) if passages else "No policy documents matched."
             
             prompt = (
-                f"You are CLARIUS. Answer the user query using the business database results and policy rules.\n"
-                f"Clearly state the data-derived facts, the policy rules, and your business interpretation.\n\n"
+                f"You are CLARIUS. Answer the user query using the business database results and policy rules. "
+                f"Clearly state the findings, relevant policy context, and possible cause. "
+                f"Be concise, direct, and avoid any technical explanations about SQL, database execution, or RAG internals. "
+                f"Structure your response strictly as follows:\n\n"
+                f"Finding:\n[Direct data finding]\n\n"
+                f"Relevant Context:\n[Relevant policy context]\n\n"
+                f"Possible Cause:\n[Brief explanation or cause]\n\n"
                 f"Database Records:\n{db_context}\n\n"
                 f"Company Policies:\n{policy_context}\n\n"
                 f"Question: {query_text}"
@@ -262,14 +269,15 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
         if intent == "ANALYTICS_QUERY":
             # Synthesize analytics reasoning using Qwen
             prompt = (
-                f"You are CLARIUS. Explain these analytical findings in a concise business format (Finding, Evidence, Possible Cause, Recommended Action):\n\n"
+                f"You are CLARIUS. Explain these analytical findings in a concise business format. "
+                f"Identify trends, correlations, or likely causes supported by the data. "
+                f"Do not describe the SQL, database execution, or show internal chain-of-thought/reasoning.\n\n"
                 f"Query: {query_text}\n"
-                f"SQL: {sql}\n"
                 f"Records: {str(records[:10])}"
             )
             explanation = ollama_client.generate(prompt=prompt)
         else:
-            explanation = comm_agent.format_analytics_explanation(query_text, sql, len(records))
+            explanation = comm_agent.format_analytics_explanation(query_text, sql, len(records), records)
 
         yield {
             "event": "completed",

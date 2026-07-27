@@ -26,7 +26,9 @@ class FileSecurity:
         punctuation, and special character injection sequences.
         """
         # Strip directories/paths if supplied in filename
-        base_name = os.path.basename(filename)
+        # Replace backslashes with forward slashes to handle Windows paths on Linux
+        normalized_filename = filename.replace('\\', '/')
+        base_name = os.path.basename(normalized_filename)
         # Allow only alphanumeric characters, periods, dashes, and underscores
         sanitized = re.sub(r"[^\w\.\-_]", "_", base_name)
         # Enforce non-empty name

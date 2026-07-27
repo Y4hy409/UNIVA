@@ -73,7 +73,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
   
   // Local LLM config
   const [ollamaHost, setOllamaHost] = useState(localStorage.getItem('ollama_host') || 'http://localhost:11434');
-  const [ollamaModel, setOllamaModel] = useState(localStorage.getItem('ollama_model') || 'qwen3:4b');
+  const [ollamaModel, setOllamaModel] = useState(localStorage.getItem('ollama_model') || 'qwen3:4b-instruct');
   const [llmStatus, setLlmStatus] = useState<string | null>(null);
 
   // Unified Chat / AI Assistant States

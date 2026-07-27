@@ -75,8 +75,7 @@ class TestCoreAIAgents(unittest.TestCase):
             sql_executed="SELECT count(*) FROM products;",
             data_count=10
         )
-        self.assertIn("executing the secure SQL query", analytics_text)
-        self.assertIn("10 matching rows", analytics_text)
+        self.assertEqual("Here are the products count:", analytics_text)
         
         # 2. Format RAG answer
         passages = [{"content": "Matched policy rules text.", "metadata": {"title": "Company Handbook"}}]

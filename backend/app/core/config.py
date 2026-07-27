@@ -39,7 +39,7 @@ class Settings(BaseSettings):
     
     # AI Configuration
     OLLAMA_HOST: str = "http://localhost:11434"
-    OLLAMA_MODEL: str = "qwen3:4b"
+    OLLAMA_MODEL: str = "qwen3:4b-instruct"
     
     # Security
     SECRET_KEY: str = "change-this-in-production"
