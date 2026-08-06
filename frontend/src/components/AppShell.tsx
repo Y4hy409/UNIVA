@@ -529,13 +529,15 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
       }
     };
     fetchDashboards();
+    fetchTables();
+    fetchDocuments();
   }, [activeMenu]);
 
   // Load Audit logs
   const fetchAuditLogs = async () => {
     setAuditLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/auth/audit', {
+      const res = await fetch('http://localhost:8000/audit', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       if (res.ok) {
@@ -2476,11 +2478,19 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
 
         <div className="card">
           <div className="card-title">Sync Logs History</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px', fontFamily: 'var(--mono)', color: '#94a3b8' }}>
-            <div>[{syncTime}] INFO: Synced TallyPrime ledger accounts successfully. (2,432 records ingested)</div>
-            <div>[Today, 09:00 AM] INFO: Ingested file mapping 'Sales Transactions' into DuckDB. (1,280 rows)</div>
-            <div>[Yesterday, 04:30 PM] INFO: Document OCR complete. Embedded 4 policy documents into ChromaDB.</div>
-          </div>
+          {auditLoading ? (
+            <div style={{ color: '#3b82f6', fontSize: '13px', padding: '10px 0' }}>Loading sync logs history...</div>
+          ) : auditLogs.length === 0 ? (
+            <div style={{ color: '#94a3b8', fontSize: '13px', padding: '10px 0' }}>No pipeline ingestion or sync activities recorded yet.</div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px', fontFamily: 'var(--mono)', color: '#94a3b8' }}>
+              {auditLogs.map((log, idx) => (
+                <div key={idx}>
+                  [{log.timestamp || syncTime}] INFO: {log.action || 'System event'} - {log.resource_type || 'General'} (Resource: {log.resource_id || 'N/A'})
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     );

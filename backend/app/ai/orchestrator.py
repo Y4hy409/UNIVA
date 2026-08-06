@@ -3,7 +3,7 @@ import logging
 from typing import Any, List, Optional, Dict
 from langchain_core.callbacks.manager import CallbackManagerForLLMRun
 from langchain_core.language_models.llms import LLM
-from langchain_classic.agents import AgentExecutor, create_react_agent
+from langchain.agents import AgentExecutor, create_react_agent
 from langchain_core.tools import Tool
 from langchain_core.prompts import PromptTemplate
 
