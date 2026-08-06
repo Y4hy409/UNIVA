@@ -13,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.infrastructure.database import db_manager
 from app.infrastructure.knowledge import knowledge_manager
-from app.api import startup, auth, analytics, sse_streaming, upgrade as upgrade_api
+from app.api import startup, auth, analytics, sse_streaming, upgrade as upgrade_api, admin
 from app.infrastructure.jobs import api as jobs_api
 from app.modules.data_sources.api import routes as data_sources_api
 from app.modules.documents.api import routes as documents_api
@@ -85,6 +85,8 @@ app.include_router(sse_streaming.router)
 app.include_router(dashboards_api.router)
 app.include_router(audit_api.router)
 app.include_router(upgrade_api.router)
+app.include_router(admin.router)
+app.include_router(admin.upgrade_router)
 
 @app.get("/")
 async def root():

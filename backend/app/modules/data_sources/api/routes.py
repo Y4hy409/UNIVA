@@ -90,6 +90,30 @@ async def trigger_import(
             "data_type": data_type
         })
 
+    # Record data source in database
+    import uuid
+    from datetime import datetime
+    try:
+        conn = db_manager.get_connection()
+        source_id = str(uuid.uuid4())
+        file_size_kb = (file_path.stat().st_size / 1024) if file_path.exists() else 0
+        conn.execute("""
+            INSERT INTO data_sources (id, name, source_type, connection_config, schema_info, is_connected, last_sync, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, [
+            source_id,
+            file.filename or file_path.name,
+            file_ext.upper(),
+            str(file_path),
+            json.dumps({"target_table": target_table, "mappings": parsed_mappings, "file_size": f"{file_size_kb:.1f} KB"}),
+            True,
+            datetime.utcnow(),
+            datetime.utcnow(),
+            datetime.utcnow()
+        ])
+    except Exception as e:
+        pass
+
     # Queue background task
     job = job_queue.enqueue(
         job_type=job_type,
@@ -145,3 +169,71 @@ async def preview_table(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to fetch table preview: {str(e)}"
         )
+
+
+@router.get("/tables")
+async def list_tables(
+    _user = Depends(RoleChecker([UserRole.OWNER, UserRole.ADMIN, UserRole.MANAGER, UserRole.ANALYST, UserRole.STAFF]))
+):
+    """List all user-imported database tables and data files in DuckDB."""
+    try:
+        conn = db_manager.get_connection()
+        tables = conn.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='main'").fetchall()
+        system_tables = {
+            "users", "organizations", "data_sources", "queries", "dashboards", 
+            "reports", "documents", "audit_logs", "roles", "permissions", 
+            "user_roles", "role_permissions", "role_hierarchy", "access_scopes", 
+            "user_access_scopes"
+        }
+        res = []
+        seen_names = set()
+        
+        for t in tables:
+            tname = t[0]
+            if tname not in system_tables:
+                try:
+                    count_cursor = conn.execute(f"SELECT COUNT(*) FROM {tname}")
+                    count = count_cursor.fetchone()[0]
+                except Exception:
+                    count = 0
+                res.append({
+                    "name": tname,
+                    "type": "DuckDB Tabular Schema",
+                    "size": f"{count} Rows Mapped",
+                    "status": "Mapped",
+                    "details": f"Schema entity '{tname}' stored in DuckDB database."
+                })
+                seen_names.add(tname)
+
+        # Include files registered in data_sources table
+        try:
+            ds_rows = conn.execute("SELECT name, source_type, schema_info, is_connected FROM data_sources").fetchall()
+            for ds in ds_rows:
+                name, stype, sinfo_json, is_conn = ds
+                size_str = "File Ingested"
+                if sinfo_json:
+                    try:
+                        sinfo = json.loads(sinfo_json)
+                        if "file_size" in sinfo:
+                            size_str = sinfo["file_size"]
+                    except Exception:
+                        pass
+                if name not in seen_names:
+                    res.append({
+                        "name": name,
+                        "type": f"{stype} Spreadsheet",
+                        "size": size_str,
+                        "status": "Connected" if is_conn else "Disconnected",
+                        "details": f"Source file: {name} (Format: {stype}). Mapped to CDM target."
+                    })
+        except Exception:
+            pass
+
+        return res
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to list tables: {str(e)}"
+        )
+
+

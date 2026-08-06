@@ -84,3 +84,7 @@ class AuthService:
             return None
             
         return user
+
+    def get_all_users(self):
+        """Retrieve all registered users."""
+        return self.user_repo.get_all()

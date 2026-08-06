@@ -13,6 +13,8 @@ function App() {
   const [username, setUsername] = useState<string>(localStorage.getItem("username") || "");
   const [role, setRole] = useState<string>(localStorage.getItem("role") || "");
 
+  const [showSignup, setShowSignup] = useState<boolean>(false);
+
   // Check setup status once startup splash loading succeeds
   useEffect(() => {
     if (!booted) return;
@@ -23,9 +25,12 @@ function App() {
         if (response.ok) {
           const data = await response.json();
           setIsSetup(data.is_setup);
+        } else {
+          setIsSetup(true);
         }
       } catch (err) {
         console.error("Failed to fetch setup status", err);
+        setIsSetup(true);
       }
     };
 
@@ -51,6 +56,7 @@ function App() {
     setToken(null);
     setUsername("");
     setRole("");
+    setShowSignup(false);
   };
 
   // 1. Stage: Startup loader
@@ -75,24 +81,24 @@ function App() {
     );
   }
 
-  // 3. Stage: Setup wizard for first Owner creation
-  if (!isSetup) {
-    return <SetupWizard onSetupSuccess={handleAuthSuccess} />;
+  // If user is logged in, show workspace shell directly
+  if (token) {
+    return (
+      <AppShell 
+        username={username}
+        role={role}
+        onLogout={handleLogout}
+      />
+    );
   }
 
-  // 4. Stage: LoginForm for returning users
-  if (!token) {
-    return <LoginForm onLoginSuccess={handleAuthSuccess} />;
+  // Show Signup Form if not setup yet OR user clicked "Sign up as new user"
+  if (!isSetup || showSignup) {
+    return <SetupWizard onSetupSuccess={handleAuthSuccess} onToggleLogin={() => setShowSignup(false)} />;
   }
 
-  // 5. Stage: App workspace dashboard shell
-  return (
-    <AppShell 
-      username={username}
-      role={role}
-      onLogout={handleLogout}
-    />
-  );
+  // Default: Show Login Form
+  return <LoginForm onLoginSuccess={handleAuthSuccess} onToggleSetup={() => setShowSignup(true)} />;
 }
 
 export default App;

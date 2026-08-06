@@ -123,3 +123,62 @@ async def search_documents(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Semantic search failed: {str(e)}"
         )
+
+
+@router.get("/query")
+async def query_documents(
+    q: str,
+    limit: int = 3,
+    service: DocumentService = Depends(get_document_service),
+    _user = Depends(RoleChecker([UserRole.OWNER, UserRole.ADMIN, UserRole.MANAGER, UserRole.ANALYST, UserRole.STAFF]))
+):
+    """Execute semantic similarity query across indexed document chunks (GET)."""
+    try:
+        results = service.search_similar_chunks(q, limit=limit)
+        formatted = []
+        for r in results:
+            title = r.get("metadata", {}).get("title", "Policy Document")
+            formatted.append({
+                "title": title,
+                "content": r.get("content", ""),
+                "distance": r.get("score", 0.0),
+                "metadata": r.get("metadata", {})
+            })
+        return {"results": formatted}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Semantic query failed: {str(e)}"
+        )
+
+
+
+@router.get("")
+async def list_documents(
+    _user = Depends(RoleChecker([UserRole.OWNER, UserRole.ADMIN, UserRole.MANAGER, UserRole.ANALYST, UserRole.STAFF]))
+):
+    """Retrieve all indexed documents."""
+    import json
+    try:
+        conn = db_manager.get_connection()
+        rows = conn.execute("SELECT id, title, doc_type, metadata, created_at FROM documents").fetchall()
+        result = []
+        for r in rows:
+            try:
+                meta = json.loads(r[3]) if r[3] else {}
+            except Exception:
+                meta = {}
+            result.append({
+                "id": r[0],
+                "title": r[1],
+                "doc_type": r[2],
+                "metadata": meta,
+                "created_at": r[4]
+            })
+        return result
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to list documents: {str(e)}"
+        )
+

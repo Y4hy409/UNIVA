@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, CheckCircle2, AlertTriangle, Plus } from 'lucide-react';
+import { apiFetch } from '../../config/api';
 
 interface MappingTarget {
   name: string;
@@ -23,9 +24,10 @@ const TARGETS: MappingTarget[] = [
 
 interface ColumnsMapperProps {
   onIngestSuccess?: (fileName: string, format: string, size: string) => void;
+  onLicenseRequired?: () => void;
 }
 
-export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess }) => {
+export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess, onLicenseRequired }) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [file, setFile] = useState<File | null>(null);
   const [fileFormat, setFileFormat] = useState<'csv' | 'excel' | 'json' | 'xml'>('csv');
@@ -49,12 +51,11 @@ export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess })
 
   const fetchTablesCatalog = async () => {
     try {
-      const res = await fetch('http://localhost:8000/data-sources/tables', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
+      const res = await apiFetch('/data-sources/tables');
       if (res.ok) {
         const data = await res.json();
-        setTablesList(data.tables || []);
+        const names = Array.isArray(data) ? data.map((t: any) => typeof t === 'string' ? t : (t.name || String(t))) : (data.tables || []);
+        setTablesList(names);
       }
     } catch (err) {
       console.error("Failed to load tables catalog", err);
@@ -67,9 +68,7 @@ export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess })
     setPreviewCols([]);
     setPreviewData([]);
     try {
-      const res = await fetch(`http://localhost:8000/data-sources/preview/${tableName}`, {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
+      const res = await apiFetch(`/data-sources/preview/${tableName}`);
       if (res.ok) {
         const data = await res.json();
         setPreviewCols(data.columns || []);
@@ -121,7 +120,7 @@ export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess })
   };
 
   const handleFieldMapChange = (field: string, headerValue: string) => {
-    setMappings((prev) => ({
+    setMappings((prev: Record<string, string>) => ({
       ...prev,
       [field]: headerValue
     }));
@@ -140,15 +139,17 @@ export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess })
     formData.append('mappings', JSON.stringify(mappings));
 
     try {
-      const response = await fetch('http://localhost:8000/data-sources/import', {
+      const response = await apiFetch('/data-sources/import', {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
         body: formData
       });
 
       if (!response.ok) {
+        if (response.status === 402 && onLicenseRequired) {
+          onLicenseRequired();
+        }
         const errorData = await response.json();
-        throw new Error(errorData.detail || 'Ingestion failed');
+        throw new Error(errorData.detail || 'Ingestion failed - License key required');
       }
 
       setSuccessMsg('Pipeline mappings saved! Ingestion job triggered successfully in the background.');
@@ -333,8 +334,7 @@ export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess })
                         onChange={(e) => handleFieldMapChange(field, e.target.value)}
                         style={{ padding: '6px 10px', fontSize: '12px' }}
                       >
-                        <option value="">-- Leave Unmapped --</option>
-                        {headers.map((header) => (
+                        {headers.map((header: string) => (
                           <option key={header} value={header}>{header}</option>
                         ))}
                       </select>
@@ -386,7 +386,7 @@ export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess })
           </div>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '12px' }}>
-            {tablesList.map((tableName) => (
+            {tablesList.map((tableName: string) => (
               <div key={tableName} style={{
                 padding: '12px',
                 backgroundColor: 'rgba(255, 255, 255, 0.01)',
@@ -440,7 +440,7 @@ export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess })
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '12px' }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid #1e293b' }}>
-                    {previewCols.map((col) => (
+                    {previewCols.map((col: string) => (
                       <th key={col} style={{ padding: '8px 6px', color: '#f8fafc', fontWeight: 600 }}>{col}</th>
                     ))}
                   </tr>
@@ -453,9 +453,9 @@ export const ColumnsMapper: React.FC<ColumnsMapperProps> = ({ onIngestSuccess })
                       </td>
                     </tr>
                   ) : (
-                    previewData.map((row, rIdx) => (
+                    previewData.map((row: any, rIdx: number) => (
                       <tr key={rIdx} style={{ borderBottom: '1px solid #1e293b' }}>
-                        {previewCols.map((col) => (
+                        {previewCols.map((col: string) => (
                           <td key={col} style={{ padding: '8px 6px', color: '#94a3b8' }}>{String(row[col] ?? '')}</td>
                         ))}
                       </tr>

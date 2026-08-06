@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { LogIn, AlertTriangle, Eye, EyeOff, Shield } from 'lucide-react';
+import { apiFetch } from '../../config/api';
 
 interface LoginFormProps {
   onLoginSuccess: (token: string, username: string, role: string) => void;
+  onToggleSetup?: () => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess, onToggleSetup }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +22,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
     setErrorMsg(null);
 
     try {
-      const response = await fetch('http://localhost:8000/auth/login', {
+      const response = await apiFetch('/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -50,12 +52,51 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
       backgroundColor: '#090d16'
     }}>
       <div className="card" style={{ width: '100%', maxWidth: '380px', border: '1px solid #1e293b', backgroundColor: '#0d131f' }}>
-        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '16px' }}>
           <div style={{ display: 'inline-flex', padding: '10px', backgroundColor: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', marginBottom: '12px' }}>
             <Shield size={24} style={{ color: '#3b82f6' }} />
           </div>
           <h2 style={{ color: '#f8fafc', fontWeight: 700, fontSize: '18px', margin: '0 0 6px 0', letterSpacing: '0.5px' }}>CLARIUS</h2>
           <p style={{ color: '#94a3b8', fontSize: '13px', margin: 0 }}>Sign in to access your business workspace</p>
+        </div>
+
+        {/* Tab Switcher */}
+        <div style={{ display: 'flex', borderBottom: '1px solid #1e293b', marginBottom: '16px' }}>
+          <button
+            type="button"
+            style={{
+              flex: 1,
+              padding: '8px',
+              background: 'none',
+              border: 'none',
+              borderBottom: '2px solid #3b82f6',
+              color: '#3b82f6',
+              fontWeight: 600,
+              fontSize: '13px',
+              cursor: 'pointer'
+            }}
+          >
+            Sign In
+          </button>
+          {onToggleSetup && (
+            <button
+              type="button"
+              onClick={onToggleSetup}
+              style={{
+                flex: 1,
+                padding: '8px',
+                background: 'none',
+                border: 'none',
+                borderBottom: '2px solid transparent',
+                color: '#94a3b8',
+                fontWeight: 500,
+                fontSize: '13px',
+                cursor: 'pointer'
+              }}
+            >
+              Sign Up
+            </button>
+          )}
         </div>
 
         {errorMsg && (
@@ -133,6 +174,18 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
             <span>Sign In</span>
           </button>
         </form>
+
+        {onToggleSetup && (
+          <div style={{ marginTop: '16px', textAlign: 'center', borderTop: '1px solid #1e293b', paddingTop: '12px' }}>
+            <button
+              type="button"
+              onClick={onToggleSetup}
+              style={{ background: 'none', border: 'none', color: '#3b82f6', fontSize: '12px', cursor: 'pointer', fontWeight: 500 }}
+            >
+              Sign up as new user
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

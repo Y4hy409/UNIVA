@@ -84,16 +84,25 @@ class DocumentService:
         )
         
         formatted_results = []
+        seen = set()
         if results and "documents" in results and results["documents"]:
             docs = results["documents"][0]
             metadatas = results["metadatas"][0] if "metadatas" in results else []
             distances = results["distances"][0] if "distances" in results else []
             
             for i in range(len(docs)):
-                formatted_results.append({
-                    "content": docs[i],
-                    "metadata": metadatas[i] if i < len(metadatas) else {},
-                    "score": distances[i] if i < len(distances) else 0.0
-                })
+                content = docs[i]
+                meta = metadatas[i] if i < len(metadatas) else {}
+                score = distances[i] if i < len(distances) else 0.0
+                
+                title = meta.get("title", "") if isinstance(meta, dict) else ""
+                dedup_key = (title, content.strip())
+                if dedup_key not in seen:
+                    seen.add(dedup_key)
+                    formatted_results.append({
+                        "content": content,
+                        "metadata": meta,
+                        "score": score
+                    })
                 
         return formatted_results

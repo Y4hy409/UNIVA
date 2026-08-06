@@ -115,6 +115,26 @@ class TestAPIEndpoints(unittest.TestCase):
         data = response.json()
         self.assertIn("Unsupported file format", data["detail"])
 
+    def test_data_sources_tables_list(self):
+        response = self.client.get("/data-sources/tables", headers=self.headers)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIsInstance(data, list)
+
+    def test_documents_query_get(self):
+        response = self.client.get("/documents/query?q=policy", headers=self.headers)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIn("results", data)
+        self.assertIsInstance(data["results"], list)
+
+    def test_documents_list(self):
+        response = self.client.get("/documents", headers=self.headers)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertIsInstance(data, list)
+
 
 if __name__ == '__main__':
     unittest.main()
+

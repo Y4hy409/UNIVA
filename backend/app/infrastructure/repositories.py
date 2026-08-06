@@ -22,6 +22,20 @@ class DuckDBUserRepository(IUserRepository):
     def _get_connection(self) -> duckdb.DuckDBPyConnection:
         return self.provider.get_connection()
 
+    @staticmethod
+    def _parse_role(role_val: Any) -> UserRole:
+        if isinstance(role_val, UserRole):
+            return role_val
+        if isinstance(role_val, str):
+            try:
+                return UserRole(role_val.lower())
+            except ValueError:
+                pass
+        try:
+            return UserRole(role_val)
+        except Exception:
+            return UserRole.STAFF
+
     def get_by_username(self, username: str) -> Optional[User]:
         conn = self._get_connection()
         res = conn.execute(
@@ -37,7 +51,7 @@ class DuckDBUserRepository(IUserRepository):
             username=res[1],
             email=res[2],
             hashed_password=res[3],
-            role=UserRole(res[4]),
+            role=self._parse_role(res[4]),
             is_active=res[5],
             created_at=res[6],
             updated_at=res[7]
@@ -58,7 +72,7 @@ class DuckDBUserRepository(IUserRepository):
             username=res[1],
             email=res[2],
             hashed_password=res[3],
-            role=UserRole(res[4]),
+            role=self._parse_role(res[4]),
             is_active=res[5],
             created_at=res[6],
             updated_at=res[7]
@@ -86,6 +100,26 @@ class DuckDBUserRepository(IUserRepository):
             [user.username, user.email, user.hashed_password, role_str, user.is_active, user.updated_at, str(user.id)]
         )
         return user
+
+    def get_all(self) -> List[User]:
+        conn = self._get_connection()
+        rows = conn.execute(
+            "SELECT id, username, email, hashed_password, role, is_active, created_at, updated_at FROM users"
+        ).fetchall()
+        
+        users = []
+        for res in rows:
+            users.append(User(
+                id=UUID(res[0]),
+                username=res[1],
+                email=res[2],
+                hashed_password=res[3],
+                role=self._parse_role(res[4]),
+                is_active=res[5],
+                created_at=res[6],
+                updated_at=res[7]
+            ))
+        return users
 
 
 class DuckDBDocumentRepository(IDocumentRepository):

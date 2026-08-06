@@ -1,5 +1,6 @@
+import json
 import logging
-from typing import Any, List, Mapping, Optional, Dict
+from typing import Any, List, Optional, Dict
 from langchain_core.callbacks.manager import CallbackManagerForLLMRun
 from langchain_core.language_models.llms import LLM
 from langchain_classic.agents import AgentExecutor, create_react_agent
@@ -7,10 +8,9 @@ from langchain_core.tools import Tool
 from langchain_core.prompts import PromptTemplate
 
 from app.ai.llm.client import ollama_client
-from app.ai.agents.core.sql_agent import SQLAgent
+from app.ai.services.sql_service import SQLService
+from app.ai.services.analytics_service import AnalyticsService
 from app.ai.agents.core.rag_agent import DocumentRetrievalAgent
-from app.ai.agents.core.optimization_agent import QueryOptimizationAgent
-from app.ai.agents.core.analytics_agent import AnalyticsAgent
 from app.infrastructure.database import db_manager
 
 logger = logging.getLogger("clarius.ai.orchestrator")
@@ -35,18 +35,17 @@ class OllamaLangChainLLM(LLM):
 class LangChainOrchestrator:
     """
     CLARIUS LangChain-based Agent Orchestrator.
-    Handles Tool calling, Prompt orchestration, and Memory management across agents.
+    Handles Tool calling, Prompt orchestration, and Memory management across domain services.
     """
     
     def __init__(self, db_conn = None):
         self.conn = db_conn or db_manager.get_connection()
         self.llm = OllamaLangChainLLM()
-        self.sql_agent = SQLAgent(db_conn=self.conn)
+        self.sql_service = SQLService(db_conn=self.conn)
         self.rag_agent = DocumentRetrievalAgent()
-        self.optimization_agent = QueryOptimizationAgent(self.conn)
-        self.analytics_agent = AnalyticsAgent()
+        self.analytics_service = AnalyticsService()
+        self._memory_cache: Dict[str, str] = {}
         
-        # Define tools mapped to respective agents
         self.tools = [
             Tool(
                 name="business_database_query",
@@ -74,7 +73,6 @@ class LangChainOrchestrator:
             )
         ]
         
-        # Setup Agent executor
         self.prompt = PromptTemplate.from_template(
             "You are CLARIUS, a fast, precise, local-first AI Business Copilot for MSMEs.\n"
             "Answer the user query by selecting the most appropriate tool.\n\n"
@@ -104,65 +102,62 @@ class LangChainOrchestrator:
         )
 
     def _run_db_query(self, question: str) -> str:
-        """SQL Agent Tool wrapper."""
+        """SQL Tool wrapper."""
         try:
-            res = self.sql_agent.process_natural_language_query(question)
+            res = self.sql_service.process_query(question)
             if res.get("success", False):
-                # Apply optimizer if query is direct SQL
-                sql = res.get("sql")
-                if sql:
-                    optimized_sql = self.optimization_agent.optimize_query(sql)
-                    res["sql"] = optimized_sql
                 return str(res)
             return f"Error querying database: {res.get('error')}"
         except Exception as e:
             return f"Database query failed: {str(e)}"
 
     def _run_rag_search(self, query: str) -> str:
-        """RAG Agent Tool wrapper."""
+        """RAG Tool wrapper."""
         try:
             passages = self.rag_agent.retrieve_passages(query)
             if not passages:
                 return "No company handbook or document references found."
-            formatted = []
-            for p in passages:
-                formatted.append(f"Document: {p['metadata'].get('title', 'Doc')}\nContent: {p['content']}")
+            formatted = [f"Document: {p['metadata'].get('title', 'Doc')}\nContent: {p['content']}" for p in passages]
             return "\n\n".join(formatted)
         except Exception as e:
             return f"Document search failed: {str(e)}"
 
     def _run_chart_generator(self, input_str: str) -> str:
         """Visualization Engine Tool wrapper."""
-        import json
         try:
             params = json.loads(input_str)
             query = params.get("query", "")
             sql = params.get("sql", "")
             data = params.get("data", [])
-            chart_config = self.analytics_agent.generate_chart_config(query, sql, data)
+            chart_config = self.analytics_service.generate_chart_config(query, sql, data)
             return json.dumps(chart_config)
         except Exception as e:
             return f"Failed to generate visualization config: {str(e)}"
 
     def execute(self, user_query: str) -> str:
-        """Coordinate query routing and execution across CLARIUS agents."""
-        # Check cache/reuse before running full LangChain chain
+        """Coordinate query routing and execution."""
+        if user_query in self._memory_cache:
+            logger.info(f"Orchestrator returning in-memory response for: {user_query}")
+            return self._memory_cache[user_query]
+
         try:
             cached = self.conn.execute(
                 "SELECT result FROM queries WHERE query_text = ? AND status = 'success' ORDER BY created_at DESC LIMIT 1",
                 (user_query,)
             ).fetchone()
-            if cached:
-                logger.info(f"Orchestrator returning cached response for: {user_query}")
-                return cached[0]
+            if cached and cached[0]:
+                res_str = cached[0]
+                self._memory_cache[user_query] = res_str
+                logger.info(f"Orchestrator returning DB cached response for: {user_query}")
+                return res_str
         except Exception as e:
             logger.error(f"Failed to check cache: {str(e)}")
 
         try:
-            # Detect follow-up reformulation
-            reformulated_query = self.sql_agent.reformulate_query(user_query)
-            response = self.executor.invoke({"input": reformulated_query})
+            response = self.executor.invoke({"input": user_query})
             final_answer = response.get("output", "").strip()
+            if final_answer:
+                self._memory_cache[user_query] = final_answer
             return final_answer
         except Exception as e:
             logger.error(f"Orchestrator execution error: {str(e)}")

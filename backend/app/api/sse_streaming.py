@@ -3,44 +3,61 @@ CLARIUS Backend - SSE Analytics Streaming
 
 This module implements Server-Sent Events (SSE) streaming for natural language query execution,
 displaying live updates of progress stages and returning chart options (ADR-006).
+Refactored to use consolidated SQLService, AnalyticsService, and memory utilities.
 """
 
 import json
 import asyncio
 import logging
+from typing import Optional
 import duckdb
 from fastapi import APIRouter, Depends, Query
 from sse_starlette.sse import EventSourceResponse
 
 from app.infrastructure.database import get_db
-from app.ai.agents.core.sql_agent import SQLAgent
-from app.ai.agents.core.analytics_agent import AnalyticsAgent
+from app.ai.services.sql_service import SQLService
+from app.ai.services.analytics_service import AnalyticsService
+from app.ai.shared.memory_utils import memory_manager, ContextResolver
+from app.ai.shared.prompt_builder import PromptBuilder
+from app.ai.shared.response_formatter import ResponseFormatter
 
 router = APIRouter(prefix="/analytics/stream", tags=["analytics"])
 
 logger = logging.getLogger("clarius.analytics.stream")
 
 @router.get("")
-async def stream_query_results(query_text: str = Query(..., alias="q"), db: duckdb.DuckDBPyConnection = Depends(get_db)):
-    """Convert natural language to SQL with real-time SSE stage execution updates."""
+async def stream_query_results(
+    query_text: str = Query(..., alias="q"),
+    conversation_id: Optional[str] = Query(None, alias="conversation_id"),
+    db: duckdb.DuckDBPyConnection = Depends(get_db)
+):
+    """Convert natural language to SQL with real-time SSE stage execution updates and persistent context resolution."""
     
     async def event_generator():
         from app.ai.router import FastIntentRouter
         from app.ai.agents.core.rag_agent import DocumentRetrievalAgent
-        from app.ai.agents.core.communication_agent import CommunicationAgent
         from app.ai.llm.client import ollama_client
         
-        # 1. Classify Intent
-        route = FastIntentRouter.classify(query_text)
+        session = memory_manager.get_session(conversation_id)
+        
+        # 1. Conversation Context Resolver
+        context_resolution = ContextResolver.resolve_context(query_text, session)
+        effective_query = context_resolution["resolved_query"]
+        logger.info(f"SSE session [{session.conversation_id}] query: '{query_text}' -> resolved: '{effective_query}'")
+
+        # 2. Classify Intent
+        route = FastIntentRouter.classify(effective_query)
         intent = route["intent"]
         
-        # 2. Handle Conversation
+        # 3. Handle Conversation
         if intent == "CONVERSATION":
+            resp_text = route.get("response", "Hello! How can I assist with your business data today?")
+            session.record_turn(user_query=query_text, intent=intent, response_text=resp_text)
             yield {
                 "event": "completed",
                 "data": json.dumps({
                     "generated_sql": "",
-                    "explanation": route.get("response", "Hello!"),
+                    "explanation": resp_text,
                     "columns": [],
                     "results": [],
                     "chart_spec": "{}"
@@ -48,13 +65,15 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
             }
             return
 
-        # 3. Handle UI Actions
+        # 4. Handle UI Actions
         if intent == "UI_ACTION":
+            resp_text = f"Navigating to {route.get('ui_action').replace('navigate_', '')} screen..."
+            session.record_turn(user_query=query_text, intent=intent, response_text=resp_text)
             yield {
                 "event": "completed",
                 "data": json.dumps({
                     "generated_sql": "",
-                    "explanation": f"Navigating to {route.get('ui_action').replace('navigate_', '')} screen...",
+                    "explanation": resp_text,
                     "columns": [],
                     "results": [],
                     "chart_spec": "{}",
@@ -63,23 +82,25 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
             }
             return
 
-        # 4. Handle Document Knowledge Queries (RAG)
+        # 5. Handle Document Knowledge Queries (RAG)
         if intent == "DOCUMENT_KNOWLEDGE_QUERY":
             yield {
                 "event": "stage",
                 "data": json.dumps({"stage": "knowledge_retrieval", "message": "Searching company knowledge base..."})
             }
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(0.2)
             
             rag_agent = DocumentRetrievalAgent()
-            passages = rag_agent.retrieve_passages(query_text)
+            passages = rag_agent.retrieve_passages(effective_query)
             
             if not passages:
+                no_doc_msg = "The requested information could not be found in the available company documents."
+                session.record_turn(user_query=query_text, intent=intent, response_text=no_doc_msg)
                 yield {
                     "event": "completed",
                     "data": json.dumps({
                         "generated_sql": "",
-                        "explanation": "The requested information could not be found in the available company documents.",
+                        "explanation": no_doc_msg,
                         "columns": [],
                         "results": [],
                         "chart_spec": "{}"
@@ -91,17 +112,12 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
                 "event": "stage",
                 "data": json.dumps({"stage": "answer_synthesis", "message": "Synthesizing answer from retrieved documents..."})
             }
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(0.2)
             
             context = "\n\n".join([f"Document: {p['metadata'].get('title', 'Policy')}\nContent: {p['content']}" for p in passages])
-            prompt = (
-                f"You are CLARIUS. Answer the user query based ONLY on the provided document references. "
-                f"Be as concise as possible while still fully answering the request. "
-                f"Do not invent information or speculate. Do not explain the RAG process or mention document retrieval.\n\n"
-                f"Context:\n{context}\n\n"
-                f"Question: {query_text}"
-            )
+            prompt = PromptBuilder.build_rag_prompt(effective_query, context)
             explanation = ollama_client.generate(prompt=prompt)
+            session.record_turn(user_query=query_text, intent=intent, response_text=explanation, documents=passages)
             
             yield {
                 "event": "completed",
@@ -115,58 +131,49 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
             }
             return
 
-        # 5. Handle Hybrid Queries
+        # 6. Handle Hybrid Queries
         if intent == "HYBRID_BUSINESS_QUERY":
             yield {
                 "event": "stage",
                 "data": json.dumps({"stage": "schema_discovery", "message": "Executing hybrid data and policy checks..."})
             }
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(0.2)
             
-            sql_agent = SQLAgent(db_conn=db)
-            schema_context = sql_agent.discover_schemas()
-            
-            # DB part
-            records = []
-            sql = ""
-            if schema_context:
-                try:
-                    final_query = sql_agent.reformulate_query(query_text)
-                    sql = sql_agent.generate_sql(final_query, schema_context)
-                    sql = sql_agent.fix_column_names(sql)
-                    sql = sql_agent.fix_date_and_year_queries(sql, final_query)
-                    records = sql_agent.execute_query(sql)
-                except Exception:
-                    pass
+            sql_service = SQLService(db_conn=db)
+            sql_res = sql_service.process_query(effective_query, session.get_formatted_memory_prompt())
+            records = sql_res.get("data", [])
+            sql = sql_res.get("sql", "")
 
-            # RAG part
             rag_agent = DocumentRetrievalAgent()
-            passages = rag_agent.retrieve_passages(query_text)
+            passages = rag_agent.retrieve_passages(effective_query)
             
             yield {
                 "event": "stage",
                 "data": json.dumps({"stage": "answer_synthesis", "message": "Merging database records and policy documents..."})
             }
-            await asyncio.sleep(0.5)
+            await asyncio.sleep(0.2)
             
             db_context = str(records[:10]) if records else "No structured data matched."
             policy_context = "\n\n".join([f"Document: {p['metadata'].get('title', 'Policy')}\nContent: {p['content']}" for p in passages]) if passages else "No policy documents matched."
             
-            prompt = (
-                f"You are CLARIUS. Answer the user query using the business database results and policy rules. "
-                f"Clearly state the findings, relevant policy context, and possible cause. "
-                f"Be concise, direct, and avoid any technical explanations about SQL, database execution, or RAG internals. "
-                f"Structure your response strictly as follows:\n\n"
-                f"Finding:\n[Direct data finding]\n\n"
-                f"Relevant Context:\n[Relevant policy context]\n\n"
-                f"Possible Cause:\n[Brief explanation or cause]\n\n"
-                f"Database Records:\n{db_context}\n\n"
-                f"Company Policies:\n{policy_context}\n\n"
-                f"Question: {query_text}"
-            )
+            prompt = PromptBuilder.build_hybrid_prompt(effective_query, db_context, policy_context)
             explanation = ollama_client.generate(prompt=prompt)
             columns = list(records[0].keys()) if records else []
             
+            analytics_service = AnalyticsService()
+            viz_eval = analytics_service.evaluate_visualization(effective_query, intent, records, columns)
+            chart_config = analytics_service.generate_chart_config(effective_query, sql, records) if viz_eval["should_generate_chart"] else {}
+
+            session.record_turn(
+                user_query=query_text,
+                intent=intent,
+                response_text=explanation,
+                sql=sql,
+                results=records,
+                chart_config=chart_config,
+                documents=passages
+            )
+
             yield {
                 "event": "completed",
                 "data": json.dumps({
@@ -174,20 +181,20 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
                     "explanation": explanation,
                     "columns": columns,
                     "results": records[:100],
-                    "chart_spec": "{}"
+                    "chart_spec": json.dumps(chart_config) if chart_config else "{}"
                 })
             }
             return
 
-        # 6. Default Structured Data & Analytics Queries
+        # 7. Default Structured Data & Analytics Queries
         yield {
             "event": "stage",
             "data": json.dumps({"stage": "schema_discovery", "message": "Analyzing database schemas..."})
         }
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.2)
         
-        sql_agent = SQLAgent(db_conn=db)
-        schema_context = sql_agent.discover_schemas()
+        sql_service = SQLService(db_conn=db)
+        schema_context = sql_service.discover_schemas()
         
         if not schema_context:
             yield {
@@ -196,88 +203,46 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
             }
             return
 
-        cached_sql = None
-        try:
-            cached = db.execute(
-                "SELECT generated_sql FROM queries WHERE query_text = ? AND status = 'success' ORDER BY created_at DESC LIMIT 1",
-                (query_text,)
-            ).fetchone()
-            if cached:
-                cached_sql = cached[0]
-        except Exception:
-            pass
-
-        if cached_sql:
-            sql = cached_sql
-            logger.info(f"SSE Reusing cached SQL: {sql}")
-        else:
-            yield {
-                "event": "stage",
-                "data": json.dumps({"stage": "sql_generation", "message": "Generating DuckDB SQL query..."})
-            }
-            await asyncio.sleep(0.5)
-            
-            try:
-                final_query = sql_agent.reformulate_query(query_text)
-                sql = sql_agent.generate_sql(final_query, schema_context)
-                sql = sql_agent.fix_column_names(sql)
-                sql = sql_agent.fix_date_and_year_queries(sql, final_query)
-                logger.info(f"SSE Generated SQL (after fixes): {sql}")
-            except Exception as e:
-                yield {
-                    "event": "error",
-                    "data": json.dumps({"message": f"SQL translation failed: {str(e)}"})
-                }
-                return
-
         yield {
             "event": "stage",
-            "data": json.dumps({"stage": "sql_execution", "message": "Executing SQL query against DuckDB..."})
+            "data": json.dumps({"stage": "sql_generation", "message": "Generating DuckDB SQL query..."})
         }
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.2)
         
-        try:
-            is_safe, error_msg = sql_agent.validate_sql_safety(sql)
-            if not is_safe:
-                yield {
-                    "event": "error",
-                    "data": json.dumps({"message": error_msg})
-                }
-                return
-                
-            db.execute(f"EXPLAIN {sql}")
-            records = sql_agent.execute_query(sql)
-        except Exception as e:
+        sql_res = sql_service.process_query(effective_query, session.get_formatted_memory_prompt())
+        if not sql_res.get("success", False):
             yield {
                 "event": "error",
-                "data": json.dumps({"message": f"Database execution failed: {str(e)}"})
+                "data": json.dumps({"message": f"Query execution failed: {sql_res.get('error')}"})
             }
             return
 
-        yield {
-            "event": "stage",
-            "data": json.dumps({"stage": "chart_generation", "message": "Generating ECharts visualization options..."})
-        }
-        await asyncio.sleep(0.5)
-        
-        viz_agent = AnalyticsAgent()
-        chart_config = viz_agent.generate_chart_config(query_text, sql, records)
-
+        sql = sql_res.get("sql", "")
+        records = sql_res.get("data", [])
         columns = list(records[0].keys()) if records else []
-        comm_agent = CommunicationAgent()
+
+        analytics_service = AnalyticsService()
+        viz_eval = analytics_service.evaluate_visualization(effective_query, intent, records, columns)
         
-        if intent == "ANALYTICS_QUERY":
-            # Synthesize analytics reasoning using Qwen
-            prompt = (
-                f"You are CLARIUS. Explain these analytical findings in a concise business format. "
-                f"Identify trends, correlations, or likely causes supported by the data. "
-                f"Do not describe the SQL, database execution, or show internal chain-of-thought/reasoning.\n\n"
-                f"Query: {query_text}\n"
-                f"Records: {str(records[:10])}"
-            )
-            explanation = ollama_client.generate(prompt=prompt)
-        else:
-            explanation = comm_agent.format_analytics_explanation(query_text, sql, len(records), records)
+        chart_config = {}
+        if viz_eval["should_generate_chart"]:
+            yield {
+                "event": "stage",
+                "data": json.dumps({"stage": "chart_generation", "message": "Generating ECharts visualization options..."})
+            }
+            await asyncio.sleep(0.2)
+            chart_config = analytics_service.generate_chart_config(effective_query, sql, records)
+
+        explanation = analytics_service.explain_analytics(effective_query, sql, records, intent)
+
+        session.record_turn(
+            user_query=query_text,
+            intent=intent,
+            response_text=explanation,
+            sql=sql,
+            results=records,
+            chart_config=chart_config
+        )
 
         yield {
             "event": "completed",
@@ -286,7 +251,7 @@ async def stream_query_results(query_text: str = Query(..., alias="q"), db: duck
                 "explanation": explanation,
                 "columns": columns,
                 "results": records[:100],
-                "chart_spec": json.dumps(chart_config)
+                "chart_spec": json.dumps(chart_config) if chart_config else "{}"
             })
         }
 

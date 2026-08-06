@@ -5,6 +5,7 @@ This module implements FastAPI routes for the first-time setup wizard (Owner sig
 and user token generation using dependency injection providers (P1.1).
 """
 
+from typing import Optional, List, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr
 
@@ -12,6 +13,8 @@ from app.application.auth_service import AuthService
 from app.infrastructure.security import create_access_token
 from app.infrastructure.database import db_manager
 from app.infrastructure.repositories import DuckDBUserRepository
+from app.api.dependencies import RoleChecker
+from app.domain.entities import UserRole
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
@@ -100,3 +103,78 @@ async def reset_db(service: AuthService = Depends(get_auth_service)):
         return {"status": "success", "message": "All users cleared."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+class RegisterRequest(BaseModel):
+    username: str
+    password: str
+    role: str
+
+
+class PublicSignupRequest(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+    role: Optional[str] = "staff"
+
+
+@router.post("/signup", response_model=TokenResponse)
+async def public_signup(req: PublicSignupRequest, service: AuthService = Depends(get_auth_service)):
+    """Register a new user account and log in automatically."""
+    try:
+        requested_role = req.role.lower() if req.role else "staff"
+        try:
+            role_enum = UserRole(requested_role)
+        except Exception:
+            role_enum = UserRole.STAFF
+
+        user = service.register_user(req.username, req.email, req.password, role_enum)
+        role_val = user.role.value if hasattr(user.role, 'value') else str(user.role)
+        token = create_access_token(user.id, role_val)
+        return TokenResponse(
+            access_token=token,
+            role=role_val,
+            username=user.username
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+
+
+
+@router.get("/users")
+async def get_users(
+    service: AuthService = Depends(get_auth_service),
+    _user = Depends(RoleChecker([UserRole.OWNER, UserRole.ADMIN, UserRole.MANAGER, UserRole.ANALYST, UserRole.STAFF]))
+):
+    """List all workspace user profiles."""
+    users = service.get_all_users()
+    return [
+        {
+            "username": u.username,
+            "role": u.role.value if hasattr(u.role, 'value') else str(u.role)
+        } for u in users
+    ]
+
+
+@router.get("/roles")
+async def get_roles():
+    """Retrieve available system roles dynamically from database."""
+    try:
+        conn = db_manager.get_connection()
+        rows = conn.execute("SELECT id, name, description FROM roles").fetchall()
+        if rows:
+            return [{"id": r[0], "name": r[1], "description": r[2]} for r in rows]
+    except Exception:
+        pass
+    
+    return [
+        {"id": "owner", "name": "Owner", "description": "System Owner"},
+        {"id": "admin", "name": "Admin", "description": "Administrator"},
+        {"id": "manager", "name": "Manager", "description": "Branch Manager"},
+        {"id": "analyst", "name": "Analyst", "description": "Data Analyst"},
+        {"id": "staff", "name": "Staff", "description": "Staff Member"}
+    ]
+

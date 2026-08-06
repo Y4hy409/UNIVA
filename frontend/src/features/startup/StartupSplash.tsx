@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { ShieldCheck, Database, FileText, Cpu, AlertTriangle } from 'lucide-react';
+import { Database, Cpu, AlertTriangle } from 'lucide-react';
+import { apiFetch } from '../../config/api';
 
-interface StartupStage {
-  status: 'ok' | 'failed' | 'checking';
+interface SystemSubsystem {
+  status: 'checking' | 'ok' | 'degraded' | 'failed';
   details: string;
 }
 
 interface StartupStatus {
   ready: boolean;
-  stages: {
-    licensing: StartupStage;
-    database: StartupStage;
-    knowledge: StartupStage;
-    ollama: StartupStage;
+  subsystems: {
+    duckdb: SystemSubsystem;
+    chromadb: SystemSubsystem;
+    licensing: SystemSubsystem;
+    ollama: SystemSubsystem;
   };
 }
 
@@ -23,10 +24,10 @@ interface StartupSplashProps {
 export const StartupSplash: React.FC<StartupSplashProps> = ({ onReady }) => {
   const [status, setStatus] = useState<StartupStatus>({
     ready: false,
-    stages: {
-      licensing: { status: 'checking', details: 'Checking signature...' },
-      database: { status: 'checking', details: 'Connecting to DuckDB...' },
-      knowledge: { status: 'checking', details: 'Checking ChromaDB...' },
+    subsystems: {
+      duckdb: { status: 'checking', details: 'Connecting to DuckDB database...' },
+      chromadb: { status: 'checking', details: 'Connecting to ChromaDB vector store...' },
+      licensing: { status: 'checking', details: 'Verifying offline RSA license signature...' },
       ollama: { status: 'checking', details: 'Checking local Qwen 3 model...' }
     }
   });
@@ -37,7 +38,7 @@ export const StartupSplash: React.FC<StartupSplashProps> = ({ onReady }) => {
 
     const pollStatus = async () => {
       try {
-        const response = await fetch('http://localhost:8000/startup/status');
+        const response = await apiFetch('/startup/status');
         if (!response.ok) throw new Error("Backend server error");
         
         const data = (await response.json()) as StartupStatus;
@@ -55,10 +56,10 @@ export const StartupSplash: React.FC<StartupSplashProps> = ({ onReady }) => {
         setErrorMsg("Failed to connect to CLARIUS API sidecar. Ensure backend is running.");
         setStatus((prev) => ({
           ...prev,
-          stages: {
+          subsystems: {
+            duckdb: { status: 'failed', details: 'Connection lost' },
+            chromadb: { status: 'failed', details: 'Connection lost' },
             licensing: { status: 'failed', details: 'Connection lost' },
-            database: { status: 'failed', details: 'Connection lost' },
-            knowledge: { status: 'failed', details: 'Connection lost' },
             ollama: { status: 'failed', details: 'Connection lost' }
           }
         }));
@@ -71,12 +72,14 @@ export const StartupSplash: React.FC<StartupSplashProps> = ({ onReady }) => {
     return () => clearInterval(intervalId);
   }, [onReady]);
 
-  const renderStageRow = (title: string, stage: StartupStage, Icon: React.ComponentType<any>) => {
+  const renderStageRow = (title: string, stage?: SystemSubsystem, Icon?: React.ComponentType<any>) => {
+    const currentStage = stage || { status: 'checking', details: 'Checking subsystem status...' };
+    const IconComp = Icon || Database;
     let statusText = 'Checking';
     
-    if (stage.status === 'ok') {
+    if (currentStage.status === 'ok') {
       statusText = 'Connected';
-    } else if (stage.status === 'failed') {
+    } else if (currentStage.status === 'failed') {
       statusText = 'Offline';
     }
 
@@ -92,16 +95,16 @@ export const StartupSplash: React.FC<StartupSplashProps> = ({ onReady }) => {
         marginBottom: '8px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Icon size={20} style={{ color: stage.status === 'ok' ? '#3b82f6' : '#94a3b8' }} />
+          <IconComp size={20} style={{ color: currentStage.status === 'ok' ? '#3b82f6' : '#94a3b8' }} />
           <div style={{ textAlign: 'left' }}>
             <div style={{ fontWeight: 600, color: '#f8fafc', fontSize: '13px' }}>{title}</div>
-            <div style={{ fontSize: '11px', color: '#94a3b8' }}>{stage.details}</div>
+            <div style={{ fontSize: '11px', color: '#94a3b8' }}>{currentStage.details}</div>
           </div>
         </div>
         <div style={{
           fontSize: '12px',
           fontWeight: 600,
-          color: stage.status === 'ok' ? '#10b981' : stage.status === 'failed' ? '#ef4444' : '#f59e0b'
+          color: currentStage.status === 'ok' ? '#10b981' : currentStage.status === 'failed' ? '#ef4444' : '#f59e0b'
         }}>
           {statusText}
         </div>
@@ -149,10 +152,9 @@ export const StartupSplash: React.FC<StartupSplashProps> = ({ onReady }) => {
         )}
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {renderStageRow("Offline Licensing", status.stages.licensing, ShieldCheck)}
-          {renderStageRow("DuckDB CDM Tables", status.stages.database, Database)}
-          {renderStageRow("ChromaDB Knowledge", status.stages.knowledge, FileText)}
-          {renderStageRow("Ollama Local LLM", status.stages.ollama, Cpu)}
+          {renderStageRow("DuckDB CDM Tables", status.subsystems?.duckdb, Database)}
+          {renderStageRow("ChromaDB Knowledge", status.subsystems?.chromadb, Database)}
+          {renderStageRow("Ollama Local LLM", status.subsystems?.ollama, Cpu)}
         </div>
 
         <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'center' }}>

@@ -54,6 +54,8 @@ def get_current_user(
     return user
 
 
+from app.api.authorization_service import authorization_service
+
 class RoleChecker:
     """FastAPI dependency gate evaluating user role memberships."""
     
@@ -61,13 +63,34 @@ class RoleChecker:
         self.allowed_roles = allowed_roles
 
     def __call__(self, current_user: User = Depends(get_current_user)) -> User:
-        # Check matching enum or string values safely
+        # Fetch the user's roles from DB
+        user_roles = authorization_service.get_user_roles(current_user.id)
+        
+        # Keep user's default role as fallback
         role_val = current_user.role.value if hasattr(current_user.role, "value") else str(current_user.role)
+        user_roles.add(role_val)
+        
         allowed_vals = [r.value if hasattr(r, "value") else str(r) for r in self.allowed_roles]
         
-        if role_val not in allowed_vals:
+        if not any(ur in allowed_vals for ur in user_roles):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Access denied: Insufficient role permissions."
             )
         return current_user
+
+
+class PermissionChecker:
+    """FastAPI dependency gate evaluating user permission context."""
+    
+    def __init__(self, permission: str):
+        self.permission = permission
+
+    def __call__(self, current_user: User = Depends(get_current_user)) -> User:
+        if not authorization_service.authorize(current_user.id, self.permission):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Access denied: Insufficient permission '{self.permission}'."
+            )
+        return current_user
+

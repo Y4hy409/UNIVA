@@ -7,6 +7,11 @@ import {
 } from 'lucide-react';
 import ReactECharts from 'echarts-for-react';
 import { ColumnsMapper } from '../features/sources/ColumnsMapper';
+import { RoleManagement } from '../features/identity/RoleManagement';
+import { UserManagement } from '../features/identity/UserManagement';
+import { BranchManagement } from '../features/identity/BranchManagement';
+import { DepartmentManagement } from '../features/identity/DepartmentManagement';
+import { getApiUrl, apiFetch } from '../config/api';
 
 interface AppShellProps {
   username: string;
@@ -29,7 +34,7 @@ interface ChatMessage {
 }
 
 export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) => {
-  const [activeMenu, setActiveMenu] = useState<'assistant' | 'dashboards' | 'sources' | 'documents' | 'settings' | 'insights' | 'analytics' | 'reports' | 'businessdata' | 'usersroles' | 'organization' | 'branches' | 'integrations' | 'synclogs' | 'license' | 'auditlogs'>('assistant');
+  const [activeMenu, setActiveMenu] = useState<'assistant' | 'dashboards' | 'sources' | 'documents' | 'settings' | 'insights' | 'analytics' | 'reports' | 'businessdata' | 'usersroles' | 'users' | 'roles' | 'organization' | 'departments' | 'branches' | 'integrations' | 'synclogs' | 'license' | 'auditlogs'>('assistant');
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   // Preview tables catalog states (Dashboard)
@@ -43,6 +48,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
   const [activeKebabSource, setActiveKebabSource] = useState<number | null>(null);
   const [docList, setDocList] = useState<{name: string, type: string, size: string, status: string, details?: string}[]>([]);
   const [sourceFilesList, setSourceFilesList] = useState<{name: string, type: string, size: string, status: string, details?: string}[]>([]);
+  const [tablesCatalog, setTablesCatalog] = useState<{name: string, type: string, size: string, status: string, details?: string}[]>([]);
   const [matrixPermissions, setMatrixPermissions] = useState([
     { role: 'Owner / Admin', permissions: [true, true, true, true, true, true] },
     { role: 'Manager', permissions: [true, true, true, true, false, false] },
@@ -63,13 +69,30 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
   };
   
   // Settings tab states
-  const [settingsSubTab, setSettingsSubTab] = useState<'licensing' | 'users' | 'llm' | 'audit'>('licensing');
+  const [settingsSubTab, setSettingsSubTab] = useState<'system_config' | 'llm' | 'integrations' | 'users_access' | 'license' | 'audit' | 'health'>('system_config');
+  const [systemConfig, setSystemConfig] = useState({
+    general: { appName: 'CLARIUS / UNIVA', timezone: 'UTC' },
+    ui: { theme: 'dark', sidebarCollapsed: false },
+    workspace: { folderFlags: {} }
+  });
+  const [systemHealth, setSystemHealth] = useState<any>(null);
+  const [healthLoading, setHealthLoading] = useState(false);
+  const [systemConfigStatus, setSystemConfigStatus] = useState<string | null>(null);
+  const [permissionsList, setPermissionsList] = useState<{id: string, name: string}[]>([]);
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newUserRole, setNewUserRole] = useState('analyst');
+  const [appRoles, setAppRoles] = useState<{id: string, name: string}[]>([]);
   const [userStatus, setUserStatus] = useState<string | null>(null);
   const [licenseText, setLicenseText] = useState('');
   const [licStatus, setLicStatus] = useState<string | null>(null);
+  const [parentRole, setParentRole] = useState('admin');
+  const [childRole, setChildRole] = useState('manager');
+  const [scopeUser, setScopeUser] = useState('');
+  const [scopeType, setScopeType] = useState('branch');
+  const [scopeValue, setScopeValue] = useState('');
+  const [hierarchyStatus, setHierarchyStatus] = useState<string | null>(null);
+  const [scopeStatus, setScopeStatus] = useState<string | null>(null);
   
   // Local LLM config
   const [ollamaHost, setOllamaHost] = useState(localStorage.getItem('ollama_host') || 'http://localhost:11434');
@@ -81,12 +104,26 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
   const [chatLoading, setChatLoading] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [activeStage, setActiveStage] = useState<string>('none');
+  const [conversationId, setConversationId] = useState<string>(() => crypto.randomUUID());
+
+  const handleNewChat = () => {
+    const newId = crypto.randomUUID();
+    setConversationId(newId);
+    setChatHistory([]);
+    setActiveStage('none');
+  };
 
   // Document upload / OCR Ingest states
   const [docFile, setDocFile] = useState<File | null>(null);
   const [docType, setDocType] = useState('policy');
   const [docTitle, setDocTitle] = useState('');
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
+
+  // Global License Required Prompt Modal states
+  const [showLicenseModal, setShowLicenseModal] = useState(false);
+  const [modalLicenseText, setModalLicenseText] = useState('');
+  const [modalLicStatus, setModalLicStatus] = useState<string | null>(null);
+  const [modalLicLoading, setModalLicLoading] = useState(false);
 
   // Dashboards states
   const [dashboards, setDashboards] = useState<any[]>([]);
@@ -98,6 +135,16 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
   // Sync state
   const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'success'>('idle');
   const [syncTime, setSyncTime] = useState<string>('Today, 10:32 AM');
+
+  // Dynamic licensing, users, and insights states
+  const [licenseProperties, setLicenseProperties] = useState({
+    edition: 'Loading...',
+    max_users: 0,
+    max_branches: 0
+  });
+  const [registeredUsers, setRegisteredUsers] = useState<{username: string, role: string}[]>([]);
+  const [businessInsights, setBusinessInsights] = useState<{title: string, priority: string, message: string, type: string}[]>([]);
+  const [insightsLoading, setInsightsLoading] = useState(false);
 
   // ERP integration connection states
   const [connectedErps, setConnectedErps] = useState<Record<string, boolean>>({
@@ -131,26 +178,144 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
       setTimeout(() => setSyncStatus('idle'), 3000);
     }, 2000);
   };
-  const handleTogglePermission = (roleIdx: number, permIdx: number, targetRole: string) => {
-    const currentUserPriority = getRolePriority(role);
-    const targetUserPriority = getRolePriority(targetRole);
-    
-    if (currentUserPriority <= targetUserPriority) {
-      alert(`Access Denied: As a ${role}, you are unauthorized to modify permissions for the equal or higher priority role "${targetRole}".`);
-      return;
+
+  const fetchSystemConfig = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/admin/settings', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSystemConfig(data);
+      }
+    } catch (err) {
+      console.error("Failed to load settings", err);
     }
-    
-    setMatrixPermissions(prev => {
-      const updated = [...prev];
-      const targetPermissions = [...updated[roleIdx].permissions];
-      targetPermissions[permIdx] = !targetPermissions[permIdx];
-      updated[roleIdx] = {
-        ...updated[roleIdx],
-        permissions: targetPermissions
-      };
-      return updated;
-    });
   };
+
+  const handleSaveSystemConfig = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSystemConfigStatus("Updating configuration parameters...");
+    try {
+      const res = await fetch('http://localhost:8000/admin/settings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(systemConfig)
+      });
+      if (res.ok) {
+        setSystemConfigStatus("Configuration saved successfully.");
+      } else {
+        throw new Error("Failed to save settings");
+      }
+    } catch (err: any) {
+      setSystemConfigStatus(`Error: ${err.message}`);
+    }
+  };
+
+  const fetchSystemHealth = async () => {
+    setHealthLoading(true);
+    try {
+      const res = await fetch('http://localhost:8000/admin/system/health', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSystemHealth(data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch system health", err);
+    } finally {
+      setHealthLoading(false);
+    }
+  };
+
+  const fetchRbacMatrix = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/admin/rbac/matrix', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.matrix) setMatrixPermissions(data.matrix);
+        if (data.permissions) setPermissionsList(data.permissions);
+      }
+    } catch (err) {
+      console.error("Failed to fetch RBAC matrix", err);
+    }
+  };
+
+  const handleAddHierarchy = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setHierarchyStatus("Updating hierarchy...");
+    try {
+      const res = await fetch('http://localhost:8000/admin/rbac/hierarchy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ parent_role_id: parentRole, child_role_id: childRole })
+      });
+      if (res.ok) {
+        setHierarchyStatus("Role hierarchy updated successfully!");
+        fetchRbacMatrix();
+      } else {
+        const data = await res.json();
+        throw new Error(data.detail || "Failed to update hierarchy");
+      }
+    } catch (err: any) {
+      setHierarchyStatus(`Error: ${err.message}`);
+    }
+  };
+
+  const handleAssignScope = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!scopeUser || !scopeValue) return;
+    setScopeStatus("Assigning scope...");
+    try {
+      const res = await fetch('http://localhost:8000/admin/rbac/user-scope', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ user_id: scopeUser, scope_type: scopeType, scope_value: scopeValue })
+      });
+      if (res.ok) {
+        setScopeStatus("User scope assigned successfully!");
+        setScopeValue('');
+      } else {
+        const data = await res.json();
+        throw new Error(data.detail || "Failed to assign scope");
+      }
+    } catch (err: any) {
+      setScopeStatus(`Error: ${err.message}`);
+    }
+  };
+
+  const handleUserRoleChange = async (username: string, roleId: string) => {
+    try {
+      const res = await fetch('http://localhost:8000/admin/rbac/user-role', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ user_id: username, role_id: roleId })
+      });
+      if (res.ok) {
+        fetchRegisteredUsers();
+      } else {
+        alert("Failed to update user role");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
   const handleViewTableDetails = async (tableName: string) => {
     try {
@@ -238,6 +403,116 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
     setErpOrgId('');
   };
 
+  const fetchRegisteredUsers = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/auth/users', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setRegisteredUsers(data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch users", err);
+    }
+  };
+
+  const fetchBusinessInsights = async () => {
+    setInsightsLoading(true);
+    try {
+      const res = await fetch('http://localhost:8000/analytics/insights', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setBusinessInsights(data.insights || []);
+      }
+    } catch (err) {
+      console.error("Failed to fetch insights", err);
+    } finally {
+      setInsightsLoading(false);
+    }
+  };
+
+  const fetchDocuments = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/documents', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setDocList(data.map((doc: any) => ({
+          name: doc.title,
+          type: doc.doc_type.toUpperCase(),
+          size: "Embedded Vector Chunk",
+          status: "Indexed",
+          details: `Ingested document: ${doc.title}. Parsed type: ${doc.doc_type}.`
+        })));
+      }
+    } catch (err) {
+      console.error("Failed to load documents", err);
+    }
+  };
+
+  const fetchTables = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/data-sources/tables', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSourceFilesList(data);
+        setTablesCatalog(data);
+      }
+    } catch (err) {
+      console.error("Failed to load tables", err);
+    }
+  };
+
+  useEffect(() => {
+    const fetchLicenseProps = async () => {
+      try {
+        const res = await fetch('http://localhost:8000/licensing/properties', {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setLicenseProperties(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch license properties", err);
+      }
+    };
+
+    const fetchAppRoles = async () => {
+      try {
+        const res = await fetch('http://localhost:8000/auth/roles');
+        if (res.ok) {
+          const data = await res.json();
+          setAppRoles(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch roles", err);
+      }
+    };
+
+    fetchLicenseProps();
+    fetchRegisteredUsers();
+    fetchDocuments();
+    fetchTables();
+    fetchAppRoles();
+  }, []);
+
+  useEffect(() => {
+    if (activeMenu === 'insights') {
+      fetchBusinessInsights();
+    } else if (activeMenu === 'sources' || activeMenu === 'businessdata') {
+      fetchTables();
+    } else if (activeMenu === 'documents') {
+      fetchDocuments();
+    }
+  }, [activeMenu]);
+
   // Fetch dashboards catalog on mount
   useEffect(() => {
     const fetchDashboards = async () => {
@@ -280,6 +555,20 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
     }
   }, [activeMenu, settingsSubTab]);
 
+  useEffect(() => {
+    if (activeMenu === 'settings') {
+      if (settingsSubTab === 'system_config') {
+        fetchSystemConfig();
+      } else if (settingsSubTab === 'users_access') {
+        fetchRbacMatrix();
+        fetchRegisteredUsers();
+      } else if (settingsSubTab === 'health') {
+        fetchSystemHealth();
+      }
+    }
+  }, [activeMenu, settingsSubTab]);
+
+
   // Unified Query Submit (routes automatically or queries semantic RAG & SQL side-by-side/sequentially)
   const handleUnifiedQuery = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -298,7 +587,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
     setActiveStage('schema_discovery');
 
     // Try SQL query translation first (using SSE analytics stream)
-    const eventSource = new EventSource(`http://localhost:8000/analytics/stream?q=${encodeURIComponent(currentQuery)}`);
+    const eventSource = new EventSource(getApiUrl(`/analytics/stream?q=${encodeURIComponent(currentQuery)}&conversation_id=${encodeURIComponent(conversationId)}`));
     let completed = false;
 
     eventSource.addEventListener('stage', (event: MessageEvent) => {
@@ -359,9 +648,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
       // Fallback: Query documents knowledge base (RAG search) if SQL translation fails or finds no table structure
       try {
         setActiveStage('knowledge_retrieval');
-        const res = await fetch(`http://localhost:8000/documents/query?q=${encodeURIComponent(currentQuery)}`, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-        });
+        const res = await apiFetch(`/documents/query?q=${encodeURIComponent(currentQuery)}`);
         
         if (res.ok) {
           const data = await res.json();
@@ -415,29 +702,67 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
     if (docTitle) formData.append("title", docTitle);
 
     try {
-      const res = await fetch('http://localhost:8000/documents/upload', {
+      const res = await apiFetch('/documents/upload', {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
         body: formData
       });
 
-      if (!res.ok) throw new Error("Upload failed");
+      if (!res.ok) {
+        if (res.status === 402) {
+          setShowLicenseModal(true);
+          setUploadStatus("License key required to process document OCR.");
+          return;
+        }
+        throw new Error("Upload failed");
+      }
       
       setUploadStatus("Ingest success! Document OCR text extracted and indexed into knowledge base.");
-      setDocList(prev => [
-        ...prev,
-        {
-          name: docTitle || docFile.name,
-          type: docType.toUpperCase(),
-          size: (docFile.size / 1024).toFixed(1) + ' KB',
-          status: 'Indexed',
-          details: `Ingested document: ${docTitle || docFile.name}. Parsed type: ${docType}. Content extracted in the background via local OCR processor.`
-        }
-      ]);
       setDocFile(null);
       setDocTitle('');
+      fetchDocuments();
     } catch (err) {
       setUploadStatus("Failed to extract text from document.");
+    }
+  };
+
+  const handleModalLicenseSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!modalLicenseText.trim()) return;
+
+    setModalLicLoading(true);
+    setModalLicStatus("Verifying & activating license key...");
+
+    try {
+      const res = await apiFetch('/upgrade/license', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ license_key: modalLicenseText.trim() })
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.detail || "License verification failed.");
+      }
+
+      setModalLicStatus("License activated successfully! Capabilities unlocked.");
+      setModalLicenseText('');
+      setTimeout(() => {
+        setShowLicenseModal(false);
+        setModalLicStatus(null);
+        const fetchLicenseProps = async () => {
+          try {
+            const r = await fetch('http://localhost:8000/licensing/properties', {
+              headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            });
+            if (r.ok) setLicenseProperties(await r.json());
+          } catch (err) {}
+        };
+        fetchLicenseProps();
+      }, 1500);
+    } catch (err: any) {
+      setModalLicStatus(`Error: ${err.message || 'Invalid license key'}`);
+    } finally {
+      setModalLicLoading(false);
     }
   };
 
@@ -463,6 +788,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
       setUserStatus("User workspace created successfully!");
       setNewUsername('');
       setNewPassword('');
+      fetchRegisteredUsers();
     } catch (err: any) {
       setUserStatus(`Error: ${err.message}`);
     }
@@ -522,9 +848,19 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
               <div style={{ fontSize: '11px', color: '#94a3b8' }}>Standalone Offline Model: {ollamaModel}</div>
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></span>
-            <span style={{ fontSize: '12px', color: '#10b981' }}>Inference Active</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <button 
+              className="btn btn-secondary" 
+              style={{ fontSize: '12px', padding: '4px 10px', display: 'flex', alignItems: 'center', gap: '6px' }}
+              onClick={handleNewChat}
+              title="Start New Chat Session"
+            >
+              <span>+ New Chat</span>
+            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></span>
+              <span style={{ fontSize: '12px', color: '#10b981' }}>Inference Active</span>
+            </div>
           </div>
         </div>
 
@@ -632,20 +968,32 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
                 )}
 
                 {/* Show RAG reference citations */}
-                {msg.type === 'rag_result' && msg.ragDocs && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '4px' }}>
-                    <div style={{ fontSize: '11px', fontWeight: 600, color: '#f8fafc' }}>Knowledge Source Citations:</div>
-                    {msg.ragDocs.map((doc, dIdx) => (
-                      <div key={dIdx} style={{ padding: '10px 14px', backgroundColor: '#0d131f', border: '1px solid #1e293b', borderRadius: '6px', fontSize: '12px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                          <span style={{ fontWeight: 600, color: '#3b82f6' }}>{doc.title || "Policy Document"}</span>
-                          <span style={{ fontSize: '10px', color: '#94a3b8' }}>Match: {Number(doc.distance || 0).toFixed(4)}</span>
+                {msg.type === 'rag_result' && msg.ragDocs && (() => {
+                  const uniqueDocs: any[] = [];
+                  const seenKeys = new Set<string>();
+                  msg.ragDocs.forEach((doc) => {
+                    const key = `${doc.title || ''}::${(doc.content || '').trim()}`;
+                    if (!seenKeys.has(key)) {
+                      seenKeys.add(key);
+                      uniqueDocs.push(doc);
+                    }
+                  });
+
+                  return (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '4px' }}>
+                      <div style={{ fontSize: '11px', fontWeight: 600, color: '#f8fafc' }}>Knowledge Source Citations:</div>
+                      {uniqueDocs.map((doc, dIdx) => (
+                        <div key={dIdx} style={{ padding: '10px 14px', backgroundColor: '#0d131f', border: '1px solid #1e293b', borderRadius: '6px', fontSize: '12px' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <span style={{ fontWeight: 600, color: '#3b82f6' }}>{doc.title || "Policy Document"}</span>
+                            <span style={{ fontSize: '10px', color: '#94a3b8' }}>Match: {Number(doc.distance || 0).toFixed(4)}</span>
+                          </div>
+                          <div style={{ color: '#94a3b8', lineHeight: 1.4 }}>{doc.content}</div>
                         </div>
-                        <div style={{ color: '#94a3b8', lineHeight: 1.4 }}>{doc.content}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                      ))}
+                    </div>
+                  );
+                })()}
               </div>
             ))
           )}
@@ -932,18 +1280,10 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
         {/* File Ingestion columns mapper */}
         <div className="card">
           <div className="card-title">CSV & Spreadsheet Schema Mapper</div>
-          <ColumnsMapper onIngestSuccess={(fileName, format, size) => {
-            setSourceFilesList(prev => [
-              ...prev,
-              {
-                name: fileName,
-                type: format,
-                size: size,
-                status: 'Mapped',
-                details: `Source sheet: ${fileName} mapped successfully into active DuckDB schema catalog as a structured relation.`
-              }
-            ]);
-          }} />
+          <ColumnsMapper 
+            onIngestSuccess={() => { fetchTables(); }}
+            onLicenseRequired={() => setShowLicenseModal(true)} 
+          />
         </div>
 
         {/* Connected Business Data Sources Files List */}
@@ -1086,129 +1426,101 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         <div>
           <h2 style={{ color: '#f8fafc', margin: 0, fontSize: '18px' }}>System Settings & Administration</h2>
-          <p style={{ color: '#94a3b8', fontSize: '13px' }}>Configure licensing, local workspaces, local LLM properties, and access logs.</p>
+          <p style={{ color: '#94a3b8', fontSize: '13px' }}>Configure licensing, role-based access controls, local LLM properties, and system diagnostics.</p>
         </div>
 
-        <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid #1e293b', paddingBottom: '10px' }}>
+        <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid #1e293b', paddingBottom: '10px', flexWrap: 'wrap' }}>
           <button 
-            className={`btn ${settingsSubTab === 'licensing' ? 'btn-primary' : 'btn-secondary'}`}
-            onClick={() => setSettingsSubTab('licensing')}
+            className={`btn ${settingsSubTab === 'system_config' ? 'btn-primary' : 'btn-secondary'}`}
+            onClick={() => setSettingsSubTab('system_config')}
           >
-            Offline Licensing
-          </button>
-          <button 
-            className={`btn ${settingsSubTab === 'users' ? 'btn-primary' : 'btn-secondary'}`}
-            onClick={() => setSettingsSubTab('users')}
-          >
-            User Profiles
+            System Configuration
           </button>
           <button 
             className={`btn ${settingsSubTab === 'llm' ? 'btn-primary' : 'btn-secondary'}`}
             onClick={() => setSettingsSubTab('llm')}
           >
-            LLM Integration
+            AI & LLM
+          </button>
+          <button 
+            className={`btn ${settingsSubTab === 'integrations' ? 'btn-primary' : 'btn-secondary'}`}
+            onClick={() => setSettingsSubTab('integrations')}
+          >
+            Data & Integrations
+          </button>
+          <button 
+            className={`btn ${settingsSubTab === 'users_access' ? 'btn-primary' : 'btn-secondary'}`}
+            onClick={() => setSettingsSubTab('users_access')}
+          >
+            Users & Access
+          </button>
+          <button 
+            className={`btn ${settingsSubTab === 'license' ? 'btn-primary' : 'btn-secondary'}`}
+            onClick={() => setSettingsSubTab('license')}
+          >
+            License Management
           </button>
           <button 
             className={`btn ${settingsSubTab === 'audit' ? 'btn-primary' : 'btn-secondary'}`}
             onClick={() => setSettingsSubTab('audit')}
           >
-            System Audit logs
+            Audit & Security
+          </button>
+          <button 
+            className={`btn ${settingsSubTab === 'health' ? 'btn-primary' : 'btn-secondary'}`}
+            onClick={() => setSettingsSubTab('health')}
+          >
+            System Health
           </button>
         </div>
 
-        {settingsSubTab === 'licensing' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div className="card">
-              <div className="card-title">Active Licensing Properties</div>
-              <div style={{ fontSize: '13px', color: '#94a3b8', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div>Product Edition: <strong style={{ color: '#3b82f6' }}>CLARIUS Offline Basic</strong></div>
-                <div>Licensed User Profiles: <strong>5 Max</strong></div>
-                <div>Licensed Branches: <strong>1 Branch Node</strong></div>
-                <div>Operational Mode: <strong>Standalone Local Node</strong></div>
-              </div>
-            </div>
-
-            {isOwnerOrAdmin && (
-              <div className="card">
-                <div className="card-title">Upload Offline license File</div>
-                <form onSubmit={handleLicenseImport} style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '500px' }}>
-                  <textarea 
-                    className="input-field" 
-                    rows={4}
-                    value={licenseText}
-                    onChange={(e) => setLicenseText(e.target.value)}
-                    placeholder="Paste CLARIUS-.lic base64 license payload block here..."
-                    required
-                  />
-                  <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
-                    Verify License Signature
-                  </button>
-                </form>
-                {licStatus && (
-                  <div style={{ marginTop: '12px', fontSize: '13px', color: '#3b82f6' }}>
-                    {licStatus}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        )}
-
-        {settingsSubTab === 'users' && (
+        {/* 1. System Configuration */}
+        {settingsSubTab === 'system_config' && (
           <div className="card">
-            <div className="card-title">Create Workspace Profile</div>
-            {isOwnerOrAdmin ? (
-              <form onSubmit={handleUserCreate} style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '380px' }}>
-                <div>
-                  <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Username</label>
-                  <input 
-                    type="text" 
-                    className="input-field"
-                    value={newUsername}
-                    onChange={(e) => setNewUsername(e.target.value)}
-                    placeholder="e.g. analyst_john"
-                    required
-                  />
-                </div>
-                <div>
-                  <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Password</label>
-                  <input 
-                    type="password" 
-                    className="input-field"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    placeholder="Minimum 8 characters"
-                    required
-                  />
-                </div>
-                <div>
-                  <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Workspace Role</label>
-                  <select 
-                    className="input-field"
-                    value={newUserRole}
-                    onChange={(e) => setNewUserRole(e.target.value)}
-                  >
-                    <option value="admin">Admin</option>
-                    <option value="manager">Manager</option>
-                    <option value="analyst">Analyst</option>
-                    <option value="staff">Staff</option>
-                  </select>
-                </div>
-                <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start', marginTop: '6px' }}>
-                  Register Profile
-                </button>
-              </form>
-            ) : (
-              <p style={{ color: '#ef4444', fontSize: '13px' }}>Only System Owners and Admins possess permissions to manage workspace profiles.</p>
-            )}
-            {userStatus && (
+            <div className="card-title">General System settings</div>
+            <form onSubmit={handleSaveSystemConfig} style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '500px' }}>
+              <div>
+                <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Application Display Name</label>
+                <input 
+                  type="text" 
+                  className="input-field" 
+                  value={systemConfig.general?.appName || ''} 
+                  onChange={(e) => setSystemConfig(prev => ({...prev, general: {...prev.general, appName: e.target.value}}))}
+                  required 
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Deployment Mode</label>
+                <input 
+                  type="text" 
+                  className="input-field" 
+                  value="Standalone Offline Node" 
+                  disabled 
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>System Timezone</label>
+                <input 
+                  type="text" 
+                  className="input-field" 
+                  value={systemConfig.general?.timezone || ''} 
+                  onChange={(e) => setSystemConfig(prev => ({...prev, general: {...prev.general, timezone: e.target.value}}))}
+                  required 
+                />
+              </div>
+              <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
+                Save System Config
+              </button>
+            </form>
+            {systemConfigStatus && (
               <div style={{ marginTop: '12px', fontSize: '13px', color: '#3b82f6' }}>
-                {userStatus}
+                {systemConfigStatus}
               </div>
             )}
           </div>
         )}
 
+        {/* 2. AI & LLM */}
         {settingsSubTab === 'llm' && (
           <div className="card">
             <div className="card-title">Local LLM Orchestration Integration</div>
@@ -1245,9 +1557,288 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
           </div>
         )}
 
+        {/* 3. Data & Integrations */}
+        {settingsSubTab === 'integrations' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {renderDataSources()}
+          </div>
+        )}
+
+        {/* 4. Users & Access */}
+        {settingsSubTab === 'users_access' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="card">
+              <div className="card-title">Create Workspace Profile</div>
+              {isOwnerOrAdmin ? (
+                <form onSubmit={handleUserCreate} style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '380px' }}>
+                  <div>
+                    <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Username</label>
+                    <input 
+                      type="text" 
+                      className="input-field"
+                      value={newUsername}
+                      onChange={(e) => setNewUsername(e.target.value)}
+                      placeholder="e.g. analyst_john"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Password</label>
+                    <input 
+                      type="password" 
+                      className="input-field"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder="Minimum 8 characters"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Workspace Role</label>
+                    <select 
+                      className="input-field"
+                      value={newUserRole}
+                      onChange={(e) => setNewUserRole(e.target.value)}
+                    >
+                      {appRoles.length === 0 ? (
+                        <>
+                          <option value="admin">Admin</option>
+                          <option value="manager">Manager</option>
+                          <option value="analyst">Analyst</option>
+                          <option value="staff">Staff</option>
+                        </>
+                      ) : (
+                        appRoles.map(r => (
+                          <option key={r.id} value={r.id}>{r.name}</option>
+                        ))
+                      )}
+                    </select>
+                  </div>
+                  <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start', marginTop: '6px' }}>
+                    Register Profile
+                  </button>
+                </form>
+              ) : (
+                <p style={{ color: '#ef4444', fontSize: '13px' }}>Only System Owners and Admins possess permissions to manage workspace profiles.</p>
+              )}
+              {userStatus && (
+                <div style={{ marginTop: '12px', fontSize: '13px', color: '#3b82f6' }}>
+                  {userStatus}
+                </div>
+              )}
+            </div>
+
+            <div className="card">
+              <div className="card-title">Active Members Registry</div>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid #1e293b' }}>
+                      <th style={{ padding: '10px 8px', color: '#f8fafc' }}>Username</th>
+                      <th style={{ padding: '10px 8px', color: '#f8fafc' }}>Role Profile</th>
+                      <th style={{ padding: '10px 8px', color: '#f8fafc' }}>Change Role</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {registeredUsers.map((u) => (
+                      <tr key={u.username} style={{ borderBottom: '1px solid #1e293b' }}>
+                        <td style={{ padding: '10px 8px', color: '#f8fafc', fontWeight: 500 }}>{u.username}</td>
+                        <td style={{ padding: '10px 8px', color: '#3b82f6', textTransform: 'capitalize' }}>{u.role}</td>
+                        <td style={{ padding: '10px 8px' }}>
+                          <select 
+                            className="input-field" 
+                            style={{ padding: '2px 8px', width: '130px', fontSize: '11px' }}
+                            value={u.role} 
+                            disabled={!isOwnerOrAdmin}
+                            onChange={(e) => handleUserRoleChange(u.username, e.target.value)}
+                          >
+                            {appRoles.length === 0 ? (
+                              <>
+                                <option value="owner">Owner</option>
+                                <option value="admin">Admin</option>
+                                <option value="manager">Manager</option>
+                                <option value="analyst">Analyst</option>
+                                <option value="staff">Staff</option>
+                              </>
+                            ) : (
+                              appRoles.map(r => (
+                                <option key={r.id} value={r.id}>{r.name}</option>
+                              ))
+                            )}
+                          </select>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="card">
+              <div className="card-title">Operational Access Matrix</div>
+              <p style={{ color: '#94a3b8', fontSize: '13px', margin: '0 0 16px 0' }}>Role-based feature access authorization definitions mapped across dynamic database permissions.</p>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '12px' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid #1e293b', color: '#f8fafc' }}>
+                      <th style={{ padding: '10px 8px' }}>Role</th>
+                      {permissionsList.map(p => (
+                        <th key={p.id} style={{ padding: '10px 8px', textAlign: 'center' }}>{p.name}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {matrixPermissions.map((row, idx) => {
+                      const isEditable = getRolePriority(role) > getRolePriority(row.role);
+                      return (
+                        <tr key={idx} style={{ borderBottom: '1px solid #1e293b' }}>
+                          <td style={{ padding: '10px 8px', fontWeight: 600, color: '#f8fafc' }}>{row.role}</td>
+                          {row.permissions.map((perm, pIdx) => {
+                            const pObj = permissionsList[pIdx];
+                            if (!pObj) return null;
+                            return (
+                              <td key={pIdx} style={{ padding: '10px 8px', textAlign: 'center' }}>
+                                <span 
+                                  className={`badge ${perm ? 'badge-success' : 'badge-failed'}`}
+                                  style={{ 
+                                    opacity: isEditable ? 1 : 0.6 
+                                  }}
+                                >
+                                  {perm ? 'Yes' : 'No'}
+                                </span>
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="card">
+              <div className="card-title">Role Hierarchy Relationships</div>
+              <p style={{ color: '#94a3b8', fontSize: '13px', margin: '0 0 16px 0' }}>Configure parent-child role inheritances. A child inherits permissions from its parent.</p>
+              <form onSubmit={handleAddHierarchy} style={{ display: 'flex', gap: '12px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
+                <div>
+                  <label style={{ display: 'block', color: '#f8fafc', fontSize: '11px', marginBottom: '4px' }}>Parent Role (inheritee)</label>
+                  <select className="input-field" style={{ width: '180px' }} value={parentRole} onChange={(e) => setParentRole(e.target.value)}>
+                    {appRoles.length === 0 ? (
+                      <>
+                        <option value="owner">Owner</option>
+                        <option value="admin">Admin</option>
+                        <option value="manager">Manager</option>
+                        <option value="analyst">Analyst</option>
+                        <option value="staff">Staff</option>
+                      </>
+                    ) : (
+                      appRoles.map(r => (
+                        <option key={r.id} value={r.id}>{r.name}</option>
+                      ))
+                    )}
+                  </select>
+                </div>
+                <div>
+                  <label style={{ display: 'block', color: '#f8fafc', fontSize: '11px', marginBottom: '4px' }}>Child Role (inherits permissions)</label>
+                  <select className="input-field" style={{ width: '180px' }} value={childRole} onChange={(e) => setChildRole(e.target.value)}>
+                    {appRoles.length === 0 ? (
+                      <>
+                        <option value="owner">Owner</option>
+                        <option value="admin">Admin</option>
+                        <option value="manager">Manager</option>
+                        <option value="analyst">Analyst</option>
+                        <option value="staff">Staff</option>
+                      </>
+                    ) : (
+                      appRoles.map(r => (
+                        <option key={r.id} value={r.id}>{r.name}</option>
+                      ))
+                    )}
+                  </select>
+                </div>
+                <button type="submit" className="btn btn-primary">Add Hierarchy Link</button>
+              </form>
+              {hierarchyStatus && (
+                <div style={{ marginTop: '12px', fontSize: '12px', color: '#3b82f6' }}>{hierarchyStatus}</div>
+              )}
+            </div>
+
+            <div className="card">
+              <div className="card-title">Data Access Scopes</div>
+              <p style={{ color: '#94a3b8', fontSize: '13px', margin: '0 0 16px 0' }}>Assign branch-specific context-aware access bounds to workspace user profiles.</p>
+              <form onSubmit={handleAssignScope} style={{ display: 'flex', gap: '12px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
+                <div>
+                  <label style={{ display: 'block', color: '#f8fafc', fontSize: '11px', marginBottom: '4px' }}>User Member</label>
+                  <select className="input-field" style={{ width: '180px' }} value={scopeUser} onChange={(e) => setScopeUser(e.target.value)}>
+                    <option value="">Select User...</option>
+                    {registeredUsers.map(u => (
+                      <option key={u.username} value={u.username}>{u.username}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label style={{ display: 'block', color: '#f8fafc', fontSize: '11px', marginBottom: '4px' }}>Scope Dimension</label>
+                  <select className="input-field" style={{ width: '150px' }} value={scopeType} onChange={(e) => setScopeType(e.target.value)}>
+                    <option value="branch">Branch Office</option>
+                    <option value="department">Department</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{ display: 'block', color: '#f8fafc', fontSize: '11px', marginBottom: '4px' }}>Scope Value</label>
+                  <input type="text" className="input-field" style={{ width: '180px' }} placeholder="e.g. Chennai" value={scopeValue} onChange={(e) => setScopeValue(e.target.value)} />
+                </div>
+                <button type="submit" className="btn btn-primary">Assign Access Scope</button>
+              </form>
+              {scopeStatus && (
+                <div style={{ marginTop: '12px', fontSize: '12px', color: '#3b82f6' }}>{scopeStatus}</div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* 5. License Management */}
+        {settingsSubTab === 'license' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div className="card">
+              <div className="card-title">Active Licensing Properties</div>
+              <div style={{ fontSize: '13px', color: '#94a3b8', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div>Product Edition: <strong style={{ color: '#3b82f6' }}>{licenseProperties.edition}</strong></div>
+                <div>Licensed User Profiles: <strong>{licenseProperties.max_users} Max</strong></div>
+                <div>Licensed Branches: <strong>{licenseProperties.max_branches} Branch Node{licenseProperties.max_branches > 1 ? 's' : ''}</strong></div>
+              </div>
+            </div>
+
+            {isOwnerOrAdmin && (
+              <div className="card">
+                <div className="card-title">Upload Offline license File (.lic)</div>
+                <form onSubmit={handleLicenseImport} style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '500px' }}>
+                  <textarea 
+                    className="input-field" 
+                    rows={4}
+                    value={licenseText}
+                    onChange={(e) => setLicenseText(e.target.value)}
+                    placeholder="Paste CLARIUS-.lic base64 license payload block here..."
+                    required
+                  />
+                  <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
+                    Verify & Overwrite License
+                  </button>
+                </form>
+                {licStatus && (
+                  <div style={{ marginTop: '12px', fontSize: '13px', color: '#3b82f6' }}>
+                    {licStatus}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 6. Audit & Security */}
         {settingsSubTab === 'audit' && (
           <div className="card">
-            <div className="card-title">Access Audit history</div>
+            <div className="card-title">System Activity Audit Log</div>
             {auditLoading ? (
               <div style={{ color: '#3b82f6', fontSize: '13px' }}>Loading historical events...</div>
             ) : (
@@ -1256,9 +1847,9 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
                   <thead>
                     <tr style={{ borderBottom: '1px solid #1e293b' }}>
                       <th style={{ padding: '8px', color: '#f8fafc' }}>Timestamp</th>
-                      <th style={{ padding: '8px', color: '#f8fafc' }}>User ID</th>
-                      <th style={{ padding: '8px', color: '#f8fafc' }}>Event</th>
-                      <th style={{ padding: '8px', color: '#f8fafc' }}>Resource</th>
+                      <th style={{ padding: '8px', color: '#f8fafc' }}>User</th>
+                      <th style={{ padding: '8px', color: '#f8fafc' }}>Action Event</th>
+                      <th style={{ padding: '8px', color: '#f8fafc' }}>Target Resource</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1270,15 +1861,46 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
                       auditLogs.map((log: any, idx: number) => (
                         <tr key={idx} style={{ borderBottom: '1px solid #1e293b' }}>
                           <td style={{ padding: '8px', color: '#94a3b8' }}>{new Date(log.timestamp).toLocaleString()}</td>
-                          <td style={{ padding: '8px', color: '#94a3b8' }}>{log.user_id || "System"}</td>
-                          <td style={{ padding: '8px', color: '#3b82f6' }}>{log.action}</td>
-                          <td style={{ padding: '8px', color: '#94a3b8' }}>{log.target_resource || "None"}</td>
+                          <td style={{ padding: '8px', color: '#f8fafc' }}>{log.user_id || "System Setup"}</td>
+                          <td style={{ padding: '8px', color: '#3b82f6', fontWeight: 600 }}>{log.action}</td>
+                          <td style={{ padding: '8px', color: '#94a3b8' }}>{log.resource_type || "None"}</td>
                         </tr>
                       ))
                     )}
                   </tbody>
                 </table>
               </div>
+            )}
+          </div>
+        )}
+
+        {/* 7. System Health */}
+        {settingsSubTab === 'health' && (
+          <div className="card">
+            <div className="card-title">Service & Connection Health Metrics</div>
+            {healthLoading ? (
+              <div style={{ color: '#3b82f6', fontSize: '13px' }}>Checking component states...</div>
+            ) : systemHealth ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '10px' }}>
+                {Object.entries(systemHealth.components || {}).map(([compName, compStatus]) => {
+                  let statusColor = '#ef4444';
+                  if (compStatus === 'healthy' || compStatus === 'connected') statusColor = '#10b981';
+                  else if (compStatus === 'warning') statusColor = '#f59e0b';
+                  
+                  return (
+                    <div key={compName} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', backgroundColor: 'rgba(255,255,255,0.01)', border: '1px solid #1e293b', borderRadius: '6px' }}>
+                      <div style={{ fontWeight: 600, color: '#f8fafc', textTransform: 'capitalize' }}>
+                        {compName.replace('_', ' ')} Service
+                      </div>
+                      <span className="badge" style={{ backgroundColor: `${statusColor}22`, color: statusColor, border: `1px solid ${statusColor}44`, textTransform: 'uppercase', fontSize: '10px' }}>
+                        {String(compStatus)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div style={{ color: '#94a3b8', fontSize: '13px' }}>System diagnostics unavailable.</div>
             )}
           </div>
         )}
@@ -1296,35 +1918,39 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <div className="card" style={{ borderLeft: '4px solid #ef4444' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-              <strong style={{ color: '#f8fafc', fontSize: '14px' }}>Inventory Shortage Risk</strong>
-              <span className="badge badge-failed">Critical Priority</span>
-            </div>
-            <p style={{ margin: 0, color: '#94a3b8', fontSize: '13px' }}>
-              8 high-velocity inventory items have fallen below safety reorder points. Estimated stockout in 4 days if reorder purchase is not dispatched.
-            </p>
-          </div>
-
-          <div className="card" style={{ borderLeft: '4px solid #f59e0b' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-              <strong style={{ color: '#f8fafc', fontSize: '14px' }}>Vendor Cost Escalation</strong>
-              <span className="badge badge-pending">Medium Priority</span>
-            </div>
-            <p style={{ margin: 0, color: '#94a3b8', fontSize: '13px' }}>
-              Supplier cost rate for item category "Raw Sheets" increased by 14.8% over the past 30 days compared to historical company averages.
-            </p>
-          </div>
-
-          <div className="card" style={{ borderLeft: '4px solid #10b981' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-              <strong style={{ color: '#f8fafc', fontSize: '14px' }}>Sales Recovery Trend</strong>
-              <span className="badge badge-success">Opportunity</span>
-            </div>
-            <p style={{ margin: 0, color: '#94a3b8', fontSize: '13px' }}>
-              Customer segment "Northern Wholesale Distributors" showed a 22% increase in sales order frequency over the last 14 days.
-            </p>
-          </div>
+          {insightsLoading ? (
+            <div style={{ color: '#3b82f6', fontSize: '13px', padding: '20px', textAlign: 'center' }}>Generating dynamic business alerts...</div>
+          ) : businessInsights.length === 0 ? (
+            <div style={{ color: '#94a3b8', fontSize: '13px', padding: '20px', textAlign: 'center' }}>No dynamic alerts or shortage risks found in current data.</div>
+          ) : (
+            businessInsights.map((insight, idx) => {
+              let borderCol = '#3b82f6';
+              let badgeClass = 'badge-success';
+              const priority = insight.priority.toLowerCase();
+              if (priority.includes('critical') || priority.includes('high') || priority.includes('error')) {
+                borderCol = '#ef4444';
+                badgeClass = 'badge-failed';
+              } else if (priority.includes('medium') || priority.includes('warning') || priority.includes('pending')) {
+                borderCol = '#f59e0b';
+                badgeClass = 'badge-pending';
+              } else if (priority.includes('opportunity') || priority.includes('success')) {
+                borderCol = '#10b981';
+                badgeClass = 'badge-success';
+              }
+              
+              return (
+                <div key={idx} className="card" style={{ borderLeft: `4px solid ${borderCol}` }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                    <strong style={{ color: '#f8fafc', fontSize: '14px' }}>{insight.title}</strong>
+                    <span className={`badge ${badgeClass}`}>{insight.priority}</span>
+                  </div>
+                  <p style={{ margin: 0, color: '#94a3b8', fontSize: '13px' }}>
+                    {insight.message}
+                  </p>
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
     );
@@ -1414,19 +2040,21 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
 
         <div className="card">
           <div className="card-title">Registered Tables Catalog</div>
-          {dashboards.length === 0 ? (
+          {tablesCatalog.length === 0 ? (
             <div style={{ padding: '12px', backgroundColor: 'rgba(255, 255, 255, 0.01)', border: '1px solid #1e293b', borderRadius: '6px', fontSize: '12px', color: '#94a3b8', textAlign: 'center' }}>
               No relation schemas synced or configured yet.
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {dashboards.map((dash: any, idx: number) => {
-                const name = typeof dash === 'object' && dash !== null ? dash.name : String(dash);
+              {tablesCatalog.map((tbl: any, idx: number) => {
+                const name = typeof tbl === 'object' && tbl !== null ? tbl.name : String(tbl);
+                const typeStr = typeof tbl === 'object' && tbl !== null && tbl.type ? tbl.type : 'DuckDB Tabular Entity';
+                const sizeStr = typeof tbl === 'object' && tbl !== null && tbl.size ? tbl.size : 'Mapped';
                 return (
                   <div key={idx} style={{ padding: '12px 14px', backgroundColor: 'rgba(255, 255, 255, 0.01)', border: '1px solid #1e293b', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>
                       <strong style={{ color: '#f8fafc', fontSize: '13px' }}>{name}</strong>
-                      <div style={{ fontSize: '11px', color: '#94a3b8' }}>Type: DuckDB Tabular Entity</div>
+                      <div style={{ fontSize: '11px', color: '#94a3b8' }}>Type: {typeStr} | Size: {sizeStr}</div>
                     </div>
                     <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                       <button className="btn btn-secondary" style={{ padding: '2px 8px', fontSize: '11px' }} onClick={() => handlePreviewTable(name)}>
@@ -1513,16 +2141,38 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
                 </tr>
               </thead>
               <tbody>
-                <tr style={{ borderBottom: '1px solid #1e293b' }}>
-                  <td style={{ padding: '10px 8px', color: '#f8fafc', fontWeight: 500 }}>admin</td>
-                  <td style={{ padding: '10px 8px', color: '#3b82f6' }}>admin / Owner</td>
-                  <td style={{ padding: '10px 8px', color: '#94a3b8' }}>Full System Access & License Keys</td>
-                </tr>
-                <tr style={{ borderBottom: '1px solid #1e293b' }}>
-                  <td style={{ padding: '10px 8px', color: '#f8fafc', fontWeight: 500 }}>analyst_user</td>
-                  <td style={{ padding: '10px 8px', color: '#10b981' }}>Analyst</td>
-                  <td style={{ padding: '10px 8px', color: '#94a3b8' }}>Read-only Schema Query & Reports Export</td>
-                </tr>
+                {registeredUsers.length === 0 ? (
+                  <tr>
+                    <td colSpan={3} style={{ padding: '12px 8px', color: '#94a3b8', textAlign: 'center' }}>No workspace profiles registered yet.</td>
+                  </tr>
+                ) : (
+                  registeredUsers.map((user) => {
+                    let roleColor = '#3b82f6';
+                    let scopeText = 'Assigned Role Capabilities';
+                    const r = user.role.toLowerCase();
+                    if (r === 'owner' || r === 'admin') {
+                      roleColor = '#ef4444';
+                      scopeText = r === 'owner' ? 'Full System Access & License Keys' : 'Full System Access & Profile Registry Management';
+                    } else if (r === 'manager') {
+                      roleColor = '#f59e0b';
+                      scopeText = 'Branch Management & Read-Write Schema Access';
+                    } else if (r === 'analyst') {
+                      roleColor = '#10b981';
+                      scopeText = 'Read-only Schema Query & Reports Export';
+                    } else if (r === 'staff') {
+                      roleColor = '#94a3b8';
+                      scopeText = 'Basic Operational Entry & System Logs Access';
+                    }
+                    
+                    return (
+                      <tr key={user.username} style={{ borderBottom: '1px solid #1e293b' }}>
+                        <td style={{ padding: '10px 8px', color: '#f8fafc', fontWeight: 500 }}>{user.username}</td>
+                        <td style={{ padding: '10px 8px', color: roleColor, textTransform: 'capitalize' }}>{user.role}</td>
+                        <td style={{ padding: '10px 8px', color: '#94a3b8' }}>{scopeText}</td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </table>
           </div>
@@ -1556,11 +2206,8 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
                           <span 
                             className={`badge ${perm ? 'badge-success' : 'badge-failed'}`}
                             style={{ 
-                              cursor: isEditable ? 'pointer' : 'not-allowed', 
                               opacity: isEditable ? 1 : 0.6 
                             }}
-                            title={isEditable ? "Click to toggle permission value" : `Locked: You cannot modify permissions for equal or higher priority role "${row.role}"`}
-                            onClick={() => handleTogglePermission(idx, pIdx, row.role)}
                           >
                             {perm ? 'Yes' : 'No'}
                           </span>
@@ -1959,9 +2606,13 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
         )}
         {isCollapsed && <div style={{ borderBottom: '1px solid #1e293b', marginBottom: '8px' }} />}
         <ul className="sidebar-menu" style={{ marginBottom: '14px' }}>
-          <li className={`sidebar-item ${activeMenu === 'usersroles' ? 'active' : ''}`} onClick={() => setActiveMenu('usersroles')} title="Users & Roles">
+          <li className={`sidebar-item ${activeMenu === 'users' || activeMenu === 'usersroles' ? 'active' : ''}`} onClick={() => setActiveMenu('users')} title="Users">
+            <User size={14} />
+            {!isCollapsed && <span>Users</span>}
+          </li>
+          <li className={`sidebar-item ${activeMenu === 'roles' ? 'active' : ''}`} onClick={() => setActiveMenu('roles')} title="Role Management">
             <Users size={14} />
-            {!isCollapsed && <span>Users & Roles</span>}
+            {!isCollapsed && <span>Role Management</span>}
           </li>
           <li className={`sidebar-item ${activeMenu === 'organization' ? 'active' : ''}`} onClick={() => setActiveMenu('organization')} title="Organization">
             <Building2 size={14} />
@@ -2026,7 +2677,6 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
             Workspace / <span style={{ color: '#3b82f6', textTransform: 'capitalize' }}>{activeMenu === 'assistant' ? 'AI Assistant' : activeMenu}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="badge badge-success">Standalone Local Node</span>
           </div>
         </div>
 
@@ -2040,8 +2690,18 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
           {activeMenu === 'businessdata' && renderBusinessData()}
           {activeMenu === 'documents' && renderDocuments()}
           {activeMenu === 'usersroles' && renderUsersRoles()}
+          {activeMenu === 'users' && <UserManagement />}
+          {activeMenu === 'roles' && <RoleManagement />}
           {activeMenu === 'organization' && renderOrganization()}
-          {activeMenu === 'branches' && renderBranches()}
+          {activeMenu === 'departments' && <DepartmentManagement />}
+          {activeMenu === 'branches' && (
+            <>
+              {renderBranches()}
+              <div style={{ marginTop: '20px' }}>
+                <BranchManagement />
+              </div>
+            </>
+          )}
           {activeMenu === 'settings' && renderSettingsContent()}
           {activeMenu === 'integrations' && renderIntegrations()}
           {activeMenu === 'synclogs' && renderSyncLogs()}
@@ -2282,6 +2942,95 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
                 )}
               </div>
             </div>
+          </div>
+        </div>
+      )}
+      {/* Global License Key Required Modal */}
+      {showLicenseModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000,
+          backdropFilter: 'blur(4px)'
+        }}>
+          <div className="card" style={{ width: '100%', maxWidth: '480px', backgroundColor: '#0d131f', border: '1px solid #3b82f6', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <div className="card-title" style={{ margin: 0, color: '#f8fafc', fontSize: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Award size={20} style={{ color: '#3b82f6' }} />
+                <span>CLARIUS License Key Required</span>
+              </div>
+              <button className="btn btn-secondary" style={{ padding: '2px 8px', fontSize: '12px' }} onClick={() => setShowLicenseModal(false)}>
+                ✕
+              </button>
+            </div>
+
+            <p style={{ color: '#94a3b8', fontSize: '13px', lineHeight: 1.4, marginBottom: '16px' }}>
+              A valid <strong>CLARIUS / UNIVA</strong> offline license key (.lic) is required to execute AI queries, ingest spreadsheet files, process OCR documents, or connect ERP systems.
+            </p>
+
+            <form onSubmit={handleModalLicenseSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div>
+                <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '6px', fontWeight: 500 }}>
+                  Paste License Key Payload (.lic)
+                </label>
+                <textarea
+                  className="input-field"
+                  rows={4}
+                  value={modalLicenseText}
+                  onChange={(e) => setModalLicenseText(e.target.value)}
+                  placeholder="Paste CLARIUS-LICENSE-v1 payload block here..."
+                  style={{ fontFamily: 'var(--mono)', fontSize: '11px' }}
+                  required
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', color: '#94a3b8', fontSize: '11px', marginBottom: '4px' }}>
+                  Or select local license file (.lic):
+                </label>
+                <input
+                  type="file"
+                  accept=".lic,.txt"
+                  style={{ fontSize: '12px', color: '#94a3b8' }}
+                  onChange={(e) => {
+                    const selected = e.target.files?.[0];
+                    if (selected) {
+                      const reader = new FileReader();
+                      reader.onload = (evt) => {
+                        setModalLicenseText(evt.target?.result as string || '');
+                      };
+                      reader.readAsText(selected);
+                    }
+                  }}
+                />
+              </div>
+
+              {modalLicStatus && (
+                <div style={{
+                  fontSize: '12px',
+                  color: modalLicStatus.startsWith('Error') ? '#ef4444' : '#10b981',
+                  backgroundColor: modalLicStatus.startsWith('Error') ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)',
+                  padding: '8px 12px',
+                  borderRadius: '6px',
+                  border: `1px solid ${modalLicStatus.startsWith('Error') ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)'}`
+                }}>
+                  {modalLicStatus}
+                </div>
+              )}
+
+              <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', marginTop: '8px' }}>
+                <button type="button" className="btn btn-secondary" onClick={() => setShowLicenseModal(false)}>
+                  Close
+                </button>
+                <button type="submit" className="btn btn-primary" disabled={modalLicLoading}>
+                  {modalLicLoading ? 'Verifying Key...' : 'Verify & Activate License'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
