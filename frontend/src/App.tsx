@@ -37,6 +37,30 @@ function App() {
     checkSetupStatus();
   }, [booted]);
 
+  // Verify active session token on application boot
+  useEffect(() => {
+    if (!booted || !token) return;
+
+    const validateToken = async () => {
+      try {
+        const res = await fetch('http://localhost:8000/auth/me', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.username) setUsername(data.username);
+          if (data.role) setRole(data.role);
+        } else if (res.status === 401) {
+          handleLogout();
+        }
+      } catch (err) {
+        console.error("Failed to validate token:", err);
+      }
+    };
+
+    validateToken();
+  }, [booted]);
+
   const handleAuthSuccess = (newToken: string, newUsername: string, newRole: string) => {
     localStorage.setItem("token", newToken);
     localStorage.setItem("username", newUsername);

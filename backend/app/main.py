@@ -26,6 +26,8 @@ from app.infrastructure.jobs.registry import register_job_handler
 from app.modules.data_sources.application.importer import import_csv_handler, import_excel_handler
 from app.modules.documents.api.routes import process_document_job_handler
 
+from app.modules.catalog.api import routes as catalog_api
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # 1. Boot sequence - Initialize DuckDB CDM schemas
@@ -81,6 +83,7 @@ app.include_router(jobs_api.router)
 app.include_router(data_sources_api.router)
 app.include_router(analytics.router)
 app.include_router(documents_api.router)
+app.include_router(catalog_api.router)
 app.include_router(sse_streaming.router)
 app.include_router(dashboards_api.router)
 app.include_router(audit_api.router)

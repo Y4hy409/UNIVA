@@ -5,16 +5,17 @@ This module implements FastAPI routes for the first-time setup wizard (Owner sig
 and user token generation using dependency injection providers (P1.1).
 """
 
+from datetime import datetime
 from typing import Optional, List, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr
 
 from app.application.auth_service import AuthService
-from app.infrastructure.security import create_access_token
+from app.infrastructure.security import create_access_token, hash_password
 from app.infrastructure.database import db_manager
 from app.infrastructure.repositories import DuckDBUserRepository
-from app.api.dependencies import RoleChecker
-from app.domain.entities import UserRole
+from app.api.dependencies import RoleChecker, get_current_user
+from app.domain.entities import UserRole, User
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
@@ -177,4 +178,97 @@ async def get_roles():
         {"id": "analyst", "name": "Analyst", "description": "Data Analyst"},
         {"id": "staff", "name": "Staff", "description": "Staff Member"}
     ]
+
+
+class ProfileUpdateRequest(BaseModel):
+    full_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    phone: Optional[str] = None
+    password: Optional[str] = None
+
+
+@router.get("/me")
+async def get_current_user_profile(
+    current_user: User = Depends(get_current_user)
+):
+    """Retrieve active authenticated user profile context."""
+    conn = db_manager.get_connection()
+    row = conn.execute(
+        "SELECT email, full_name, phone, department, branch, team, status, employee_id FROM users WHERE id = ?",
+        [str(current_user.id)]
+    ).fetchone()
+    
+    email = current_user.email
+    full_name = ""
+    phone = ""
+    department = "Sales Team"
+    branch = "Main Branch"
+    team = "Core Team"
+    status_str = "Active"
+    employee_id = ""
+
+    if row:
+        email = row[0] or email
+        full_name = row[1] or ""
+        phone = row[2] or ""
+        department = row[3] or department
+        branch = row[4] or branch
+        team = row[5] or team
+        status_str = row[6] or status_str
+        employee_id = row[7] or ""
+
+    role_val = current_user.role.value if hasattr(current_user.role, 'value') else str(current_user.role)
+
+    return {
+        "id": str(current_user.id),
+        "username": current_user.username,
+        "email": email,
+        "role": role_val,
+        "full_name": full_name,
+        "phone": phone,
+        "department": department,
+        "branch": branch,
+        "team": team,
+        "status": status_str,
+        "employee_id": employee_id
+    }
+
+
+@router.put("/me")
+async def update_current_user_profile(
+    req: ProfileUpdateRequest,
+    current_user: User = Depends(get_current_user)
+):
+    """Update active user profile context and credentials."""
+    conn = db_manager.get_connection()
+    updates = []
+    params = []
+
+    if req.full_name is not None:
+        updates.append("full_name = ?")
+        params.append(req.full_name)
+    if req.email is not None:
+        updates.append("email = ?")
+        params.append(req.email)
+    if req.phone is not None:
+        updates.append("phone = ?")
+        params.append(req.phone)
+    if req.password:
+        updates.append("hashed_password = ?")
+        params.append(hash_password(req.password))
+
+    if updates:
+        updates.append("updated_at = ?")
+        params.append(datetime.utcnow())
+        params.append(str(current_user.id))
+        conn.execute(f"UPDATE users SET {', '.join(updates)} WHERE id = ?", params)
+
+    return {"status": "success", "message": "Profile updated successfully"}
+
+
+@router.post("/logout")
+async def logout(current_user: User = Depends(get_current_user)):
+    """Invalidate active user session (log out)."""
+    return {"status": "success", "message": f"User {current_user.username} logged out successfully."}
+
 

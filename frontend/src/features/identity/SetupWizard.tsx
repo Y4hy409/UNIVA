@@ -51,16 +51,25 @@ export const SetupWizard: React.FC<SetupWizardProps> = ({ onSetupSuccess, onTogg
       });
 
       if (!response.ok) {
-        response = await apiFetch('/auth/setup-owner', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, email, password })
-        });
-      }
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Account creation failed");
+        const errData = await response.json().catch(() => ({}));
+        const statusRes = await apiFetch('/auth/status');
+        const statusData = await statusRes.json().catch(() => ({ is_setup: true }));
+        
+        if (!statusData.is_setup) {
+          const ownerRes = await apiFetch('/auth/setup-owner', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password })
+          });
+          if (ownerRes.ok) {
+            response = ownerRes;
+          } else {
+            const ownerErr = await ownerRes.json().catch(() => ({}));
+            throw new Error(ownerErr.detail || "Account creation failed");
+          }
+        } else {
+          throw new Error(errData.detail || "Account creation failed");
+        }
       }
 
       const data = await response.json() as { access_token: string; username: string; role: string };

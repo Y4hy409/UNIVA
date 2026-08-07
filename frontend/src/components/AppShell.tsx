@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { 
   MessageSquare, LayoutDashboard, Database, Settings, LogOut, 
-  User, Activity, RefreshCw, Layers, UploadCloud, FileText, Send, ArrowRight,
+  User, Activity, RefreshCw, Layers, UploadCloud, Send, ArrowRight,
   TrendingUp, Cpu, Compass, FileSpreadsheet, Users, Building2, GitFork, History, Award, BookOpen,
   ChevronLeft, ChevronRight, MoreVertical, Eye, Pencil
 } from 'lucide-react';
 import ReactECharts from 'echarts-for-react';
 import { ColumnsMapper } from '../features/sources/ColumnsMapper';
+import { DataSourcesWorkspace } from '../features/sources/DataSourcesWorkspace';
+import { BusinessDataCatalog } from '../features/catalog/BusinessDataCatalog';
+import { BusinessKnowledgeCatalog } from '../features/knowledge/BusinessKnowledgeCatalog';
 import { RoleManagement } from '../features/identity/RoleManagement';
 import { UserManagement } from '../features/identity/UserManagement';
 import { BranchManagement } from '../features/identity/BranchManagement';
@@ -34,7 +37,7 @@ interface ChatMessage {
 }
 
 export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) => {
-  const [activeMenu, setActiveMenu] = useState<'assistant' | 'dashboards' | 'sources' | 'documents' | 'settings' | 'insights' | 'analytics' | 'reports' | 'businessdata' | 'usersroles' | 'users' | 'roles' | 'organization' | 'departments' | 'branches' | 'integrations' | 'synclogs' | 'license' | 'auditlogs'>('assistant');
+  const [activeMenu, setActiveMenu] = useState<'assistant' | 'dashboards' | 'sources' | 'documents' | 'settings' | 'insights' | 'analytics' | 'reports' | 'businessdata' | 'usersroles' | 'users' | 'roles' | 'organization' | 'departments' | 'branches' | 'integrations' | 'synclogs' | 'license' | 'auditlogs' | 'profile'>('assistant');
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   // Preview tables catalog states (Dashboard)
@@ -43,12 +46,12 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
   const [previewData, setPreviewData] = useState<any[]>([]);
   const [previewLoading, setPreviewLoading] = useState(false);
 
-  // Kebab menu item lists & active indices
-  const [activeKebabDoc, setActiveKebabDoc] = useState<number | null>(null);
+  // Active indices and permissions
+  const [_activeKebabDoc] = useState<number | null>(null);
   const [activeKebabSource, setActiveKebabSource] = useState<number | null>(null);
-  const [docList, setDocList] = useState<{name: string, type: string, size: string, status: string, details?: string}[]>([]);
+  const [_docList] = useState<{name: string, type: string, size: string, status: string, details?: string}[]>([]);
   const [sourceFilesList, setSourceFilesList] = useState<{name: string, type: string, size: string, status: string, details?: string}[]>([]);
-  const [tablesCatalog, setTablesCatalog] = useState<{name: string, type: string, size: string, status: string, details?: string}[]>([]);
+  const [_tablesCatalog] = useState<{name: string, type: string, size: string, status: string, details?: string}[]>([]);
   const [matrixPermissions, setMatrixPermissions] = useState([
     { role: 'Owner / Admin', permissions: [true, true, true, true, true, true] },
     { role: 'Manager', permissions: [true, true, true, true, false, false] },
@@ -93,8 +96,92 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
   const [scopeValue, setScopeValue] = useState('');
   const [hierarchyStatus, setHierarchyStatus] = useState<string | null>(null);
   const [scopeStatus, setScopeStatus] = useState<string | null>(null);
-  
-  // Local LLM config
+
+  // User Profile States
+  const [profileData, setProfileData] = useState<{
+    id?: string;
+    username: string;
+    email: string;
+    role: string;
+    full_name: string;
+    phone: string;
+    department: string;
+    branch: string;
+    team: string;
+    status: string;
+    employee_id: string;
+  }>({
+    username: username,
+    email: '',
+    role: role,
+    full_name: '',
+    phone: '',
+    department: 'Sales Team',
+    branch: 'Main Branch',
+    team: 'Core Team',
+    status: 'Active',
+    employee_id: ''
+  });
+  const [profileLoading, setProfileLoading] = useState(false);
+  const [profileMessage, setProfileMessage] = useState<string | null>(null);
+  const [profileError, setProfileError] = useState<string | null>(null);
+  const [profilePassword, setProfilePassword] = useState('');
+  const [showProfilePassword, setShowProfilePassword] = useState(false);
+
+  useEffect(() => {
+    if (activeMenu === 'profile') {
+      fetchUserProfile();
+    }
+  }, [activeMenu]);
+
+  const fetchUserProfile = async () => {
+    setProfileLoading(true);
+    setProfileError(null);
+    try {
+      const res = await apiFetch('/auth/me');
+      if (res.ok) {
+        const data = await res.json();
+        setProfileData(data);
+      }
+    } catch (err: any) {
+      console.error("Failed to fetch profile", err);
+    } finally {
+      setProfileLoading(false);
+    }
+  };
+
+  const handleUpdateProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setProfileLoading(true);
+    setProfileMessage(null);
+    setProfileError(null);
+
+    try {
+      const res = await apiFetch('/auth/me', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          full_name: profileData.full_name,
+          email: profileData.email,
+          phone: profileData.phone,
+          password: profilePassword ? profilePassword : undefined
+        })
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || "Failed to update profile");
+      }
+
+      setProfileMessage("Profile updated successfully!");
+      setProfilePassword('');
+      fetchUserProfile();
+    } catch (err: any) {
+      setProfileError(err.message || "Failed to update profile.");
+    } finally {
+      setProfileLoading(false);
+    }
+  };
   const [ollamaHost, setOllamaHost] = useState(localStorage.getItem('ollama_host') || 'http://localhost:11434');
   const [ollamaModel, setOllamaModel] = useState(localStorage.getItem('ollama_model') || 'qwen3:4b-instruct');
   const [llmStatus, setLlmStatus] = useState<string | null>(null);
@@ -163,11 +250,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
   const [erpApiKey, setErpApiKey] = useState('');
   const [erpOrgId, setErpOrgId] = useState('');
 
-  // Inline Semantic Search Console states (for Knowledge base)
-  const [localRagQuery, setLocalRagQuery] = useState('');
-  const [localRagLoading, setLocalRagLoading] = useState(false);
-  const [localRagResults, setLocalRagResults] = useState<any[]>([]);
-  const [localRagError, setLocalRagError] = useState<string | null>(null);
+
 
   // Trigger sync simulation
   const handleSyncNow = () => {
@@ -181,9 +264,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
 
   const fetchSystemConfig = async () => {
     try {
-      const res = await fetch('http://localhost:8000/admin/settings', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
+      const res = await apiFetch('/admin/settings');
       if (res.ok) {
         const data = await res.json();
         setSystemConfig(data);
@@ -197,12 +278,9 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
     e.preventDefault();
     setSystemConfigStatus("Updating configuration parameters...");
     try {
-      const res = await fetch('http://localhost:8000/admin/settings', {
+      const res = await apiFetch('/admin/settings', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(systemConfig)
       });
       if (res.ok) {
@@ -218,9 +296,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
   const fetchSystemHealth = async () => {
     setHealthLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/admin/system/health', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
+      const res = await apiFetch('/admin/system/health');
       if (res.ok) {
         const data = await res.json();
         setSystemHealth(data);
@@ -234,9 +310,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
 
   const fetchRbacMatrix = async () => {
     try {
-      const res = await fetch('http://localhost:8000/admin/rbac/matrix', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
+      const res = await apiFetch('/admin/rbac/matrix');
       if (res.ok) {
         const data = await res.json();
         if (data.matrix) setMatrixPermissions(data.matrix);
@@ -361,30 +435,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
     }
   };
 
-  const handleLocalRagSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!localRagQuery.trim()) return;
 
-    setLocalRagLoading(true);
-    setLocalRagError(null);
-    setLocalRagResults([]);
-
-    try {
-      const res = await fetch(`http://localhost:8000/documents/query?q=${encodeURIComponent(localRagQuery)}`, {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setLocalRagResults(data.results || []);
-      } else {
-        throw new Error();
-      }
-    } catch (err) {
-      setLocalRagError("Failed to query knowledge base.");
-    } finally {
-      setLocalRagLoading(false);
-    }
-  };
 
   const handleSaveErpConnection = (e: React.FormEvent) => {
     e.preventDefault();
@@ -436,19 +487,9 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
 
   const fetchDocuments = async () => {
     try {
-      const res = await fetch('http://localhost:8000/documents', {
+      await fetch('http://localhost:8000/documents', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
-      if (res.ok) {
-        const data = await res.json();
-        setDocList(data.map((doc: any) => ({
-          name: doc.title,
-          type: doc.doc_type.toUpperCase(),
-          size: "Embedded Vector Chunk",
-          status: "Indexed",
-          details: `Ingested document: ${doc.title}. Parsed type: ${doc.doc_type}.`
-        })));
-      }
     } catch (err) {
       console.error("Failed to load documents", err);
     }
@@ -462,7 +503,6 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
       if (res.ok) {
         const data = await res.json();
         setSourceFilesList(data);
-        setTablesCatalog(data);
       }
     } catch (err) {
       console.error("Failed to load tables", err);
@@ -1330,97 +1370,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
     );
   };
 
-  // Render documents RAG search
-  const renderDocuments = () => {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div>
-          <h2 style={{ color: '#f8fafc', margin: 0, fontSize: '18px' }}>Business Knowledge base</h2>
-          <p style={{ color: '#94a3b8', fontSize: '13px' }}>Browse and search documents ingested into the offline vector knowledge base.</p>
-        </div>
-        
-        {/* Inline Semantic Search Form */}
-        <div className="card">
-          <div className="card-title">Search Ingested Knowledge Base</div>
-          <form onSubmit={handleLocalRagSearch} style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
-            <input 
-              type="text" 
-              className="input-field" 
-              placeholder="Search concepts, policies, manuals, or bills..."
-              value={localRagQuery}
-              onChange={(e) => setLocalRagQuery(e.target.value)}
-              disabled={localRagLoading}
-            />
-            <button type="submit" className="btn btn-primary" disabled={localRagLoading}>
-              {localRagLoading ? 'Searching...' : 'Search'}
-            </button>
-          </form>
-
-          {localRagError && <div style={{ color: '#ef4444', fontSize: '13px', marginBottom: '12px' }}>{localRagError}</div>}
-
-          {localRagResults.length > 0 && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {localRagResults.map((doc, idx) => (
-                <div key={idx} style={{ padding: '12px 14px', backgroundColor: 'rgba(255, 255, 255, 0.01)', border: '1px solid #1e293b', borderRadius: '6px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                    <span style={{ fontWeight: 600, color: '#3b82f6', fontSize: '13px' }}>{doc.title || "Policy Document"}</span>
-                    <span style={{ fontSize: '10px', color: '#94a3b8' }}>Relevance Score: {Number(doc.distance || 0).toFixed(4)}</span>
-                  </div>
-                  <p style={{ margin: 0, color: '#94a3b8', fontSize: '12px', lineHeight: 1.4 }}>{doc.content}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="card">
-          <div className="card-title">Indexed Knowledge Base Documents</div>
-          {docList.length === 0 ? (
-            <div style={{ padding: '16px', textAlign: 'center', color: '#94a3b8', fontSize: '13px' }}>
-              No custom PDF/SOP policy manuals indexed yet. Upload documents using the OCR tool in Data Sources.
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {docList.map((doc, idx) => (
-                <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 12px', backgroundColor: 'rgba(255, 255, 255, 0.01)', border: '1px solid #1e293b', borderRadius: '6px', position: 'relative' }}>
-                  <div>
-                    <div style={{ fontWeight: 600, color: '#f8fafc', fontSize: '13px' }}>{doc.name}</div>
-                    <div style={{ fontSize: '11px', color: '#94a3b8' }}>Type: {doc.type} | Size: {doc.size} | Status: <span style={{ color: '#10b981' }}>{doc.status}</span></div>
-                  </div>
-                  <div>
-                    <button className="btn btn-secondary" style={{ padding: '4px' }} onClick={() => setActiveKebabDoc(activeKebabDoc === idx ? null : idx)}>
-                      <MoreVertical size={14} />
-                    </button>
-
-                    {activeKebabDoc === idx && (
-                      <div style={{ position: 'absolute', right: '12px', top: '40px', backgroundColor: '#0d131f', border: '1px solid #1e293b', borderRadius: '6px', zIndex: 10, display: 'flex', flexDirection: 'column', padding: '4px', gap: '2px', boxShadow: 'var(--shadow)' }}>
-                        <button className="btn btn-secondary" style={{ padding: '4px 8px', fontSize: '11px', gap: '6px', border: 'none', display: 'flex', alignItems: 'center' }} onClick={() => { setViewingFileDetail({ name: doc.name, type: doc.type, size: doc.size, details: doc.details || "Raw text content extracted via local OCR engine and stored in local vector embeddings database." }); setActiveKebabDoc(null); }}>
-                          <Eye size={12} style={{ color: '#3b82f6' }} />
-                          <span>View Doc</span>
-                        </button>
-                        <button className="btn btn-secondary" style={{ padding: '4px 8px', fontSize: '11px', gap: '6px', border: 'none', display: 'flex', alignItems: 'center' }} onClick={() => { alert(`Editing index tags for ${doc.name}`); setActiveKebabDoc(null); }}>
-                          <Pencil size={12} style={{ color: '#f59e0b' }} />
-                          <span>Edit Index</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div style={{ padding: '30px 20px', textAlign: 'center', border: '1px dashed #1e293b', borderRadius: '8px', backgroundColor: '#0d131f' }}>
-          <FileText size={32} style={{ color: '#94a3b8', marginBottom: '12px' }} />
-          <h3 style={{ color: '#f8fafc', margin: '0 0 6px 0', fontSize: '15px' }}>Knowledge Store Active</h3>
-          <p style={{ color: '#94a3b8', fontSize: '13px', margin: '0' }}>
-            All documents uploaded through the **Data Sources** view are structured automatically. Ask the AI assistant to search or query these documents.
-          </p>
-        </div>
-      </div>
-    );
-  };
+  // Documents view rendered via metadata-driven BusinessKnowledgeCatalog component
 
   // Render settings content
   const renderSettingsContent = () => {
@@ -2031,96 +1981,7 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
     );
   };
 
-  // Render Business Data DB explorer
-  const renderBusinessData = () => {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div>
-          <h2 style={{ color: '#f8fafc', margin: 0, fontSize: '18px' }}>Business Data Explorer</h2>
-          <p style={{ color: '#94a3b8', fontSize: '13px' }}>Direct catalog visibility into SQLite / DuckDB relation schemas populated locally.</p>
-        </div>
-
-        <div className="card">
-          <div className="card-title">Registered Tables Catalog</div>
-          {tablesCatalog.length === 0 ? (
-            <div style={{ padding: '12px', backgroundColor: 'rgba(255, 255, 255, 0.01)', border: '1px solid #1e293b', borderRadius: '6px', fontSize: '12px', color: '#94a3b8', textAlign: 'center' }}>
-              No relation schemas synced or configured yet.
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {tablesCatalog.map((tbl: any, idx: number) => {
-                const name = typeof tbl === 'object' && tbl !== null ? tbl.name : String(tbl);
-                const typeStr = typeof tbl === 'object' && tbl !== null && tbl.type ? tbl.type : 'DuckDB Tabular Entity';
-                const sizeStr = typeof tbl === 'object' && tbl !== null && tbl.size ? tbl.size : 'Mapped';
-                return (
-                  <div key={idx} style={{ padding: '12px 14px', backgroundColor: 'rgba(255, 255, 255, 0.01)', border: '1px solid #1e293b', borderRadius: '6px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
-                      <strong style={{ color: '#f8fafc', fontSize: '13px' }}>{name}</strong>
-                      <div style={{ fontSize: '11px', color: '#94a3b8' }}>Type: {typeStr} | Size: {sizeStr}</div>
-                    </div>
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                      <button className="btn btn-secondary" style={{ padding: '2px 8px', fontSize: '11px' }} onClick={() => handlePreviewTable(name)}>
-                        Preview
-                      </button>
-                      <button className="btn btn-secondary" style={{ padding: '2px 8px', fontSize: '11px' }} onClick={() => handleViewTableDetails(name)}>
-                        View
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-        {/* Render Preview Data Block inline if table selected */}
-        {activePreviewTable && (
-          <div className="card" style={{ borderLeft: '3px solid #3b82f6' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <div className="card-title" style={{ margin: 0, textTransform: 'capitalize', fontSize: '14px' }}>
-                Preview Data: {activePreviewTable.replace(/_/g, ' ')} (Top 5 Records)
-              </div>
-              <button className="btn btn-secondary" style={{ padding: '2px 8px', fontSize: '11px' }} onClick={() => setActivePreviewTable(null)}>
-                Close Preview
-              </button>
-            </div>
-            {previewLoading ? (
-              <div style={{ color: '#3b82f6', fontSize: '13px' }}>Loading rows...</div>
-            ) : (
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '12px' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid #1e293b' }}>
-                      {previewCols.map((col) => (
-                        <th key={col} style={{ padding: '8px 6px', color: '#f8fafc', fontWeight: 600 }}>{col}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {previewData.length === 0 ? (
-                      <tr>
-                        <td colSpan={previewCols.length || 1} style={{ padding: '12px 6px', textAlign: 'center', color: '#94a3b8' }}>
-                          No records stored in this table.
-                        </td>
-                      </tr>
-                    ) : (
-                      previewData.map((row, rIdx) => (
-                        <tr key={rIdx} style={{ borderBottom: '1px solid #1e293b' }}>
-                          {previewCols.map((col) => (
-                            <td key={col} style={{ padding: '8px 6px', color: '#94a3b8' }}>{String(row[col] ?? '')}</td>
-                          ))}
-                        </tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    );
-  };
+  // Business Data view rendered via metadata-driven BusinessDataCatalog component
 
   // Render Users & Roles
   const renderUsersRoles = () => {
@@ -2520,6 +2381,172 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
     );
   };
 
+  const renderProfile = () => {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '850px', margin: '0 auto', paddingBottom: '30px' }}>
+        {/* Header Profile Card */}
+        <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '20px', backgroundColor: '#0d131f', border: '1px solid #1e293b', padding: '24px' }}>
+          <div style={{
+            width: '64px',
+            height: '64px',
+            borderRadius: '50%',
+            backgroundColor: 'rgba(59, 130, 246, 0.15)',
+            border: '2px solid #3b82f6',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#3b82f6',
+            flexShrink: 0
+          }}>
+            <User size={32} />
+          </div>
+          <div style={{ flexGrow: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
+              <h2 style={{ margin: 0, color: '#f8fafc', fontSize: '20px', fontWeight: 700 }}>
+                {profileData.full_name || profileData.username}
+              </h2>
+              <span className="badge badge-primary" style={{ textTransform: 'capitalize' }}>
+                {profileData.role}
+              </span>
+              <span className="badge badge-success">
+                {profileData.status || 'Active'}
+              </span>
+            </div>
+            <div style={{ color: '#94a3b8', fontSize: '13px', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+              <span>Username: <strong style={{ color: '#f8fafc' }}>{profileData.username}</strong></span>
+              {profileData.email && <span>Email: <strong style={{ color: '#f8fafc' }}>{profileData.email}</strong></span>}
+              {profileData.employee_id && <span>Employee ID: <strong style={{ color: '#f8fafc' }}>{profileData.employee_id}</strong></span>}
+            </div>
+          </div>
+          <button
+            className="btn btn-secondary"
+            onClick={onLogout}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', color: '#ef4444', borderColor: 'rgba(239, 68, 68, 0.3)' }}
+          >
+            <LogOut size={16} />
+            <span>Sign Out</span>
+          </button>
+        </div>
+
+        {/* Profile Details & Edit Form */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          {/* Account Identity Summary */}
+          <div className="card" style={{ backgroundColor: '#0d131f', border: '1px solid #1e293b' }}>
+            <div className="card-title" style={{ fontSize: '15px', color: '#f8fafc', marginBottom: '16px' }}>
+              Account Identity & Access Bounds
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #1e293b', paddingBottom: '8px' }}>
+                <span style={{ color: '#94a3b8' }}>System Role</span>
+                <span style={{ color: '#3b82f6', fontWeight: 600, textTransform: 'capitalize' }}>{profileData.role}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #1e293b', paddingBottom: '8px' }}>
+                <span style={{ color: '#94a3b8' }}>Assigned Branch</span>
+                <span style={{ color: '#f8fafc', fontWeight: 500 }}>{profileData.branch || 'Main Branch'}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #1e293b', paddingBottom: '8px' }}>
+                <span style={{ color: '#94a3b8' }}>Department</span>
+                <span style={{ color: '#f8fafc', fontWeight: 500 }}>{profileData.department || 'Sales Team'}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #1e293b', paddingBottom: '8px' }}>
+                <span style={{ color: '#94a3b8' }}>Operational Team</span>
+                <span style={{ color: '#f8fafc', fontWeight: 500 }}>{profileData.team || 'Core Team'}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '4px' }}>
+                <span style={{ color: '#94a3b8' }}>Account Status</span>
+                <span style={{ color: '#10b981', fontWeight: 600 }}>Active</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Edit Profile Form */}
+          <div className="card" style={{ backgroundColor: '#0d131f', border: '1px solid #1e293b' }}>
+            <div className="card-title" style={{ fontSize: '15px', color: '#f8fafc', marginBottom: '16px' }}>
+              Edit Profile Settings
+            </div>
+
+            {profileMessage && (
+              <div style={{ padding: '8px 12px', borderRadius: '6px', backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)', color: '#10b981', fontSize: '12px', marginBottom: '12px' }}>
+                {profileMessage}
+              </div>
+            )}
+
+            {profileError && (
+              <div style={{ padding: '8px 12px', borderRadius: '6px', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', color: '#ef4444', fontSize: '12px', marginBottom: '12px' }}>
+                {profileError}
+              </div>
+            )}
+
+            <form onSubmit={handleUpdateProfile} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div>
+                <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Full Name</label>
+                <input
+                  type="text"
+                  className="input-field"
+                  value={profileData.full_name || ''}
+                  onChange={(e) => setProfileData({ ...profileData, full_name: e.target.value })}
+                  placeholder="Enter full display name"
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Email Address</label>
+                <input
+                  type="email"
+                  className="input-field"
+                  value={profileData.email || ''}
+                  onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
+                  placeholder="user@organization.com"
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>Phone Number</label>
+                <input
+                  type="text"
+                  className="input-field"
+                  value={profileData.phone || ''}
+                  onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
+                  placeholder="+1 (555) 000-0000"
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', color: '#f8fafc', fontSize: '12px', marginBottom: '4px' }}>New Password (leave blank to keep current)</label>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type={showProfilePassword ? "text" : "password"}
+                    className="input-field"
+                    value={profilePassword}
+                    onChange={(e) => setProfilePassword(e.target.value)}
+                    placeholder="Enter new password"
+                    style={{ paddingRight: '36px' }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowProfilePassword(!showProfilePassword)}
+                    style={{
+                      position: 'absolute', right: '8px', top: '50%', transform: 'translateY(-50%)',
+                      background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer'
+                    }}
+                  >
+                    {showProfilePassword ? <EyeOff size={14} /> : <Eye size={14} />}
+                  </button>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', marginTop: '6px' }}>
+                <button type="submit" className="btn btn-primary" disabled={profileLoading}>
+                  {profileLoading ? 'Saving...' : 'Save Profile Changes'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="app-container">
       {/* Sidebar Navigation */}
@@ -2616,8 +2643,12 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
         )}
         {isCollapsed && <div style={{ borderBottom: '1px solid #1e293b', marginBottom: '8px' }} />}
         <ul className="sidebar-menu" style={{ marginBottom: '14px' }}>
-          <li className={`sidebar-item ${activeMenu === 'users' || activeMenu === 'usersroles' ? 'active' : ''}`} onClick={() => setActiveMenu('users')} title="Users">
+          <li className={`sidebar-item ${activeMenu === 'profile' ? 'active' : ''}`} onClick={() => setActiveMenu('profile')} title="My Profile">
             <User size={14} />
+            {!isCollapsed && <span>My Profile</span>}
+          </li>
+          <li className={`sidebar-item ${activeMenu === 'users' || activeMenu === 'usersroles' ? 'active' : ''}`} onClick={() => setActiveMenu('users')} title="Users">
+            <Users size={14} />
             {!isCollapsed && <span>Users</span>}
           </li>
           <li className={`sidebar-item ${activeMenu === 'roles' ? 'active' : ''}`} onClick={() => setActiveMenu('roles')} title="Role Management">
@@ -2662,7 +2693,22 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
 
         {/* Sidebar user footer */}
         <div className="sidebar-footer" style={{ marginTop: 'auto', borderTop: '1px solid #1e293b', paddingTop: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: isCollapsed ? '0' : '10px', marginBottom: '12px', justifyContent: isCollapsed ? 'center' : 'flex-start' }}>
+          <div 
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: isCollapsed ? '0' : '10px', 
+              marginBottom: '12px', 
+              justifyContent: isCollapsed ? 'center' : 'flex-start',
+              cursor: 'pointer',
+              padding: '6px',
+              borderRadius: '6px',
+              backgroundColor: activeMenu === 'profile' ? 'rgba(59, 130, 246, 0.15)' : 'transparent',
+              transition: 'background-color 0.2s'
+            }}
+            onClick={() => setActiveMenu('profile')}
+            title="View User Profile"
+          >
             <div style={{ padding: '6px', backgroundColor: 'rgba(59, 130, 246, 0.1)', borderRadius: '4px' }}>
               <User size={14} style={{ color: '#3b82f6' }} />
             </div>
@@ -2686,7 +2732,25 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
           <div style={{ fontSize: '13px', fontWeight: 500, color: '#f8fafc' }}>
             Workspace / <span style={{ color: '#3b82f6', textTransform: 'capitalize' }}>{activeMenu === 'assistant' ? 'AI Assistant' : activeMenu}</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <button 
+              className={`btn ${activeMenu === 'profile' ? 'btn-primary' : 'btn-secondary'}`}
+              style={{ fontSize: '12px', padding: '4px 12px', display: 'flex', alignItems: 'center', gap: '6px' }}
+              onClick={() => setActiveMenu('profile')}
+            >
+              <User size={14} />
+              <span>{username}</span>
+              <span style={{ opacity: 0.7, textTransform: 'capitalize' }}>({role})</span>
+            </button>
+            <button 
+              className="btn btn-secondary"
+              style={{ fontSize: '12px', padding: '4px 10px', display: 'flex', alignItems: 'center', gap: '6px' }}
+              onClick={onLogout}
+              title="Sign Out"
+            >
+              <LogOut size={14} />
+              <span>Sign Out</span>
+            </button>
           </div>
         </div>
 
@@ -2696,9 +2760,10 @@ export const AppShell: React.FC<AppShellProps> = ({ username, role, onLogout }) 
           {activeMenu === 'insights' && renderInsights()}
           {activeMenu === 'analytics' && renderAnalytics()}
           {activeMenu === 'reports' && renderReports()}
-          {activeMenu === 'sources' && renderDataSources()}
-          {activeMenu === 'businessdata' && renderBusinessData()}
-          {activeMenu === 'documents' && renderDocuments()}
+          {activeMenu === 'sources' && <DataSourcesWorkspace />}
+          {activeMenu === 'businessdata' && <BusinessDataCatalog />}
+          {activeMenu === 'documents' && <BusinessKnowledgeCatalog />}
+          {activeMenu === 'profile' && renderProfile()}
           {activeMenu === 'usersroles' && renderUsersRoles()}
           {activeMenu === 'users' && <UserManagement />}
           {activeMenu === 'roles' && <RoleManagement />}
