@@ -1,0 +1,130 @@
+{
+  "enterprise_name": "Vidyut Electricals & Power Solutions",
+  "timezone": "Asia/Kolkata",
+  "fiscal_year_start": "04-01",
+  "historical_start": "2024-01-01",
+  "historical_cutoff": "2026-09-30",
+  "forecast_horizon_start": "2026-10-01",
+  "forecast_horizon_end": "2026-12-31",
+  "datasets": {
+    "sales_orders": {
+      "primary_date_column": "order_date",
+      "secondary_date_columns": [],
+      "temporal_grain": "daily",
+      "date_semantics": "Date order was booked by customer",
+      "suitable_for_forecasting": true,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "sales_order_items": {
+      "primary_date_column": "order_date",
+      "secondary_date_columns": [],
+      "temporal_grain": "daily / item-level",
+      "date_semantics": "Date order was placed for specific SKU line item",
+      "suitable_for_forecasting": true,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "invoices": {
+      "primary_date_column": "invoice_date",
+      "secondary_date_columns": [
+        "due_date"
+      ],
+      "temporal_grain": "daily",
+      "date_semantics": "invoice_date = date billed; due_date = contractual payment deadline",
+      "suitable_for_forecasting": true,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "customer_payments": {
+      "primary_date_column": "payment_date",
+      "secondary_date_columns": [],
+      "temporal_grain": "daily / transactional",
+      "date_semantics": "Date cash/bank receipt cleared into accounts",
+      "suitable_for_forecasting": true,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "inventory_movements": {
+      "primary_date_column": "movement_date",
+      "secondary_date_columns": [],
+      "temporal_grain": "continuous event timestamp",
+      "date_semantics": "Date physical stock moved in or out of warehouse/branch",
+      "suitable_for_forecasting": true,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "purchase_orders": {
+      "primary_date_column": "po_date",
+      "secondary_date_columns": [
+        "expected_delivery_date"
+      ],
+      "temporal_grain": "daily",
+      "date_semantics": "po_date = date PO issued; expected_delivery_date = promised supplier dispatch",
+      "suitable_for_forecasting": false,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "goods_receipts": {
+      "primary_date_column": "receipt_date",
+      "secondary_date_columns": [],
+      "temporal_grain": "daily",
+      "date_semantics": "Date goods arrived and were verified by warehouse supervisor",
+      "suitable_for_forecasting": false,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "expenses": {
+      "primary_date_column": "expense_date",
+      "secondary_date_columns": [],
+      "temporal_grain": "daily / monthly recurring",
+      "date_semantics": "Date operational expense voucher was booked / settled",
+      "suitable_for_forecasting": true,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "product_price_history": {
+      "primary_date_column": "effective_date",
+      "secondary_date_columns": [],
+      "temporal_grain": "event effective date",
+      "date_semantics": "Date price revision came into effect across branches",
+      "suitable_for_forecasting": false,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "promotions": {
+      "primary_date_column": "start_date",
+      "secondary_date_columns": [
+        "end_date"
+      ],
+      "temporal_grain": "campaign validity window",
+      "date_semantics": "start_date = campaign launch; end_date = campaign expiry",
+      "suitable_for_forecasting": false,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "deliveries": {
+      "primary_date_column": "order_date",
+      "secondary_date_columns": [
+        "promised_date",
+        "actual_delivery_date"
+      ],
+      "temporal_grain": "daily delivery lifecycle",
+      "date_semantics": "Lifecycle from order date to promised date and actual delivery date",
+      "suitable_for_forecasting": false,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    },
+    "salesperson_targets": {
+      "primary_date_column": "period_start",
+      "secondary_date_columns": [
+        "period_end"
+      ],
+      "temporal_grain": "monthly target window",
+      "date_semantics": "Monthly quota performance evaluation window",
+      "suitable_for_forecasting": false,
+      "suitable_for_trend_analysis": true,
+      "suitable_for_period_comparison": true
+    }
+  }
+}

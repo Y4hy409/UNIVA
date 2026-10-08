@@ -1,0 +1,120 @@
+dataset_name,column_name,data_type,key_type,references,description,date_semantics,role
+branches,branch_id,VARCHAR,PK,,Unique branch identifier (e.g. BR-01),None,Dimension
+branches,branch_code,VARCHAR,,,Branch business shortcode (e.g. HQ-CHN),None,Dimension
+branches,branch_name,VARCHAR,,,Full branch display name,None,Dimension
+branches,city,VARCHAR,,,"City where branch is located (Chennai, Bangalore, Coimbatore)",None,Dimension
+branches,area,VARCHAR,,,Locality/neighborhood address,None,Dimension
+branches,branch_type,VARCHAR,,,"Type of branch: Hub & Retail, Retail Outlet",None,Dimension
+branches,opening_date,DATE,,,Date on which branch started operations,Date branch opened for business,Date
+branches,status,VARCHAR,,,"Operational status: Active, Inactive",None,Dimension
+employees,employee_id,VARCHAR,PK,,Unique employee identifier (e.g. EMP-001),None,Dimension
+employees,employee_code,VARCHAR,,,Employee internal shortcode,None,Dimension
+employees,employee_name,VARCHAR,,,Employee full legal name,None,Dimension
+employees,role,VARCHAR,,,"Job designation: Managing Director, Branch Manager, Sales Executive, etc.",None,Dimension
+employees,branch_id,VARCHAR,FK,branches.branch_id,Branch where employee is stationed,None,Dimension
+employees,joining_date,DATE,,,Date employee joined the company,Date employment started,Date
+employees,exit_date,DATE,,,Date employee exited (NULL if currently active),Date employment ended,Date
+employees,status,VARCHAR,,,"Employment status: Active, Exited",None,Dimension
+products,product_id,VARCHAR,PK,,Unique product identifier (e.g. PRD-001),None,Dimension
+products,sku,VARCHAR,UK,,Stock Keeping Unit code (e.g. LED-BULB-09W),None,Dimension
+products,product_name,VARCHAR,,,Full product brand and technical description,None,Dimension
+products,category,VARCHAR,,,"Main product category (Lighting, Appliances, Wires & Cables, Switches, Switchgear, Accessories)",None,Dimension
+products,subcategory,VARCHAR,,,"Sub-classification (LED Bulbs, Ceiling Fans, Building Wires, etc.)",None,Dimension
+products,brand,VARCHAR,,,"Brand name (EcoGlow, Lumina, Zephyr, Orbit, MaxVolt, ElectroSafe, Vardhman, Kiran)",None,Dimension
+products,unit,VARCHAR,,,"Unit of measure: NOS (Pieces), COIL (90m Roll), MTR (Meter), PKT (Pack)",None,Dimension
+products,purchase_price,DOUBLE,,,Standard supplier cost per unit (INR),None,Measure
+products,selling_price,DOUBLE,,,Base retail/contractor selling price per unit (INR),None,Measure
+products,reorder_level,INTEGER,,,Minimum safety stock trigger quantity,None,Measure
+products,reorder_quantity,INTEGER,,,Standard procurement replenishment batch size,None,Measure
+products,tax_rate,DOUBLE,,,Applicable GST percentage (18.0%),None,Measure
+products,launch_date,DATE,,,Date product was introduced to catalog,Date product became sellable,Date
+products,discontinued_date,DATE,,,Date product was phased out (NULL if active),Date product sales ceased,Date
+products,status,VARCHAR,,,"Catalog status: Active, Discontinued",None,Dimension
+customers,customer_id,VARCHAR,PK,,Unique customer identifier (e.g. CUST-001),None,Dimension
+customers,customer_code,VARCHAR,,,Customer short code,None,Dimension
+customers,customer_name,VARCHAR,,,Customer / business trading entity name,None,Dimension
+customers,customer_type,VARCHAR,,,"Customer segment: Contractor, Electrician, Retailer / Trader, Builder / Commercial, Institution, Small Commercial, Residential / B2C",None,Dimension
+customers,phone,VARCHAR,,,Primary contact mobile number,None,Dimension
+customers,email,VARCHAR,,,Contact email address,None,Dimension
+customers,city,VARCHAR,,,"Customer city (Chennai, Bangalore, Coimbatore)",None,Dimension
+customers,area,VARCHAR,,,Locality / address area,None,Dimension
+customers,state,VARCHAR,,,"State (Tamil Nadu, Karnataka)",None,Dimension
+customers,customer_since,DATE,,,Date customer first registered or transacted,Date account was opened,Date
+customers,credit_allowed,BOOLEAN,,,Flag indicating whether credit billing is permitted,None,Dimension
+customers,credit_limit,DOUBLE,,,Maximum approved credit exposure (INR),None,Measure
+customers,payment_terms,VARCHAR,,,"Standard agreed terms: Net 7, Net 15, Net 30, Net 45, Immediate Cash, Immediate UPI, Immediate Card",None,Dimension
+customers,status,VARCHAR,,,"Account status: Active, Inactive",None,Dimension
+customers,inactive_date,DATE,,,Date account became inactive (NULL if active),Date relationship ceased,Date
+suppliers,supplier_id,VARCHAR,PK,,Unique supplier identifier (e.g. SUP-001),None,Dimension
+suppliers,supplier_code,VARCHAR,,,Supplier short code,None,Dimension
+suppliers,supplier_name,VARCHAR,,,Supplier registered corporate name,None,Dimension
+suppliers,city,VARCHAR,,,Supplier headquarter city,None,Dimension
+suppliers,state,VARCHAR,,,Supplier state,None,Dimension
+suppliers,contact,VARCHAR,,,Vendor contact phone number,None,Dimension
+suppliers,payment_terms,VARCHAR,,,"Vendor payment credit terms (Net 15, Net 30, Net 45, Net 60, Advance 50%)",None,Dimension
+suppliers,lead_time_days,INTEGER,,,Average lead time in calendar days from PO to receipt,None,Measure
+suppliers,supplier_since,DATE,,,Date vendor onboarding agreement began,Vendor relationship start date,Date
+suppliers,status,VARCHAR,,,"Vendor status: Active, Inactive",None,Dimension
+sales_orders,order_id,VARCHAR,PK,,Unique sales order number (e.g. SO-000001),None,Dimension
+sales_orders,order_date,DATE,,,Date on which sales order was placed,Date order was booked by customer,Date
+sales_orders,customer_id,VARCHAR,FK,customers.customer_id,Customer placing the order,None,Dimension
+sales_orders,customer_name,VARCHAR,,,Customer trading name,None,Dimension
+sales_orders,customer_type,VARCHAR,,,Customer segment,None,Dimension
+sales_orders,branch_id,VARCHAR,FK,branches.branch_id,Branch executing the order,None,Dimension
+sales_orders,salesperson_id,VARCHAR,FK,employees.employee_id,Sales employee managing the sale,None,Dimension
+sales_orders,subtotal,DOUBLE,,,Order total before GST taxes (INR),None,Measure
+sales_orders,tax_amount,DOUBLE,,,Total GST tax amount (INR),None,Measure
+sales_orders,grand_total,DOUBLE,,,Total invoiceable amount including tax (INR),None,Measure
+sales_orders,order_status,VARCHAR,,,"Order lifecycle status: Invoiced, Cancelled",None,Dimension
+sales_order_items,order_item_id,VARCHAR,PK,,Unique line item identifier,None,Dimension
+sales_order_items,order_id,VARCHAR,FK,sales_orders.order_id,Parent sales order reference,None,Dimension
+sales_order_items,order_date,DATE,,,Denormalized order transaction date,Date of parent order,Date
+sales_order_items,product_id,VARCHAR,FK,products.product_id,Product SKU identifier,None,Dimension
+sales_order_items,sku,VARCHAR,,,Stock keeping unit code,None,Dimension
+sales_order_items,product_name,VARCHAR,,,Product description,None,Dimension
+sales_order_items,category,VARCHAR,,,Product category,None,Dimension
+sales_order_items,quantity,INTEGER,,,Number of units ordered,None,Measure
+sales_order_items,unit_price,DOUBLE,,,Base unit selling price (INR),None,Measure
+sales_order_items,discount_pct,DOUBLE,,,Promotional / slab discount percentage applied,None,Measure
+sales_order_items,final_price,DOUBLE,,,Discounted effective unit price (INR),None,Measure
+sales_order_items,line_total,DOUBLE,,,Net item subtotal = quantity * final_price (INR),None,Measure
+sales_order_items,tax_amount,DOUBLE,,,Item GST amount (INR),None,Measure
+invoices,invoice_id,VARCHAR,PK,,Unique tax invoice number (e.g. INV-000001),None,Dimension
+invoices,order_id,VARCHAR,FK,sales_orders.order_id,Linked sales order reference,None,Dimension
+invoices,invoice_date,DATE,,,Date invoice was officially generated,Date invoice was issued to customer,Date
+invoices,due_date,DATE,,,Payment contractual due date based on customer credit terms,Contractual payment deadline,Date
+invoices,customer_id,VARCHAR,FK,customers.customer_id,Billed customer identifier,None,Dimension
+invoices,customer_name,VARCHAR,,,Billed customer name,None,Dimension
+invoices,branch_id,VARCHAR,FK,branches.branch_id,Billing branch,None,Dimension
+invoices,subtotal,DOUBLE,,,Invoice taxable amount (INR),None,Measure
+invoices,tax_amount,DOUBLE,,,Invoice GST tax total (INR),None,Measure
+invoices,grand_total,DOUBLE,,,Invoice gross payable amount (INR),None,Measure
+invoices,payment_terms,VARCHAR,,,Payment terms applied to invoice,None,Dimension
+invoices,payment_status,VARCHAR,,,"Invoice payment status: Paid, Pending, Overdue",None,Dimension
+customer_payments,payment_id,VARCHAR,PK,,Unique payment receipt identifier (e.g. PAY-000001),None,Dimension
+customer_payments,invoice_id,VARCHAR,FK,invoices.invoice_id,Invoice being settled,None,Dimension
+customer_payments,order_id,VARCHAR,FK,sales_orders.order_id,Sales order reference,None,Dimension
+customer_payments,customer_id,VARCHAR,FK,customers.customer_id,Payer customer identifier,None,Dimension
+customer_payments,payment_date,DATE,,,Date on which money was received / bank credit occurred,Date funds cleared in business account,Date
+customer_payments,amount_paid,DOUBLE,,,Total cash / bank amount received (INR),None,Measure
+customer_payments,payment_mode,VARCHAR,,,"Payment channel: NEFT / Bank Transfer, UPI, Cash, Cheque, Credit Card, RTGS",None,Dimension
+customer_payments,reference_number,VARCHAR,,,Bank UTR / Transaction reference number,None,Dimension
+customer_payments,notes,VARCHAR,,,Payment narration / remarks,None,Dimension
+inventory_movements,movement_id,VARCHAR,PK,,Unique movement ledger record (e.g. MOV-0000001),None,Dimension
+inventory_movements,movement_date,DATE,,,Date and time when physical stock movement occurred,Date inventory quantity changed,Date
+inventory_movements,branch_id,VARCHAR,FK,branches.branch_id,Branch / warehouse location,None,Dimension
+inventory_movements,product_id,VARCHAR,FK,products.product_id,Product SKU moved,None,Dimension
+inventory_movements,sku,VARCHAR,,,SKU code,None,Dimension
+inventory_movements,movement_type,VARCHAR,,,"Movement category: PURCHASE_IN, SALE_OUT, TRANSFER_IN, TRANSFER_OUT, ADJUSTMENT_DAMAGE, CUSTOMER_RETURN_IN",None,Dimension
+inventory_movements,quantity_change,INTEGER,,,"Quantity delta (+ positive for inflows, - negative for outflows)",None,Measure
+inventory_movements,running_balance,INTEGER,,,Cumulative closing stock on hand at branch after movement,None,Measure
+inventory_movements,reference_doc_id,VARCHAR,,,"Source transaction reference (GRN ID, Invoice ID, Transfer ID, Adjustment ID)",None,Dimension
+inventory_movements,description,VARCHAR,,,Ledger movement narration,None,Dimension
+expenses,expense_id,VARCHAR,PK,,Unique operating expense voucher ID (e.g. EXP-000001),None,Dimension
+expenses,expense_date,DATE,,,Date on which expense occurred or was paid,Date expenditure occurred,Date
+expenses,branch_id,VARCHAR,FK,branches.branch_id,Branch incurring the expense,None,Dimension
+expenses,category,VARCHAR,,,"Expense head: Rent, Salaries, Electricity & Utilities, Vehicle Fuel & Freight, Office Supplies, Staff Refreshments",None,Dimension
+expenses,amount,DOUBLE,,,Expense amount paid (INR),None,Measure
+expenses,description,VARCHAR,,,Detailed purpose of expenditure,None,Dimension
+expenses,payment_mode,VARCHAR,,,"Payment instrument: Bank Transfer, Online Banking, Cash / UPI",None,Dimension
+expenses,status,VARCHAR,,,"Payment state: Paid, Accrued",None,Dimension

@@ -1,0 +1,160 @@
+{
+  "enterprise": "Vidyut Electricals & Power Solutions",
+  "entities": [
+    "branches",
+    "employees",
+    "suppliers",
+    "products",
+    "customers"
+  ],
+  "transactions": [
+    "sales_orders",
+    "sales_order_items",
+    "invoices",
+    "customer_payments",
+    "sales_returns",
+    "credit_notes",
+    "purchase_orders",
+    "purchase_order_items",
+    "goods_receipts",
+    "goods_receipt_items",
+    "inventory_opening_balances",
+    "inventory_movements",
+    "stock_transfers",
+    "stock_adjustments",
+    "expenses",
+    "cash_transactions",
+    "deliveries",
+    "salesperson_targets",
+    "product_price_history",
+    "promotions"
+  ],
+  "foreign_keys": [
+    {
+      "from_table": "employees",
+      "from_column": "branch_id",
+      "to_table": "branches",
+      "to_column": "branch_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "sales_orders",
+      "from_column": "customer_id",
+      "to_table": "customers",
+      "to_column": "customer_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "sales_orders",
+      "from_column": "branch_id",
+      "to_table": "branches",
+      "to_column": "branch_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "sales_orders",
+      "from_column": "salesperson_id",
+      "to_table": "employees",
+      "to_column": "employee_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "sales_order_items",
+      "from_column": "order_id",
+      "to_table": "sales_orders",
+      "to_column": "order_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "sales_order_items",
+      "from_column": "product_id",
+      "to_table": "products",
+      "to_column": "product_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "invoices",
+      "from_column": "order_id",
+      "to_table": "sales_orders",
+      "to_column": "order_id",
+      "type": "one-to-one"
+    },
+    {
+      "from_table": "invoices",
+      "from_column": "customer_id",
+      "to_table": "customers",
+      "to_column": "customer_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "customer_payments",
+      "from_column": "invoice_id",
+      "to_table": "invoices",
+      "to_column": "invoice_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "purchase_orders",
+      "from_column": "supplier_id",
+      "to_table": "suppliers",
+      "to_column": "supplier_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "purchase_order_items",
+      "from_column": "po_id",
+      "to_table": "purchase_orders",
+      "to_column": "po_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "purchase_order_items",
+      "from_column": "product_id",
+      "to_table": "products",
+      "to_column": "product_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "goods_receipts",
+      "from_column": "po_id",
+      "to_table": "purchase_orders",
+      "to_column": "po_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "goods_receipt_items",
+      "from_column": "receipt_id",
+      "to_table": "goods_receipts",
+      "to_column": "receipt_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "inventory_movements",
+      "from_column": "branch_id",
+      "to_table": "branches",
+      "to_column": "branch_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "inventory_movements",
+      "from_column": "product_id",
+      "to_table": "products",
+      "to_column": "product_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "deliveries",
+      "from_column": "order_id",
+      "to_table": "sales_orders",
+      "to_column": "order_id",
+      "type": "many-to-one"
+    },
+    {
+      "from_table": "expenses",
+      "from_column": "branch_id",
+      "to_table": "branches",
+      "to_column": "branch_id",
+      "type": "many-to-one"
+    }
+  ]
+}

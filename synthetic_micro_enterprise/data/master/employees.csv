@@ -1,0 +1,13 @@
+employee_id,employee_code,employee_name,role,branch_id,joining_date,exit_date,status
+EMP-001,VK-01,Venkatesh Kumar,Managing Director,BR-01,2021-04-01,,Active
+EMP-002,RS-02,Ravi Shankar,Branch Manager,BR-01,2021-06-15,,Active
+EMP-003,AN-03,Anand Natarajan,Senior Sales Executive,BR-01,2021-08-01,,Active
+EMP-004,PM-04,Priya Mohan,Accountant & Billing,BR-01,2022-02-10,,Active
+EMP-005,KR-05,Karthik Rajan,Warehouse Supervisor,BR-01,2021-05-01,,Active
+EMP-006,SK-06,Suresh Kumar,Branch Manager,BR-02,2023-01-10,,Active
+EMP-007,DS-07,Deepak Sharma,Sales Executive,BR-02,2023-02-01,,Active
+EMP-008,MV-08,Meera Venkat,Billing Clerk,BR-02,2023-03-15,,Active
+EMP-009,GB-09,Ganesh Balaji,Branch Manager,BR-03,2023-07-20,,Active
+EMP-010,SP-10,Santhosh Pandian,Sales Executive,BR-03,2023-08-01,,Active
+EMP-011,RM-11,Ramesh Murugan,Field Electrician Support,BR-01,2022-06-01,2025-04-30,Exited
+EMP-012,LK-12,Lavanya Krishnan,Junior Sales Associate,BR-03,2024-05-15,,Active

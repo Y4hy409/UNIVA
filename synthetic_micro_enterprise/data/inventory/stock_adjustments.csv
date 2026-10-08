@@ -1,0 +1,4 @@
+adjustment_id,adjustment_date,branch_id,product_id,sku,quantity_adjusted,reason,approved_by,status
+ADJ-00001,2024-09-20,BR-03,PRD-009,INC-BLB-60W,-1,Damaged / Broken in Showroom,EMP-002,Approved
+ADJ-00002,2025-04-29,BR-01,PRD-016,SOC-MOD-6A,-4,Damaged / Broken in Showroom,EMP-002,Approved
+ADJ-00003,2026-05-26,BR-01,PRD-011,FAN-BLDC-1200,-2,Damaged / Broken in Showroom,EMP-002,Approved

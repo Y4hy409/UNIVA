@@ -1,0 +1,9 @@
+supplier_id,supplier_code,supplier_name,city,state,contact,payment_terms,lead_time_days,supplier_since,status
+SUP-001,LUM-01,Lumina Lighting Ltd,Mumbai,Maharashtra,+91 98201 12345,Net 30,5,2021-04-01,Active
+SUP-002,ORB-02,Orbit Wires & Cables Corp,Ahmedabad,Gujarat,+91 97240 54321,Net 45,8,2021-04-15,Active
+SUP-003,MAX-03,MaxVolt Modular Switchgear,Hyderabad,Telangana,+91 98490 67890,Net 30,4,2021-05-01,Active
+SUP-004,ZEP-04,Zephyr Fans & Appliances,Kolkata,West Bengal,+91 98300 98765,Net 60,12,2022-01-10,Active
+SUP-005,ELE-05,ElectroSafe Switchgear & MCBs,Chennai,Tamil Nadu,+91 94440 11223,Net 15,3,2021-06-01,Active
+SUP-006,KRD-06,Kiran Distribution & Conduit Supplies,Bangalore,Karnataka,+91 98860 33445,Net 30,6,2022-08-15,Active
+SUP-007,ECO-07,EcoGlow Solar & LED Panels,Pune,Maharashtra,+91 98500 55667,Advance 50%,10,2023-03-01,Active
+SUP-008,VAP-08,Vardhman Electrical Accessories,Delhi,Delhi,+91 98110 77889,Net 30,7,2021-04-01,Active

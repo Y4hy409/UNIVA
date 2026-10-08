@@ -1,0 +1,13 @@
+{
+  "general": {
+    "appName": "CLARIUS / UNIVA",
+    "timezone": "UTC"
+  },
+  "ui": {
+    "theme": "dark",
+    "sidebarCollapsed": false
+  },
+  "workspace": {
+    "folderFlags": {}
+  }
+}

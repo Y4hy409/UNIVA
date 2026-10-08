@@ -1,0 +1,39 @@
+product_id,sku,product_name,category,subcategory,brand,unit,purchase_price,selling_price,reorder_level,reorder_quantity,tax_rate,launch_date,discontinued_date,status
+PRD-001,LED-BULB-09W,EcoGlow LED Bulb 9W Cool Day White,Lighting,LED Bulbs,EcoGlow,NOS,42.0,75.0,150,400,18.0,2021-04-01,,Active
+PRD-002,LED-BULB-12W,EcoGlow LED Bulb 12W Cool Day White,Lighting,LED Bulbs,EcoGlow,NOS,58.0,110.0,100,300,18.0,2021-04-01,,Active
+PRD-003,LED-BULB-18W,Lumina Ultra Bright 18W LED Bulb,Lighting,LED Bulbs,Lumina,NOS,95.0,175.0,60,200,18.0,2022-01-15,,Active
+PRD-004,LED-BAT-20W,Lumina Slimline 20W LED Batten Tube Light,Lighting,Tube Lights,Lumina,NOS,145.0,240.0,80,250,18.0,2021-06-01,,Active
+PRD-005,LED-BAT-36W,Lumina Commercial 36W LED Batten Light,Lighting,Tube Lights,Lumina,NOS,280.0,450.0,40,120,18.0,2022-03-10,,Active
+PRD-006,LED-PNL-15W,EcoGlow 15W Slim Round Downlight Panel,Lighting,Panel Lights,EcoGlow,NOS,160.0,280.0,50,150,18.0,2022-05-01,,Active
+PRD-007,LED-PNL-24W,EcoGlow 24W 2x2 Square Ceiling Panel,Lighting,Panel Lights,EcoGlow,NOS,520.0,850.0,30,80,18.0,2023-01-20,,Active
+PRD-008,LED-FL-50W,Lumina Outdoor 50W Waterproof Flood Light,Lighting,Outdoor Lights,Lumina,NOS,650.0,1100.0,20,50,18.0,2023-04-10,,Active
+PRD-009,INC-BLB-60W,Classic 60W Incandescent Filament Bulb,Lighting,Incandescent,Vardhman,NOS,12.0,22.0,0,0,18.0,2021-04-01,2024-06-30,Discontinued
+PRD-010,FAN-CEIL-1200,Zephyr Breeze 1200mm High Speed Ceiling Fan,Appliances,Ceiling Fans,Zephyr,NOS,1350.0,2150.0,40,100,18.0,2021-04-01,,Active
+PRD-011,FAN-BLDC-1200,Zephyr Smart Eco BLDC 1200mm 28W Fan,Appliances,Ceiling Fans,Zephyr,NOS,2200.0,3450.0,25,60,18.0,2024-03-01,,Active
+PRD-012,FAN-EXH-150,Zephyr FreshAir 150mm Kitchen Exhaust Fan,Appliances,Exhaust Fans,Zephyr,NOS,620.0,1050.0,30,75,18.0,2021-08-15,,Active
+PRD-013,FAN-WALL-400,Zephyr High Airflow 400mm Wall Fan,Appliances,Wall Fans,Zephyr,NOS,1480.0,2350.0,20,50,18.0,2022-02-20,,Active
+PRD-014,SW-MOD-6A,MaxVolt Alpha 6A 1-Way Modular Switch,Switches,Modular Switches,MaxVolt,NOS,18.0,35.0,300,800,18.0,2021-04-01,,Active
+PRD-015,SW-MOD-16A,MaxVolt Alpha 16A Power Switch,Switches,Modular Switches,MaxVolt,NOS,42.0,78.0,150,400,18.0,2021-04-01,,Active
+PRD-016,SOC-MOD-6A,MaxVolt 3-Pin 6A Shuttered Safety Socket,Switches,Modular Sockets,MaxVolt,NOS,36.0,68.0,200,500,18.0,2021-04-01,,Active
+PRD-017,SOC-MOD-16A,MaxVolt 6/16A Universal Power Socket,Switches,Modular Sockets,MaxVolt,NOS,65.0,115.0,120,300,18.0,2021-04-01,,Active
+PRD-018,REG-MOD-FAN,MaxVolt 4-Step Capacitive Fan Regulator,Switches,Regulators,MaxVolt,NOS,140.0,240.0,60,150,18.0,2021-06-10,,Active
+PRD-019,PLT-MOD-4M,MaxVolt 4-Module Sleek White Faceplate,Switches,Plates,MaxVolt,NOS,48.0,90.0,100,250,18.0,2021-04-01,,Active
+PRD-020,PLT-MOD-8M,MaxVolt 8-Module Double Row Faceplate,Switches,Plates,MaxVolt,NOS,85.0,155.0,80,200,18.0,2021-04-01,,Active
+PRD-021,WIR-FR-100,Orbit FlexiSafe 1.0 sq mm Copper Wire (90m),Wires & Cables,Building Wires,Orbit,COIL,880.0,1320.0,40,100,18.0,2021-04-01,,Active
+PRD-022,WIR-FR-150,Orbit FlexiSafe 1.5 sq mm Copper Wire (90m),Wires & Cables,Building Wires,Orbit,COIL,1250.0,1850.0,50,120,18.0,2021-04-01,,Active
+PRD-023,WIR-FR-250,Orbit FlexiSafe 2.5 sq mm Copper Wire (90m),Wires & Cables,Building Wires,Orbit,COIL,1950.0,2850.0,45,100,18.0,2021-04-01,,Active
+PRD-024,WIR-FR-400,Orbit HeavyDuty 4.0 sq mm Copper Wire (90m),Wires & Cables,Building Wires,Orbit,COIL,3100.0,4450.0,25,60,18.0,2021-07-01,,Active
+PRD-025,WIR-FR-600,Orbit MainLine 6.0 sq mm Copper Wire (90m),Wires & Cables,Building Wires,Orbit,COIL,4600.0,6500.0,15,40,18.0,2022-01-10,,Active
+PRD-026,CBL-ARM-4C10,Orbit Armoured 4-Core 10 sq mm Underground Cable,Wires & Cables,Power Cables,Orbit,MTR,185.0,260.0,100,300,18.0,2022-08-01,,Active
+PRD-027,MCB-SP-10A,ElectroSafe 10A Single Pole C-Curve MCB,Switchgear,MCBs,ElectroSafe,NOS,82.0,145.0,80,200,18.0,2021-04-01,,Active
+PRD-028,MCB-SP-16A,ElectroSafe 16A Single Pole C-Curve MCB,Switchgear,MCBs,ElectroSafe,NOS,85.0,150.0,100,250,18.0,2021-04-01,,Active
+PRD-029,MCB-SP-32A,ElectroSafe 32A Single Pole Heavy Duty MCB,Switchgear,MCBs,ElectroSafe,NOS,95.0,170.0,70,180,18.0,2021-04-01,,Active
+PRD-030,MCB-DP-32A,ElectroSafe 32A Double Pole Main Isolator MCB,Switchgear,MCBs,ElectroSafe,NOS,220.0,380.0,35,90,18.0,2021-05-15,,Active
+PRD-031,RCCB-4P-40A,ElectroSafe 40A 4-Pole 30mA Earth Leakage RCCB,Switchgear,RCCBs,ElectroSafe,NOS,1250.0,2100.0,15,40,18.0,2022-04-01,,Active
+PRD-032,DB-SPN-08W,ElectroSafe 8-Way SPN Metal Enclosure Distribution Board,Switchgear,Distribution Boards,ElectroSafe,NOS,450.0,780.0,20,50,18.0,2021-09-01,,Active
+PRD-033,DB-TPN-04W,ElectroSafe 4-Way TPN Vertical Phase DB,Switchgear,Distribution Boards,ElectroSafe,NOS,1650.0,2650.0,10,25,18.0,2022-11-01,,Active
+PRD-034,EXT-SPIKE-4W,Vardhman 4-Socket 2M Surge Protector Spike Strip,Accessories,Extension Strips,Vardhman,NOS,210.0,360.0,40,100,18.0,2021-04-01,,Active
+PRD-035,CON-PVC-25MM,Kiran Rigid PVC 25mm Electrical Conduit Pipe (3m),Accessories,Conduits,Kiran,NOS,38.0,65.0,200,500,18.0,2021-04-01,,Active
+PRD-036,TAP-ELEC-BLK,Vardhman Heavy Duty Insulation Tape Roll Black,Accessories,Tapes,Vardhman,NOS,7.5,15.0,300,1000,18.0,2021-04-01,,Active
+PRD-037,LUG-COP-16MM,Vardhman Tinned Copper Cable Lugs 16mm (Pack 50),Accessories,Lugs & Terminals,Vardhman,PKT,140.0,240.0,25,60,18.0,2022-05-10,,Active
+PRD-038,TST-VOLT-DIG,MaxVolt Digital AC Voltage & Continuity Tester Pen,Accessories,Testing Tools,MaxVolt,NOS,90.0,165.0,30,80,18.0,2023-06-01,,Active

@@ -1,0 +1,174 @@
+receipt_id,po_id,receipt_date,supplier_id,receiving_branch,received_by_employee_id,inspection_status,remarks
+GRN-00001,PO-00001,2024-01-18,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00002,PO-00002,2024-01-08,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00003,PO-00003,2024-01-15,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00004,PO-00004,2024-01-16,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00005,PO-00005,2024-01-23,SUP-008,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00006,PO-00006,2024-01-26,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00007,PO-00007,2024-01-27,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00008,PO-00008,2024-01-31,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00009,PO-00009,2024-02-06,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00010,PO-00010,2024-02-12,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00011,PO-00011,2024-02-22,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00012,PO-00012,2024-02-26,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00013,PO-00013,2024-03-03,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00014,PO-00014,2024-03-10,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00015,PO-00015,2024-03-17,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00016,PO-00016,2024-03-25,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00017,PO-00017,2024-03-22,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00018,PO-00018,2024-03-31,SUP-005,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00019,PO-00019,2024-04-23,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00020,PO-00020,2024-04-25,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00021,PO-00021,2024-04-25,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00022,PO-00022,2024-05-15,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00023,PO-00023,2024-05-26,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00024,PO-00024,2024-06-04,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00025,PO-00025,2024-06-12,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00026,PO-00026,2024-06-13,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00027,PO-00027,2024-06-23,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00028,PO-00028,2024-07-01,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00029,PO-00029,2024-06-26,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00030,PO-00030,2024-07-09,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00031,PO-00031,2024-07-13,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00032,PO-00032,2024-07-17,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00033,PO-00033,2024-07-25,SUP-001,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00034,PO-00034,2024-07-20,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00035,PO-00035,2024-08-03,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00036,PO-00036,2024-08-23,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00037,PO-00037,2024-08-26,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00038,PO-00038,2024-08-25,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00039,PO-00039,2024-09-03,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00040,PO-00040,2024-09-10,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00041,PO-00041,2024-09-11,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00042,PO-00042,2024-09-16,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00043,PO-00043,2024-09-25,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00044,PO-00044,2024-10-04,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00045,PO-00045,2024-10-09,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00046,PO-00046,2024-10-12,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00047,PO-00047,2024-10-22,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00048,PO-00048,2024-10-25,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00049,PO-00049,2024-10-26,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00050,PO-00050,2024-10-29,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00051,PO-00051,2024-11-06,SUP-007,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00052,PO-00052,2024-11-11,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00053,PO-00053,2024-11-17,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00054,PO-00054,2024-11-13,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00055,PO-00055,2024-11-25,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00056,PO-00056,2024-11-24,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00057,PO-00057,2024-11-26,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00058,PO-00058,2024-12-05,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00059,PO-00059,2024-12-10,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00060,PO-00060,2024-12-06,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00061,PO-00061,2024-12-07,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00062,PO-00062,2024-12-15,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00063,PO-00063,2024-12-16,SUP-005,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00064,PO-00064,2024-12-31,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00065,PO-00065,2024-12-31,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00066,PO-00066,2025-01-08,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00067,PO-00067,2025-01-03,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00068,PO-00068,2025-01-12,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00069,PO-00069,2025-02-03,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00070,PO-00070,2025-02-02,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00071,PO-00071,2025-02-10,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00072,PO-00072,2025-02-22,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00073,PO-00073,2025-03-03,SUP-005,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00074,PO-00074,2025-03-18,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00075,PO-00075,2025-03-22,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00076,PO-00076,2025-03-31,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00077,PO-00077,2025-04-14,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00078,PO-00078,2025-04-15,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00079,PO-00079,2025-04-23,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00080,PO-00080,2025-04-20,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00081,PO-00081,2025-04-22,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00082,PO-00082,2025-05-16,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00083,PO-00083,2025-05-15,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00084,PO-00084,2025-05-16,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00085,PO-00085,2025-05-23,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00086,PO-00086,2025-05-26,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00087,PO-00087,2025-06-05,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00088,PO-00088,2025-06-10,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00089,PO-00089,2025-06-11,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00090,PO-00090,2025-06-14,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00091,PO-00091,2025-06-24,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00092,PO-00092,2025-07-07,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00093,PO-00093,2025-07-07,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00094,PO-00094,2025-07-18,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00095,PO-00095,2025-07-14,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00096,PO-00096,2025-07-25,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00097,PO-00097,2025-08-04,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00098,PO-00098,2025-08-11,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00099,PO-00099,2025-08-11,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00100,PO-00100,2025-08-21,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00101,PO-00101,2025-08-21,SUP-002,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00102,PO-00102,2025-09-03,SUP-008,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00103,PO-00103,2025-09-10,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00104,PO-00104,2025-09-15,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00105,PO-00105,2025-09-22,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00106,PO-00106,2025-09-15,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00107,PO-00107,2025-09-29,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00108,PO-00108,2025-09-26,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00109,PO-00109,2025-10-07,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00110,PO-00110,2025-09-26,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00111,PO-00111,2025-10-09,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00112,PO-00112,2025-10-07,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00113,PO-00113,2025-10-23,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00114,PO-00114,2025-10-20,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00115,PO-00115,2025-11-05,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00116,PO-00116,2025-11-10,SUP-001,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00117,PO-00117,2025-11-18,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00118,PO-00118,2025-11-20,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00119,PO-00119,2025-11-24,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00120,PO-00120,2025-11-29,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00121,PO-00121,2025-12-11,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00122,PO-00122,2025-12-07,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00123,PO-00123,2025-12-21,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00124,PO-00124,2025-12-25,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00125,PO-00125,2025-12-26,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00126,PO-00126,2025-12-28,SUP-001,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00127,PO-00127,2025-12-29,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00128,PO-00128,2026-01-13,SUP-007,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00129,PO-00129,2026-01-13,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00130,PO-00130,2026-01-19,SUP-001,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00131,PO-00131,2026-01-19,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00132,PO-00132,2026-01-23,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00133,PO-00133,2026-01-31,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00134,PO-00134,2026-02-01,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00135,PO-00135,2026-02-10,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00136,PO-00136,2026-02-12,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00137,PO-00137,2026-02-16,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00138,PO-00138,2026-02-25,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00139,PO-00139,2026-03-01,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00140,PO-00140,2026-03-07,SUP-007,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00141,PO-00141,2026-03-11,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00142,PO-00142,2026-03-13,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00143,PO-00143,2026-03-17,SUP-003,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00144,PO-00144,2026-03-27,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00145,PO-00145,2026-04-07,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00146,PO-00146,2026-04-12,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00147,PO-00147,2026-04-26,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00148,PO-00148,2026-04-26,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00149,PO-00149,2026-04-27,SUP-005,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00150,PO-00150,2026-05-01,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00151,PO-00151,2026-05-02,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00152,PO-00152,2026-05-09,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00153,PO-00153,2026-05-22,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00154,PO-00154,2026-05-25,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00155,PO-00155,2026-05-23,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00156,PO-00156,2026-06-04,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00157,PO-00157,2026-06-10,SUP-002,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00158,PO-00158,2026-06-10,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00159,PO-00159,2026-07-06,SUP-005,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00160,PO-00160,2026-07-14,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00161,PO-00161,2026-07-22,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00162,PO-00162,2026-07-29,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00163,PO-00163,2026-08-02,SUP-003,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00164,PO-00164,2026-08-09,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00165,PO-00165,2026-08-15,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00166,PO-00166,2026-08-18,SUP-001,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00167,PO-00167,2026-08-26,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00168,PO-00168,2026-08-23,SUP-003,BR-01,EMP-005,Partial Receipt,Inspected and accepted
+GRN-00169,PO-00169,2026-09-01,SUP-006,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00170,PO-00170,2026-09-11,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00171,PO-00171,2026-09-18,SUP-004,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00172,PO-00172,2026-09-17,SUP-008,BR-01,EMP-005,Received in Full,Inspected and accepted
+GRN-00173,PO-00173,2026-09-27,SUP-004,BR-01,EMP-005,Partial Receipt,Inspected and accepted

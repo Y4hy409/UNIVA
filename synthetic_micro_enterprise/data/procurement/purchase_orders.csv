@@ -1,0 +1,175 @@
+po_id,po_date,supplier_id,supplier_name,destination_branch,total_amount,expected_delivery_date,status,notes
+PO-00001,2024-01-01,SUP-004,Zephyr Fans & Appliances,BR-01,125214.0,2024-01-16,Issued,PO raised by Karthik Rajan
+PO-00002,2024-01-03,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,48532.5,2024-01-06,Issued,PO raised by Karthik Rajan
+PO-00003,2024-01-08,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,121365.0,2024-01-14,Issued,PO raised by Karthik Rajan
+PO-00004,2024-01-10,SUP-003,MaxVolt Modular Switchgear,BR-01,209815.0,2024-01-16,Issued,PO raised by Karthik Rajan
+PO-00005,2024-01-15,SUP-008,Vardhman Electrical Accessories,BR-01,455566.0,2024-01-22,Issued,PO raised by Karthik Rajan
+PO-00006,2024-01-17,SUP-007,EcoGlow Solar & LED Panels,BR-01,240752.0,2024-01-26,Issued,PO raised by Karthik Rajan
+PO-00007,2024-01-22,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,53620.0,2024-01-27,Issued,PO raised by Karthik Rajan
+PO-00008,2024-01-29,SUP-003,MaxVolt Modular Switchgear,BR-01,83821.0,2024-02-01,Issued,PO raised by Karthik Rajan
+PO-00009,2024-01-31,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,199035.0,2024-02-06,Issued,PO raised by Karthik Rajan
+PO-00010,2024-02-05,SUP-008,Vardhman Electrical Accessories,BR-01,136624.0,2024-02-11,Issued,PO raised by Karthik Rajan
+PO-00011,2024-02-07,SUP-004,Zephyr Fans & Appliances,BR-01,159701.0,2024-02-21,Issued,PO raised by Karthik Rajan
+PO-00012,2024-02-19,SUP-002,Orbit Wires & Cables Corp,BR-01,30317.5,2024-02-26,Issued,PO raised by Karthik Rajan
+PO-00013,2024-02-21,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,109240.0,2024-03-01,Issued,PO raised by Karthik Rajan
+PO-00014,2024-03-04,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,107788.0,2024-03-11,Issued,PO raised by Karthik Rajan
+PO-00015,2024-03-06,SUP-003,MaxVolt Modular Switchgear,BR-01,101260.0,2024-03-13,Issued,PO raised by Karthik Rajan
+PO-00016,2024-03-13,SUP-007,EcoGlow Solar & LED Panels,BR-01,64038.0,2024-03-25,Issued,PO raised by Karthik Rajan
+PO-00017,2024-03-20,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,194165.0,2024-03-23,Issued,PO raised by Karthik Rajan
+PO-00018,2024-03-25,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,80325.0,2024-03-29,Issued,PO raised by Karthik Rajan
+PO-00019,2024-04-10,SUP-004,Zephyr Fans & Appliances,BR-01,271645.0,2024-04-23,Issued,PO raised by Karthik Rajan
+PO-00020,2024-04-17,SUP-003,MaxVolt Modular Switchgear,BR-01,82940.0,2024-04-23,Issued,PO raised by Karthik Rajan
+PO-00021,2024-04-22,SUP-003,MaxVolt Modular Switchgear,BR-01,369190.0,2024-04-26,Issued,PO raised by Karthik Rajan
+PO-00022,2024-05-08,SUP-008,Vardhman Electrical Accessories,BR-01,482243.0,2024-05-15,Issued,PO raised by Karthik Rajan
+PO-00023,2024-05-20,SUP-008,Vardhman Electrical Accessories,BR-01,37090.0,2024-05-26,Issued,PO raised by Karthik Rajan
+PO-00024,2024-05-29,SUP-008,Vardhman Electrical Accessories,BR-01,262100.0,2024-06-04,Issued,PO raised by Karthik Rajan
+PO-00025,2024-06-03,SUP-007,EcoGlow Solar & LED Panels,BR-01,104411.0,2024-06-13,Issued,PO raised by Karthik Rajan
+PO-00026,2024-06-05,SUP-001,Lumina Lighting Ltd,BR-01,416880.0,2024-06-09,Issued,PO raised by Karthik Rajan
+PO-00027,2024-06-12,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,133233.0,2024-06-21,Issued,PO raised by Karthik Rajan
+PO-00028,2024-06-19,SUP-004,Zephyr Fans & Appliances,BR-01,84683.0,2024-06-30,Issued,PO raised by Karthik Rajan
+PO-00029,2024-06-24,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,94845.0,2024-06-26,Issued,PO raised by Karthik Rajan
+PO-00030,2024-07-01,SUP-008,Vardhman Electrical Accessories,BR-01,304240.0,2024-07-10,Issued,PO raised by Karthik Rajan
+PO-00031,2024-07-03,SUP-007,EcoGlow Solar & LED Panels,BR-01,163366.0,2024-07-12,Issued,PO raised by Karthik Rajan
+PO-00032,2024-07-08,SUP-008,Vardhman Electrical Accessories,BR-01,203922.0,2024-07-18,Issued,PO raised by Karthik Rajan
+PO-00033,2024-07-15,SUP-001,Lumina Lighting Ltd,BR-01,181200.0,2024-07-23,Issued,PO raised by Karthik Rajan
+PO-00034,2024-07-17,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,150705.0,2024-07-20,Issued,PO raised by Karthik Rajan
+PO-00035,2024-07-24,SUP-002,Orbit Wires & Cables Corp,BR-01,156390.0,2024-08-04,Issued,PO raised by Karthik Rajan
+PO-00036,2024-08-12,SUP-007,EcoGlow Solar & LED Panels,BR-01,102062.0,2024-08-22,Issued,PO raised by Karthik Rajan
+PO-00037,2024-08-14,SUP-004,Zephyr Fans & Appliances,BR-01,18516.0,2024-08-27,Issued,PO raised by Karthik Rajan
+PO-00038,2024-08-19,SUP-003,MaxVolt Modular Switchgear,BR-01,260250.0,2024-08-25,Issued,PO raised by Karthik Rajan
+PO-00039,2024-08-21,SUP-004,Zephyr Fans & Appliances,BR-01,423343.0,2024-09-03,Issued,PO raised by Karthik Rajan
+PO-00040,2024-08-26,SUP-004,Zephyr Fans & Appliances,BR-01,439115.0,2024-09-08,Issued,PO raised by Karthik Rajan
+PO-00041,2024-09-04,SUP-003,MaxVolt Modular Switchgear,BR-01,56968.0,2024-09-10,Issued,PO raised by Karthik Rajan
+PO-00042,2024-09-11,SUP-003,MaxVolt Modular Switchgear,BR-01,135250.0,2024-09-15,Issued,PO raised by Karthik Rajan
+PO-00043,2024-09-16,SUP-008,Vardhman Electrical Accessories,BR-01,10194.0,2024-09-23,Issued,PO raised by Karthik Rajan
+PO-00044,2024-09-30,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,59199.0,2024-10-04,Issued,PO raised by Karthik Rajan
+PO-00045,2024-10-02,SUP-003,MaxVolt Modular Switchgear,BR-01,211504.0,2024-10-09,Issued,PO raised by Karthik Rajan
+PO-00046,2024-10-07,SUP-003,MaxVolt Modular Switchgear,BR-01,52788.0,2024-10-12,Issued,PO raised by Karthik Rajan
+PO-00047,2024-10-14,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,345145.0,2024-10-22,Issued,PO raised by Karthik Rajan
+PO-00048,2024-10-16,SUP-007,EcoGlow Solar & LED Panels,BR-01,189574.0,2024-10-25,Issued,PO raised by Karthik Rajan
+PO-00049,2024-10-21,SUP-003,MaxVolt Modular Switchgear,BR-01,113755.0,2024-10-25,Issued,PO raised by Karthik Rajan
+PO-00050,2024-10-23,SUP-001,Lumina Lighting Ltd,BR-01,104192.0,2024-10-27,Issued,PO raised by Karthik Rajan
+PO-00051,2024-10-28,SUP-007,EcoGlow Solar & LED Panels,BR-01,165474.0,2024-11-06,Issued,PO raised by Karthik Rajan
+PO-00052,2024-10-30,SUP-004,Zephyr Fans & Appliances,BR-01,177867.0,2024-11-11,Issued,PO raised by Karthik Rajan
+PO-00053,2024-11-04,SUP-004,Zephyr Fans & Appliances,BR-01,221110.0,2024-11-18,Issued,PO raised by Karthik Rajan
+PO-00054,2024-11-06,SUP-001,Lumina Lighting Ltd,BR-01,277709.0,2024-11-13,Issued,PO raised by Karthik Rajan
+PO-00055,2024-11-11,SUP-004,Zephyr Fans & Appliances,BR-01,223900.0,2024-11-26,Issued,PO raised by Karthik Rajan
+PO-00056,2024-11-13,SUP-004,Zephyr Fans & Appliances,BR-01,335092.0,2024-11-25,Issued,PO raised by Karthik Rajan
+PO-00057,2024-11-20,SUP-008,Vardhman Electrical Accessories,BR-01,176648.5,2024-11-26,Issued,PO raised by Karthik Rajan
+PO-00058,2024-11-25,SUP-004,Zephyr Fans & Appliances,BR-01,174290.0,2024-12-06,Issued,PO raised by Karthik Rajan
+PO-00059,2024-11-27,SUP-007,EcoGlow Solar & LED Panels,BR-01,385134.0,2024-12-10,Issued,PO raised by Karthik Rajan
+PO-00060,2024-12-02,SUP-001,Lumina Lighting Ltd,BR-01,95420.0,2024-12-06,Issued,PO raised by Karthik Rajan
+PO-00061,2024-12-04,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,272035.0,2024-12-07,Issued,PO raised by Karthik Rajan
+PO-00062,2024-12-09,SUP-001,Lumina Lighting Ltd,BR-01,159300.0,2024-12-15,Issued,PO raised by Karthik Rajan
+PO-00063,2024-12-11,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,93932.0,2024-12-17,Issued,PO raised by Karthik Rajan
+PO-00064,2024-12-18,SUP-004,Zephyr Fans & Appliances,BR-01,104600.0,2024-12-29,Issued,PO raised by Karthik Rajan
+PO-00065,2024-12-23,SUP-001,Lumina Lighting Ltd,BR-01,133882.5,2024-12-30,Issued,PO raised by Karthik Rajan
+PO-00066,2024-12-25,SUP-004,Zephyr Fans & Appliances,BR-01,52306.0,2025-01-07,Issued,PO raised by Karthik Rajan
+PO-00067,2025-01-01,SUP-003,MaxVolt Modular Switchgear,BR-01,143184.0,2025-01-04,Issued,PO raised by Karthik Rajan
+PO-00068,2025-01-08,SUP-001,Lumina Lighting Ltd,BR-01,18252.0,2025-01-12,Issued,PO raised by Karthik Rajan
+PO-00069,2025-01-22,SUP-007,EcoGlow Solar & LED Panels,BR-01,154000.0,2025-02-01,Issued,PO raised by Karthik Rajan
+PO-00070,2025-01-29,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,238570.0,2025-02-01,Issued,PO raised by Karthik Rajan
+PO-00071,2025-02-03,SUP-008,Vardhman Electrical Accessories,BR-01,123340.0,2025-02-10,Issued,PO raised by Karthik Rajan
+PO-00072,2025-02-12,SUP-002,Orbit Wires & Cables Corp,BR-01,98145.0,2025-02-23,Issued,PO raised by Karthik Rajan
+PO-00073,2025-02-24,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,51465.0,2025-03-01,Issued,PO raised by Karthik Rajan
+PO-00074,2025-03-05,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,126580.0,2025-03-14,Issued,PO raised by Karthik Rajan
+PO-00075,2025-03-17,SUP-001,Lumina Lighting Ltd,BR-01,126018.0,2025-03-22,Issued,PO raised by Karthik Rajan
+PO-00076,2025-03-24,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,85780.0,2025-03-30,Issued,PO raised by Karthik Rajan
+PO-00077,2025-04-02,SUP-002,Orbit Wires & Cables Corp,BR-01,231002.0,2025-04-13,Issued,PO raised by Karthik Rajan
+PO-00078,2025-04-07,SUP-008,Vardhman Electrical Accessories,BR-01,181228.0,2025-04-15,Issued,PO raised by Karthik Rajan
+PO-00079,2025-04-09,SUP-004,Zephyr Fans & Appliances,BR-01,182095.0,2025-04-21,Issued,PO raised by Karthik Rajan
+PO-00080,2025-04-14,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,33142.0,2025-04-21,Issued,PO raised by Karthik Rajan
+PO-00081,2025-04-16,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,394174.0,2025-04-22,Issued,PO raised by Karthik Rajan
+PO-00082,2025-04-30,SUP-004,Zephyr Fans & Appliances,BR-01,126295.0,2025-05-15,Issued,PO raised by Karthik Rajan
+PO-00083,2025-05-07,SUP-008,Vardhman Electrical Accessories,BR-01,312460.0,2025-05-13,Issued,PO raised by Karthik Rajan
+PO-00084,2025-05-12,SUP-001,Lumina Lighting Ltd,BR-01,563180.0,2025-05-17,Issued,PO raised by Karthik Rajan
+PO-00085,2025-05-14,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,404587.0,2025-05-19,Issued,PO raised by Karthik Rajan
+PO-00086,2025-05-21,SUP-001,Lumina Lighting Ltd,BR-01,161960.0,2025-05-27,Issued,PO raised by Karthik Rajan
+PO-00087,2025-05-26,SUP-008,Vardhman Electrical Accessories,BR-01,271100.0,2025-06-05,Issued,PO raised by Karthik Rajan
+PO-00088,2025-05-28,SUP-002,Orbit Wires & Cables Corp,BR-01,191904.0,2025-06-08,Issued,PO raised by Karthik Rajan
+PO-00089,2025-06-04,SUP-008,Vardhman Electrical Accessories,BR-01,292205.0,2025-06-12,Issued,PO raised by Karthik Rajan
+PO-00090,2025-06-09,SUP-003,MaxVolt Modular Switchgear,BR-01,582100.0,2025-06-14,Issued,PO raised by Karthik Rajan
+PO-00091,2025-06-16,SUP-008,Vardhman Electrical Accessories,BR-01,52055.0,2025-06-24,Issued,PO raised by Karthik Rajan
+PO-00092,2025-06-25,SUP-007,EcoGlow Solar & LED Panels,BR-01,85095.0,2025-07-07,Issued,PO raised by Karthik Rajan
+PO-00093,2025-07-02,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,97492.0,2025-07-07,Issued,PO raised by Karthik Rajan
+PO-00094,2025-07-07,SUP-007,EcoGlow Solar & LED Panels,BR-01,45070.0,2025-07-18,Issued,PO raised by Karthik Rajan
+PO-00095,2025-07-09,SUP-003,MaxVolt Modular Switchgear,BR-01,69106.0,2025-07-14,Issued,PO raised by Karthik Rajan
+PO-00096,2025-07-14,SUP-004,Zephyr Fans & Appliances,BR-01,166679.0,2025-07-26,Issued,PO raised by Karthik Rajan
+PO-00097,2025-07-28,SUP-001,Lumina Lighting Ltd,BR-01,60474.0,2025-08-04,Issued,PO raised by Karthik Rajan
+PO-00098,2025-07-30,SUP-004,Zephyr Fans & Appliances,BR-01,178896.0,2025-08-10,Issued,PO raised by Karthik Rajan
+PO-00099,2025-08-06,SUP-003,MaxVolt Modular Switchgear,BR-01,34128.0,2025-08-11,Issued,PO raised by Karthik Rajan
+PO-00100,2025-08-11,SUP-007,EcoGlow Solar & LED Panels,BR-01,211455.0,2025-08-21,Issued,PO raised by Karthik Rajan
+PO-00101,2025-08-13,SUP-002,Orbit Wires & Cables Corp,BR-01,61414.0,2025-08-21,Issued,PO raised by Karthik Rajan
+PO-00102,2025-08-25,SUP-008,Vardhman Electrical Accessories,BR-01,328060.0,2025-09-03,Issued,PO raised by Karthik Rajan
+PO-00103,2025-09-01,SUP-003,MaxVolt Modular Switchgear,BR-01,32316.0,2025-09-08,Issued,PO raised by Karthik Rajan
+PO-00104,2025-09-03,SUP-007,EcoGlow Solar & LED Panels,BR-01,60040.0,2025-09-16,Issued,PO raised by Karthik Rajan
+PO-00105,2025-09-08,SUP-004,Zephyr Fans & Appliances,BR-01,84123.0,2025-09-22,Issued,PO raised by Karthik Rajan
+PO-00106,2025-09-10,SUP-001,Lumina Lighting Ltd,BR-01,324519.0,2025-09-14,Issued,PO raised by Karthik Rajan
+PO-00107,2025-09-15,SUP-007,EcoGlow Solar & LED Panels,BR-01,155930.0,2025-09-28,Issued,PO raised by Karthik Rajan
+PO-00108,2025-09-17,SUP-003,MaxVolt Modular Switchgear,BR-01,525395.0,2025-09-24,Issued,PO raised by Karthik Rajan
+PO-00109,2025-09-22,SUP-004,Zephyr Fans & Appliances,BR-01,120920.0,2025-10-05,Issued,PO raised by Karthik Rajan
+PO-00110,2025-09-24,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,530595.0,2025-09-26,Issued,PO raised by Karthik Rajan
+PO-00111,2025-09-29,SUP-002,Orbit Wires & Cables Corp,BR-01,116590.0,2025-10-10,Issued,PO raised by Karthik Rajan
+PO-00112,2025-10-01,SUP-008,Vardhman Electrical Accessories,BR-01,380080.0,2025-10-07,Issued,PO raised by Karthik Rajan
+PO-00113,2025-10-13,SUP-002,Orbit Wires & Cables Corp,BR-01,59152.0,2025-10-21,Issued,PO raised by Karthik Rajan
+PO-00114,2025-10-15,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,150000.0,2025-10-18,Issued,PO raised by Karthik Rajan
+PO-00115,2025-10-29,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,190533.5,2025-11-04,Issued,PO raised by Karthik Rajan
+PO-00116,2025-11-03,SUP-001,Lumina Lighting Ltd,BR-01,295050.0,2025-11-11,Issued,PO raised by Karthik Rajan
+PO-00117,2025-11-05,SUP-002,Orbit Wires & Cables Corp,BR-01,595445.0,2025-11-16,Issued,PO raised by Karthik Rajan
+PO-00118,2025-11-10,SUP-007,EcoGlow Solar & LED Panels,BR-01,266698.0,2025-11-20,Issued,PO raised by Karthik Rajan
+PO-00119,2025-11-17,SUP-008,Vardhman Electrical Accessories,BR-01,80880.0,2025-11-24,Issued,PO raised by Karthik Rajan
+PO-00120,2025-11-26,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,54040.0,2025-11-30,Issued,PO raised by Karthik Rajan
+PO-00121,2025-12-01,SUP-002,Orbit Wires & Cables Corp,BR-01,385082.0,2025-12-11,Issued,PO raised by Karthik Rajan
+PO-00122,2025-12-03,SUP-001,Lumina Lighting Ltd,BR-01,621100.0,2025-12-07,Issued,PO raised by Karthik Rajan
+PO-00123,2025-12-08,SUP-007,EcoGlow Solar & LED Panels,BR-01,45797.5,2025-12-19,Issued,PO raised by Karthik Rajan
+PO-00124,2025-12-15,SUP-007,EcoGlow Solar & LED Panels,BR-01,289014.0,2025-12-24,Issued,PO raised by Karthik Rajan
+PO-00125,2025-12-17,SUP-002,Orbit Wires & Cables Corp,BR-01,387054.0,2025-12-26,Issued,PO raised by Karthik Rajan
+PO-00126,2025-12-22,SUP-001,Lumina Lighting Ltd,BR-01,40450.0,2025-12-29,Issued,PO raised by Karthik Rajan
+PO-00127,2025-12-24,SUP-003,MaxVolt Modular Switchgear,BR-01,141422.0,2025-12-30,Issued,PO raised by Karthik Rajan
+PO-00128,2025-12-31,SUP-007,EcoGlow Solar & LED Panels,BR-01,145610.0,2026-01-13,Issued,PO raised by Karthik Rajan
+PO-00129,2026-01-05,SUP-001,Lumina Lighting Ltd,BR-01,196271.0,2026-01-13,Issued,PO raised by Karthik Rajan
+PO-00130,2026-01-12,SUP-001,Lumina Lighting Ltd,BR-01,323299.0,2026-01-19,Issued,PO raised by Karthik Rajan
+PO-00131,2026-01-14,SUP-008,Vardhman Electrical Accessories,BR-01,33752.0,2026-01-20,Issued,PO raised by Karthik Rajan
+PO-00132,2026-01-19,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,68510.0,2026-01-24,Issued,PO raised by Karthik Rajan
+PO-00133,2026-01-26,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,38250.0,2026-01-31,Issued,PO raised by Karthik Rajan
+PO-00134,2026-01-28,SUP-003,MaxVolt Modular Switchgear,BR-01,332823.5,2026-02-02,Issued,PO raised by Karthik Rajan
+PO-00135,2026-02-02,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,137690.0,2026-02-06,Issued,PO raised by Karthik Rajan
+PO-00136,2026-02-09,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,160718.0,2026-02-12,Issued,PO raised by Karthik Rajan
+PO-00137,2026-02-11,SUP-001,Lumina Lighting Ltd,BR-01,230064.0,2026-02-15,Issued,PO raised by Karthik Rajan
+PO-00138,2026-02-18,SUP-003,MaxVolt Modular Switchgear,BR-01,222848.0,2026-02-23,Issued,PO raised by Karthik Rajan
+PO-00139,2026-02-23,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,254795.0,2026-02-28,Issued,PO raised by Karthik Rajan
+PO-00140,2026-02-25,SUP-007,EcoGlow Solar & LED Panels,BR-01,450730.0,2026-03-06,Issued,PO raised by Karthik Rajan
+PO-00141,2026-03-02,SUP-003,MaxVolt Modular Switchgear,BR-01,55740.0,2026-03-09,Issued,PO raised by Karthik Rajan
+PO-00142,2026-03-04,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,594800.0,2026-03-13,Issued,PO raised by Karthik Rajan
+PO-00143,2026-03-11,SUP-003,MaxVolt Modular Switchgear,BR-01,180765.0,2026-03-17,Issued,PO raised by Karthik Rajan
+PO-00144,2026-03-23,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,87795.0,2026-03-27,Issued,PO raised by Karthik Rajan
+PO-00145,2026-03-30,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,424180.0,2026-04-06,Issued,PO raised by Karthik Rajan
+PO-00146,2026-04-06,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,229084.0,2026-04-12,Issued,PO raised by Karthik Rajan
+PO-00147,2026-04-15,SUP-008,Vardhman Electrical Accessories,BR-01,254090.0,2026-04-25,Issued,PO raised by Karthik Rajan
+PO-00148,2026-04-20,SUP-001,Lumina Lighting Ltd,BR-01,99516.0,2026-04-26,Issued,PO raised by Karthik Rajan
+PO-00149,2026-04-22,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,114220.0,2026-04-25,Issued,PO raised by Karthik Rajan
+PO-00150,2026-04-27,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,67528.0,2026-05-01,Issued,PO raised by Karthik Rajan
+PO-00151,2026-04-29,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,364275.0,2026-05-02,Issued,PO raised by Karthik Rajan
+PO-00152,2026-05-04,SUP-001,Lumina Lighting Ltd,BR-01,203338.0,2026-05-09,Issued,PO raised by Karthik Rajan
+PO-00153,2026-05-13,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,138040.0,2026-05-20,Issued,PO raised by Karthik Rajan
+PO-00154,2026-05-18,SUP-002,Orbit Wires & Cables Corp,BR-01,114256.0,2026-05-25,Issued,PO raised by Karthik Rajan
+PO-00155,2026-05-20,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,128540.0,2026-05-24,Issued,PO raised by Karthik Rajan
+PO-00156,2026-05-27,SUP-008,Vardhman Electrical Accessories,BR-01,153651.0,2026-06-03,Issued,PO raised by Karthik Rajan
+PO-00157,2026-06-01,SUP-002,Orbit Wires & Cables Corp,BR-01,139586.0,2026-06-10,Issued,PO raised by Karthik Rajan
+PO-00158,2026-06-03,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,388222.5,2026-06-11,Issued,PO raised by Karthik Rajan
+PO-00159,2026-07-01,SUP-005,ElectroSafe Switchgear & MCBs,BR-01,76812.0,2026-07-04,Issued,PO raised by Karthik Rajan
+PO-00160,2026-07-08,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,40622.5,2026-07-14,Issued,PO raised by Karthik Rajan
+PO-00161,2026-07-13,SUP-001,Lumina Lighting Ltd,BR-01,136475.0,2026-07-21,Issued,PO raised by Karthik Rajan
+PO-00162,2026-07-20,SUP-008,Vardhman Electrical Accessories,BR-01,188200.0,2026-07-27,Issued,PO raised by Karthik Rajan
+PO-00163,2026-07-29,SUP-003,MaxVolt Modular Switchgear,BR-01,220120.0,2026-08-02,Issued,PO raised by Karthik Rajan
+PO-00164,2026-08-03,SUP-008,Vardhman Electrical Accessories,BR-01,149204.0,2026-08-10,Issued,PO raised by Karthik Rajan
+PO-00165,2026-08-05,SUP-008,Vardhman Electrical Accessories,BR-01,261250.0,2026-08-15,Issued,PO raised by Karthik Rajan
+PO-00166,2026-08-10,SUP-001,Lumina Lighting Ltd,BR-01,246996.0,2026-08-18,Issued,PO raised by Karthik Rajan
+PO-00167,2026-08-17,SUP-008,Vardhman Electrical Accessories,BR-01,296975.0,2026-08-26,Issued,PO raised by Karthik Rajan
+PO-00168,2026-08-19,SUP-003,MaxVolt Modular Switchgear,BR-01,302710.0,2026-08-23,Issued,PO raised by Karthik Rajan
+PO-00169,2026-08-24,SUP-006,Kiran Distribution & Conduit Supplies,BR-01,82260.0,2026-09-01,Issued,PO raised by Karthik Rajan
+PO-00170,2026-08-31,SUP-004,Zephyr Fans & Appliances,BR-01,177312.0,2026-09-11,Issued,PO raised by Karthik Rajan
+PO-00171,2026-09-07,SUP-004,Zephyr Fans & Appliances,BR-01,137735.0,2026-09-18,Issued,PO raised by Karthik Rajan
+PO-00172,2026-09-09,SUP-008,Vardhman Electrical Accessories,BR-01,96196.0,2026-09-17,Issued,PO raised by Karthik Rajan
+PO-00173,2026-09-14,SUP-004,Zephyr Fans & Appliances,BR-01,82170.0,2026-09-25,Issued,PO raised by Karthik Rajan
+PO-00174,2026-09-23,SUP-001,Lumina Lighting Ltd,BR-01,85562.0,2026-10-01,Issued,PO raised by Karthik Rajan

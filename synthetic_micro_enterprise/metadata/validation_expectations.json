@@ -1,0 +1,144 @@
+{
+  "foreign_key_checks": [
+    {
+      "table": "sales_orders",
+      "column": "customer_id",
+      "ref_table": "customers",
+      "ref_column": "customer_id"
+    },
+    {
+      "table": "sales_orders",
+      "column": "branch_id",
+      "ref_table": "branches",
+      "ref_column": "branch_id"
+    },
+    {
+      "table": "sales_orders",
+      "column": "salesperson_id",
+      "ref_table": "employees",
+      "ref_column": "employee_id"
+    },
+    {
+      "table": "sales_order_items",
+      "column": "order_id",
+      "ref_table": "sales_orders",
+      "ref_column": "order_id"
+    },
+    {
+      "table": "sales_order_items",
+      "column": "product_id",
+      "ref_table": "products",
+      "ref_column": "product_id"
+    },
+    {
+      "table": "invoices",
+      "column": "order_id",
+      "ref_table": "sales_orders",
+      "ref_column": "order_id"
+    },
+    {
+      "table": "customer_payments",
+      "column": "invoice_id",
+      "ref_table": "invoices",
+      "ref_column": "invoice_id"
+    },
+    {
+      "table": "purchase_orders",
+      "column": "supplier_id",
+      "ref_table": "suppliers",
+      "ref_column": "supplier_id"
+    },
+    {
+      "table": "goods_receipts",
+      "column": "po_id",
+      "ref_table": "purchase_orders",
+      "ref_column": "po_id"
+    },
+    {
+      "table": "inventory_movements",
+      "column": "product_id",
+      "ref_table": "products",
+      "ref_column": "product_id"
+    },
+    {
+      "table": "inventory_movements",
+      "column": "branch_id",
+      "ref_table": "branches",
+      "ref_column": "branch_id"
+    }
+  ],
+  "temporal_integrity_checks": [
+    {
+      "rule": "order_date <= invoice_date",
+      "table_pair": [
+        "sales_orders",
+        "invoices"
+      ],
+      "keys": [
+        "order_id",
+        "order_id"
+      ]
+    },
+    {
+      "rule": "invoice_date <= due_date",
+      "table": "invoices",
+      "date_cols": [
+        "invoice_date",
+        "due_date"
+      ]
+    },
+    {
+      "rule": "po_date <= expected_delivery_date",
+      "table": "purchase_orders",
+      "date_cols": [
+        "po_date",
+        "expected_delivery_date"
+      ]
+    },
+    {
+      "rule": "po_date <= receipt_date",
+      "table_pair": [
+        "purchase_orders",
+        "goods_receipts"
+      ],
+      "keys": [
+        "po_id",
+        "po_id"
+      ],
+      "date_cols": [
+        "po_date",
+        "receipt_date"
+      ]
+    },
+    {
+      "rule": "order_date <= promised_date",
+      "table": "deliveries",
+      "date_cols": [
+        "order_date",
+        "promised_date"
+      ]
+    },
+    {
+      "rule": "all_historical_dates <= 2026-09-30",
+      "scope": "All historical datasets in data/"
+    },
+    {
+      "rule": "holdout_dates in 2026-10-01 to 2026-12-31",
+      "scope": "validation/future_holdout/"
+    }
+  ],
+  "business_logic_checks": [
+    {
+      "rule": "invoice grand_total == subtotal + tax_amount",
+      "table": "invoices"
+    },
+    {
+      "rule": "sales_order grand_total == subtotal + tax_amount",
+      "table": "sales_orders"
+    },
+    {
+      "rule": "inventory movement balance arithmetic: running_balance == prev_balance + quantity_change",
+      "table": "inventory_movements"
+    }
+  ]
+}

@@ -1,0 +1,500 @@
+order_id,order_date,customer_id,customer_name,customer_type,branch_id,salesperson_id,subtotal,tax_amount,grand_total,order_status
+SO-004467,2026-10-01,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-002,152017.6,27363.17,179380.77,Invoiced
+SO-004468,2026-10-01,CUST-037,Kovai Textile Mills Facility Team,Small Commercial,BR-03,EMP-010,579.6,104.33,683.93,Invoiced
+SO-004469,2026-10-01,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-003,31680.0,5702.4,37382.4,Invoiced
+SO-004470,2026-10-01,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-002,145490.0,26188.2,171678.2,Invoiced
+SO-004471,2026-10-01,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-003,3270.0,588.6,3858.6,Invoiced
+SO-004472,2026-10-01,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-007,2901.6,522.29,3423.89,Invoiced
+SO-004473,2026-10-01,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-002,192536.2,34656.52,227192.72,Invoiced
+SO-004474,2026-10-02,CUST-040,Sri Krishna Engineering College Hostel,Institution,BR-03,EMP-012,3450.0,621.0,4071.0,Invoiced
+SO-004475,2026-10-02,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-007,330.0,59.4,389.4,Invoiced
+SO-004476,2026-10-02,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-006,128602.6,23148.47,151751.07,Invoiced
+SO-004477,2026-10-02,CUST-023,Kalam Brothers Electrical Store,Retailer / Trader,BR-01,EMP-003,237959.2,42832.66,280791.86,Invoiced
+SO-004478,2026-10-02,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-002,45708.0,8227.44,53935.44,Invoiced
+SO-004479,2026-10-03,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-009,3930.0,707.4,4637.4,Invoiced
+SO-004480,2026-10-03,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-009,5224.0,940.32,6164.32,Invoiced
+SO-004481,2026-10-03,CUST-037,Kovai Textile Mills Facility Team,Small Commercial,BR-03,EMP-012,30.0,5.4,35.4,Invoiced
+SO-004482,2026-10-03,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-012,231086.0,41595.48,272681.48,Invoiced
+SO-004483,2026-10-05,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-010,6428.0,1157.04,7585.04,Invoiced
+SO-004484,2026-10-05,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-006,141022.4,25384.03,166406.43,Invoiced
+SO-004485,2026-10-05,CUST-023,Kalam Brothers Electrical Store,Retailer / Trader,BR-01,EMP-003,127795.0,23003.1,150798.1,Invoiced
+SO-004486,2026-10-05,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-003,7102.4,1278.43,8380.83,Invoiced
+SO-004487,2026-10-05,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-003,1933.2,347.98,2281.18,Invoiced
+SO-004488,2026-10-05,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-006,78562.0,14141.16,92703.16,Invoiced
+SO-004489,2026-10-05,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-002,3806.0,685.08,4491.08,Invoiced
+SO-004490,2026-10-05,CUST-014,Siva Shankaran (Individual Home),Residential / B2C,BR-01,EMP-003,850.0,153.0,1003.0,Invoiced
+SO-004491,2026-10-05,CUST-023,Kalam Brothers Electrical Store,Retailer / Trader,BR-01,EMP-003,304994.6,54899.03,359893.63,Invoiced
+SO-004492,2026-10-06,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-007,441.6,79.49,521.09,Invoiced
+SO-004493,2026-10-06,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-002,110642.0,19915.56,130557.56,Invoiced
+SO-004494,2026-10-06,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-009,9280.0,1670.4,10950.4,Invoiced
+SO-004495,2026-10-06,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-002,72207.6,12997.36,85204.96,Invoiced
+SO-004496,2026-10-06,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-003,101354.0,18243.72,119597.72,Invoiced
+SO-004497,2026-10-06,CUST-038,Marutham Electrical & Power Agency,Retailer / Trader,BR-03,EMP-010,108929.2,19607.26,128536.46,Invoiced
+SO-004498,2026-10-06,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-007,164700.0,29646.0,194346.0,Invoiced
+SO-004499,2026-10-06,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-007,29294.4,5272.99,34567.39,Invoiced
+SO-004500,2026-10-07,CUST-035,Gowda Electrical Repairs,Electrician,BR-02,EMP-006,2590.0,466.2,3056.2,Invoiced
+SO-004501,2026-10-07,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-006,6919.0,1245.42,8164.42,Invoiced
+SO-004502,2026-10-07,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-007,393.0,70.74,463.74,Invoiced
+SO-004503,2026-10-07,CUST-005,Murugan Auto Garage & Works,Small Commercial,BR-01,EMP-003,9138.0,1644.84,10782.84,Invoiced
+SO-004504,2026-10-07,CUST-017,Apex Manufacturing Solutions,Small Commercial,BR-01,EMP-003,65.0,11.7,76.7,Invoiced
+SO-004505,2026-10-07,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,3415.0,614.7,4029.7,Invoiced
+SO-004506,2026-10-07,CUST-003,Saravana Electric Works (Govindaraj),Electrician,BR-01,EMP-002,4023.6,724.25,4747.85,Invoiced
+SO-004507,2026-10-08,CUST-046,Annamalai Agro Processing Unit,Small Commercial,BR-03,EMP-010,4400.0,792.0,5192.0,Invoiced
+SO-004508,2026-10-08,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-002,4630.0,833.4,5463.4,Invoiced
+SO-004509,2026-10-08,CUST-039,Rangasamy Electrician Workshop,Electrician,BR-03,EMP-012,15280.4,2750.47,18030.87,Invoiced
+SO-004510,2026-10-08,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,22700.0,4086.0,26786.0,Invoiced
+SO-004511,2026-10-08,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-007,6580.0,1184.4,7764.4,Invoiced
+SO-004512,2026-10-09,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-002,4502.4,810.43,5312.83,Invoiced
+SO-004513,2026-10-09,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-009,2978.0,536.04,3514.04,Invoiced
+SO-004514,2026-10-09,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-006,1221.2,219.82,1441.02,Invoiced
+SO-004515,2026-10-09,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-003,405200.0,72936.0,478136.0,Invoiced
+SO-004516,2026-10-09,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-006,114803.6,20664.64,135468.24,Invoiced
+SO-004517,2026-10-09,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-006,1160.0,208.8,1368.8,Invoiced
+SO-004518,2026-10-09,CUST-005,Murugan Auto Garage & Works,Small Commercial,BR-01,EMP-003,1332.4,239.83,1572.23,Invoiced
+SO-004519,2026-10-09,CUST-035,Gowda Electrical Repairs,Electrician,BR-02,EMP-006,5440.0,979.2,6419.2,Invoiced
+SO-004520,2026-10-09,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-003,128657.6,23158.36,151815.96,Invoiced
+SO-004521,2026-10-10,CUST-021,Mohammed Riyaz (Home Renovation),Residential / B2C,BR-01,EMP-002,166.2,29.92,196.12,Invoiced
+SO-004522,2026-10-10,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-003,38028.0,6845.04,44873.04,Invoiced
+SO-004523,2026-10-10,CUST-041,Kongu Builders & Real Estate,Builder / Commercial,BR-03,EMP-009,48793.0,8782.74,57575.74,Invoiced
+SO-004524,2026-10-10,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-003,56409.6,10153.73,66563.33,Invoiced
+SO-004525,2026-10-10,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-003,1650.0,297.0,1947.0,Invoiced
+SO-004526,2026-10-10,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-007,4500.0,810.0,5310.0,Invoiced
+SO-004527,2026-10-10,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-009,1900.0,342.0,2242.0,Invoiced
+SO-004528,2026-10-10,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-007,46680.0,8402.4,55082.4,Invoiced
+SO-004529,2026-10-12,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-003,51522.4,9274.03,60796.43,Invoiced
+SO-004530,2026-10-12,CUST-017,Apex Manufacturing Solutions,Small Commercial,BR-01,EMP-003,276.0,49.68,325.68,Invoiced
+SO-004531,2026-10-12,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,4350.0,783.0,5133.0,Invoiced
+SO-004532,2026-10-12,CUST-003,Saravana Electric Works (Govindaraj),Electrician,BR-01,EMP-002,12500.0,2250.0,14750.0,Invoiced
+SO-004533,2026-10-12,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-003,18456.0,3322.08,21778.08,Invoiced
+SO-004534,2026-10-12,CUST-023,Kalam Brothers Electrical Store,Retailer / Trader,BR-01,EMP-003,160286.8,28851.62,189138.42,Invoiced
+SO-004535,2026-10-13,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-007,46258.0,8326.44,54584.44,Invoiced
+SO-004536,2026-10-13,CUST-040,Sri Krishna Engineering College Hostel,Institution,BR-03,EMP-010,5970.0,1074.6,7044.6,Invoiced
+SO-004537,2026-10-13,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-002,3251.4,585.25,3836.65,Invoiced
+SO-004538,2026-10-13,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-002,5989.2,1078.06,7067.26,Invoiced
+SO-004539,2026-10-14,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-006,2170.0,390.6,2560.6,Invoiced
+SO-004540,2026-10-14,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-003,3699.0,665.82,4364.82,Invoiced
+SO-004541,2026-10-14,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,12780.0,2300.4,15080.4,Invoiced
+SO-004542,2026-10-14,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-003,18120.0,3261.6,21381.6,Invoiced
+SO-004543,2026-10-15,CUST-040,Sri Krishna Engineering College Hostel,Institution,BR-03,EMP-009,2580.0,464.4,3044.4,Invoiced
+SO-004544,2026-10-15,CUST-017,Apex Manufacturing Solutions,Small Commercial,BR-01,EMP-002,5192.6,934.67,6127.27,Invoiced
+SO-004545,2026-10-15,CUST-046,Annamalai Agro Processing Unit,Small Commercial,BR-03,EMP-010,433.0,77.94,510.94,Invoiced
+SO-004546,2026-10-15,CUST-021,Mohammed Riyaz (Home Renovation),Residential / B2C,BR-01,EMP-003,45.0,8.1,53.1,Invoiced
+SO-004547,2026-10-15,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-010,234.6,42.23,276.83,Invoiced
+SO-004548,2026-10-15,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-009,2150.0,387.0,2537.0,Invoiced
+SO-004549,2026-10-15,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,2652.25,477.41,3129.66,Invoiced
+SO-004550,2026-10-16,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-006,25601.2,4608.22,30209.42,Invoiced
+SO-004551,2026-10-16,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-002,11637.55,2094.76,13732.31,Invoiced
+SO-004552,2026-10-16,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-002,26408.0,4753.44,31161.44,Invoiced
+SO-004553,2026-10-16,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-002,3976.05,715.69,4691.74,Invoiced
+SO-004554,2026-10-17,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-003,1380.0,248.4,1628.4,Invoiced
+SO-004555,2026-10-17,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-010,94285.8,16971.44,111257.24,Invoiced
+SO-004556,2026-10-17,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-007,7305.0,1314.9,8619.9,Invoiced
+SO-004557,2026-10-17,CUST-039,Rangasamy Electrician Workshop,Electrician,BR-03,EMP-010,6990.0,1258.2,8248.2,Invoiced
+SO-004558,2026-10-17,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,1407.6,253.37,1660.97,Invoiced
+SO-004559,2026-10-17,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-012,1050.0,189.0,1239.0,Invoiced
+SO-004560,2026-10-17,CUST-021,Mohammed Riyaz (Home Renovation),Residential / B2C,BR-01,EMP-002,1237.68,222.78,1460.46,Invoiced
+SO-004561,2026-10-19,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-003,5450.05,981.01,6431.06,Invoiced
+SO-004562,2026-10-19,CUST-044,Mani Bros Electricals (Mani),Electrician,BR-03,EMP-012,5796.0,1043.28,6839.28,Invoiced
+SO-004563,2026-10-19,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-009,4700.0,846.0,5546.0,Invoiced
+SO-004564,2026-10-19,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-002,703.8,126.68,830.48,Invoiced
+SO-004565,2026-10-19,CUST-006,Dr. Priya Sundaram (Home Clinic),Residential / B2C,BR-01,EMP-002,5800.0,1044.0,6844.0,Invoiced
+SO-004566,2026-10-19,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-003,251512.0,45272.16,296784.16,Invoiced
+SO-004567,2026-10-19,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,5948.3,1070.69,7018.99,Invoiced
+SO-004568,2026-10-19,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,2890.0,520.2,3410.2,Invoiced
+SO-004569,2026-10-20,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-003,3740.0,673.2,4413.2,Invoiced
+SO-004570,2026-10-20,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,9218.0,1659.24,10877.24,Invoiced
+SO-004571,2026-10-20,CUST-004,Sri Ramakrishna Builders & Infra,Builder / Commercial,BR-01,EMP-002,66475.28,11965.55,78440.83,Invoiced
+SO-004572,2026-10-20,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-012,170935.56,30768.4,201703.96,Invoiced
+SO-004573,2026-10-20,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-003,79863.0,14375.34,94238.34,Invoiced
+SO-004574,2026-10-20,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-006,3962.14,713.19,4675.33,Invoiced
+SO-004575,2026-10-20,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-012,3200.0,576.0,3776.0,Invoiced
+SO-004576,2026-10-20,CUST-022,Global Smart Solutions (P) Ltd,Contractor,BR-01,EMP-002,57506.6,10351.19,67857.79,Invoiced
+SO-004577,2026-10-21,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-012,11940.0,2149.2,14089.2,Invoiced
+SO-004578,2026-10-21,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-009,1080.0,194.4,1274.4,Invoiced
+SO-004579,2026-10-21,CUST-023,Kalam Brothers Electrical Store,Retailer / Trader,BR-01,EMP-003,100810.74,18145.93,118956.67,Invoiced
+SO-004580,2026-10-21,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-012,120418.4,21675.31,142093.71,Invoiced
+SO-004581,2026-10-21,CUST-004,Sri Ramakrishna Builders & Infra,Builder / Commercial,BR-01,EMP-002,72639.84,13075.17,85715.01,Invoiced
+SO-004582,2026-10-21,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-003,471.64,84.9,556.54,Invoiced
+SO-004583,2026-10-22,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-003,6900.0,1242.0,8142.0,Invoiced
+SO-004584,2026-10-22,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-002,4557.0,820.26,5377.26,Invoiced
+SO-004585,2026-10-22,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-009,1837.4,330.73,2168.13,Invoiced
+SO-004586,2026-10-22,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-006,59972.0,10794.96,70766.96,Invoiced
+SO-004587,2026-10-22,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-003,1550.0,279.0,1829.0,Invoiced
+SO-004588,2026-10-22,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-003,160043.22,28807.78,188851.0,Invoiced
+SO-004589,2026-10-22,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-009,2011.3,362.04,2373.34,Invoiced
+SO-004590,2026-10-23,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-003,3395.0,611.1,4006.1,Invoiced
+SO-004591,2026-10-23,CUST-005,Murugan Auto Garage & Works,Small Commercial,BR-01,EMP-002,3757.6,676.37,4433.97,Invoiced
+SO-004592,2026-10-23,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-003,3684.6,663.23,4347.83,Invoiced
+SO-004593,2026-10-23,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-002,2944.4,529.99,3474.39,Invoiced
+SO-004594,2026-10-23,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-002,60027.0,10804.86,70831.86,Invoiced
+SO-004595,2026-10-23,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-006,6145.0,1106.1,7251.1,Invoiced
+SO-004596,2026-10-24,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-002,30.0,5.4,35.4,Invoiced
+SO-004597,2026-10-24,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-003,97820.0,17607.6,115427.6,Invoiced
+SO-004598,2026-10-24,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-002,4300.0,774.0,5074.0,Invoiced
+SO-004599,2026-10-24,CUST-014,Siva Shankaran (Individual Home),Residential / B2C,BR-01,EMP-002,721.0,129.78,850.78,Invoiced
+SO-004600,2026-10-24,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-009,720.0,129.6,849.6,Invoiced
+SO-004601,2026-10-24,CUST-033,Suresh Babu (Villa Construction),Residential / B2C,BR-02,EMP-007,6372.0,1146.96,7518.96,Invoiced
+SO-004602,2026-10-24,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,1684.28,303.17,1987.45,Invoiced
+SO-004603,2026-10-24,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-010,2787.6,501.77,3289.37,Invoiced
+SO-004604,2026-10-26,CUST-022,Global Smart Solutions (P) Ltd,Contractor,BR-01,EMP-003,28667.95,5160.23,33828.18,Invoiced
+SO-004605,2026-10-26,CUST-006,Dr. Priya Sundaram (Home Clinic),Residential / B2C,BR-01,EMP-003,1859.37,334.69,2194.06,Invoiced
+SO-004606,2026-10-26,CUST-003,Saravana Electric Works (Govindaraj),Electrician,BR-01,EMP-003,19467.0,3504.06,22971.06,Invoiced
+SO-004607,2026-10-26,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-009,1050.0,189.0,1239.0,Invoiced
+SO-004608,2026-10-27,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-007,24621.5,4431.87,29053.37,Invoiced
+SO-004609,2026-10-27,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-002,2350.0,423.0,2773.0,Invoiced
+SO-004610,2026-10-27,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-007,263020.72,47343.73,310364.45,Invoiced
+SO-004611,2026-10-27,CUST-044,Mani Bros Electricals (Mani),Electrician,BR-03,EMP-010,2799.25,503.86,3303.11,Invoiced
+SO-004612,2026-10-27,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-002,299538.85,53916.99,353455.84,Invoiced
+SO-004613,2026-10-27,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-007,4970.0,894.6,5864.6,Invoiced
+SO-004614,2026-10-27,CUST-014,Siva Shankaran (Individual Home),Residential / B2C,BR-01,EMP-003,6965.0,1253.7,8218.7,Invoiced
+SO-004615,2026-10-27,CUST-004,Sri Ramakrishna Builders & Infra,Builder / Commercial,BR-01,EMP-003,107800.95,19404.17,127205.12,Invoiced
+SO-004616,2026-10-28,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,481.85,86.73,568.58,Invoiced
+SO-004617,2026-10-28,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-007,91679.0,16502.22,108181.22,Invoiced
+SO-004618,2026-10-28,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-010,195.0,35.1,230.1,Invoiced
+SO-004619,2026-10-28,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-003,733.65,132.06,865.71,Invoiced
+SO-004620,2026-10-28,CUST-003,Saravana Electric Works (Govindaraj),Electrician,BR-01,EMP-002,18621.5,3351.87,21973.37,Invoiced
+SO-004621,2026-10-28,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-002,1784.45,321.2,2105.65,Invoiced
+SO-004622,2026-10-29,CUST-039,Rangasamy Electrician Workshop,Electrician,BR-03,EMP-010,7884.28,1419.17,9303.45,Invoiced
+SO-004623,2026-10-29,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-003,42460.0,7642.8,50102.8,Invoiced
+SO-004624,2026-10-29,CUST-035,Gowda Electrical Repairs,Electrician,BR-02,EMP-007,17538.1,3156.86,20694.96,Invoiced
+SO-004625,2026-10-29,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-006,935.0,168.3,1103.3,Invoiced
+SO-004626,2026-10-30,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-006,2890.0,520.2,3410.2,Invoiced
+SO-004627,2026-10-30,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-012,7275.36,1309.56,8584.92,Invoiced
+SO-004628,2026-10-30,CUST-017,Apex Manufacturing Solutions,Small Commercial,BR-01,EMP-003,4220.0,759.6,4979.6,Invoiced
+SO-004629,2026-10-30,CUST-027,InnoTech Coworking Hub,Small Commercial,BR-02,EMP-006,117.3,21.11,138.41,Invoiced
+SO-004630,2026-10-30,CUST-046,Annamalai Agro Processing Unit,Small Commercial,BR-03,EMP-009,1290.0,232.2,1522.2,Invoiced
+SO-004631,2026-10-30,CUST-044,Mani Bros Electricals (Mani),Electrician,BR-03,EMP-010,4483.52,807.03,5290.55,Invoiced
+SO-004632,2026-10-30,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-002,476.0,85.68,561.68,Invoiced
+SO-004633,2026-10-31,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-007,60710.7,10927.93,71638.63,Invoiced
+SO-004634,2026-10-31,CUST-004,Sri Ramakrishna Builders & Infra,Builder / Commercial,BR-01,EMP-003,77056.8,13870.22,90927.02,Invoiced
+SO-004635,2026-10-31,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-006,61484.45,11067.2,72551.65,Invoiced
+SO-004636,2026-10-31,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-003,19543.0,3517.74,23060.74,Invoiced
+SO-004637,2026-10-31,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-002,2350.0,423.0,2773.0,Invoiced
+SO-004638,2026-10-31,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-006,5487.56,987.76,6475.32,Invoiced
+SO-004639,2026-10-31,CUST-039,Rangasamy Electrician Workshop,Electrician,BR-03,EMP-012,3537.29,636.72,4174.01,Invoiced
+SO-004640,2026-10-31,CUST-017,Apex Manufacturing Solutions,Small Commercial,BR-01,EMP-002,547.4,98.53,645.93,Invoiced
+SO-004641,2026-11-02,CUST-033,Suresh Babu (Villa Construction),Residential / B2C,BR-02,EMP-007,4300.0,774.0,5074.0,Invoiced
+SO-004642,2026-11-02,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-012,7416.9,1335.04,8751.94,Invoiced
+SO-004643,2026-11-02,CUST-003,Saravana Electric Works (Govindaraj),Electrician,BR-01,EMP-002,37025.0,6664.5,43689.5,Invoiced
+SO-004644,2026-11-02,CUST-004,Sri Ramakrishna Builders & Infra,Builder / Commercial,BR-01,EMP-003,153964.0,27713.52,181677.52,Invoiced
+SO-004645,2026-11-03,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-003,27152.12,4887.38,32039.5,Invoiced
+SO-004646,2026-11-03,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-003,10074.54,1813.41,11887.95,Invoiced
+SO-004647,2026-11-03,CUST-017,Apex Manufacturing Solutions,Small Commercial,BR-01,EMP-002,1017.0,183.06,1200.06,Invoiced
+SO-004648,2026-11-03,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,8081.75,1454.72,9536.47,Invoiced
+SO-004649,2026-11-03,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-003,521.0,93.78,614.78,Invoiced
+SO-004650,2026-11-03,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-006,477.3,85.91,563.21,Invoiced
+SO-004651,2026-11-04,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-002,442418.15,79635.27,522053.42,Invoiced
+SO-004652,2026-11-04,CUST-014,Siva Shankaran (Individual Home),Residential / B2C,BR-01,EMP-002,3920.36,705.66,4626.02,Invoiced
+SO-004653,2026-11-04,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-002,130.0,23.4,153.4,Invoiced
+SO-004654,2026-11-04,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-012,4855.0,873.9,5728.9,Invoiced
+SO-004655,2026-11-04,CUST-040,Sri Krishna Engineering College Hostel,Institution,BR-03,EMP-012,910.18,163.83,1074.01,Invoiced
+SO-004656,2026-11-04,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-002,139208.0,25057.44,164265.44,Invoiced
+SO-004657,2026-11-04,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-003,703.8,126.68,830.48,Invoiced
+SO-004658,2026-11-04,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-009,94172.0,16950.96,111122.96,Invoiced
+SO-004659,2026-11-04,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,12417.0,2235.06,14652.06,Invoiced
+SO-004660,2026-11-05,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-007,151869.35,27336.48,179205.83,Invoiced
+SO-004661,2026-11-05,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-003,24893.2,4480.78,29373.98,Invoiced
+SO-004662,2026-11-05,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-007,375.36,67.56,442.92,Invoiced
+SO-004663,2026-11-05,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-006,2664.6,479.63,3144.23,Invoiced
+SO-004664,2026-11-05,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-010,419497.95,75509.63,495007.58,Invoiced
+SO-004665,2026-11-05,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-003,7710.0,1387.8,9097.8,Invoiced
+SO-004666,2026-11-06,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-003,276.0,49.68,325.68,Invoiced
+SO-004667,2026-11-06,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-003,271854.0,48933.72,320787.72,Invoiced
+SO-004668,2026-11-06,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-003,3045.0,548.1,3593.1,Invoiced
+SO-004669,2026-11-06,CUST-021,Mohammed Riyaz (Home Renovation),Residential / B2C,BR-01,EMP-003,2503.0,450.54,2953.54,Invoiced
+SO-004670,2026-11-07,CUST-027,InnoTech Coworking Hub,Small Commercial,BR-02,EMP-006,1050.0,189.0,1239.0,Invoiced
+SO-004671,2026-11-07,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-002,1770.0,318.6,2088.6,Invoiced
+SO-004672,2026-11-07,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-006,57386.8,10329.62,67716.42,Invoiced
+SO-004673,2026-11-07,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-007,698.0,125.64,823.64,Invoiced
+SO-004674,2026-11-09,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-006,12456.0,2242.08,14698.08,Invoiced
+SO-004675,2026-11-09,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-002,185850.4,33453.07,219303.47,Invoiced
+SO-004676,2026-11-09,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-006,3760.0,676.8,4436.8,Invoiced
+SO-004677,2026-11-09,CUST-033,Suresh Babu (Villa Construction),Residential / B2C,BR-02,EMP-007,3032.0,545.76,3577.76,Invoiced
+SO-004678,2026-11-09,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-006,762.4,137.23,899.63,Invoiced
+SO-004679,2026-11-09,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-003,3800.0,684.0,4484.0,Invoiced
+SO-004680,2026-11-10,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-006,73240.0,13183.2,86423.2,Invoiced
+SO-004681,2026-11-10,CUST-046,Annamalai Agro Processing Unit,Small Commercial,BR-03,EMP-009,757.0,136.26,893.26,Invoiced
+SO-004682,2026-11-10,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-003,225171.2,40530.82,265702.02,Invoiced
+SO-004683,2026-11-10,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-007,828.0,149.04,977.04,Invoiced
+SO-004684,2026-11-10,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-006,263482.0,47426.76,310908.76,Invoiced
+SO-004685,2026-11-10,CUST-044,Mani Bros Electricals (Mani),Electrician,BR-03,EMP-010,20477.6,3685.97,24163.57,Invoiced
+SO-004686,2026-11-11,CUST-039,Rangasamy Electrician Workshop,Electrician,BR-03,EMP-009,1204.0,216.72,1420.72,Invoiced
+SO-004687,2026-11-11,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-012,913.2,164.38,1077.58,Invoiced
+SO-004688,2026-11-11,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-009,350144.0,63025.92,413169.92,Invoiced
+SO-004689,2026-11-11,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-007,4300.0,774.0,5074.0,Invoiced
+SO-004690,2026-11-12,CUST-041,Kongu Builders & Real Estate,Builder / Commercial,BR-03,EMP-009,162668.0,29280.24,191948.24,Invoiced
+SO-004691,2026-11-12,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-003,469.8,84.56,554.36,Invoiced
+SO-004692,2026-11-12,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-007,13840.0,2491.2,16331.2,Invoiced
+SO-004693,2026-11-12,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-002,221719.6,39909.53,261629.13,Invoiced
+SO-004694,2026-11-13,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-003,7837.4,1410.73,9248.13,Invoiced
+SO-004695,2026-11-13,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-003,44098.4,7937.71,52036.11,Invoiced
+SO-004696,2026-11-13,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-003,11840.0,2131.2,13971.2,Invoiced
+SO-004697,2026-11-13,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-010,720.0,129.6,849.6,Invoiced
+SO-004698,2026-11-13,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-012,2350.0,423.0,2773.0,Invoiced
+SO-004699,2026-11-13,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-006,20479.0,3686.22,24165.22,Invoiced
+SO-004700,2026-11-13,CUST-027,InnoTech Coworking Hub,Small Commercial,BR-02,EMP-006,441.6,79.49,521.09,Invoiced
+SO-004701,2026-11-14,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-002,2764.0,497.52,3261.52,Invoiced
+SO-004702,2026-11-14,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-012,187217.0,33699.06,220916.06,Invoiced
+SO-004703,2026-11-14,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-012,4620.8,831.74,5452.54,Invoiced
+SO-004704,2026-11-14,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-010,5650.0,1017.0,6667.0,Invoiced
+SO-004705,2026-11-14,CUST-038,Marutham Electrical & Power Agency,Retailer / Trader,BR-03,EMP-010,273431.0,49217.58,322648.58,Invoiced
+SO-004706,2026-11-14,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-002,7092.0,1276.56,8368.56,Invoiced
+SO-004707,2026-11-14,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-006,618.2,111.28,729.48,Invoiced
+SO-004708,2026-11-14,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-002,1315.0,236.7,1551.7,Invoiced
+SO-004709,2026-11-14,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-007,360.0,64.8,424.8,Invoiced
+SO-004710,2026-11-16,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-006,108032.0,19445.76,127477.76,Invoiced
+SO-004711,2026-11-16,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-009,713.0,128.34,841.34,Invoiced
+SO-004712,2026-11-16,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-003,101.2,18.22,119.42,Invoiced
+SO-004713,2026-11-16,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-003,190207.0,34237.26,224444.26,Invoiced
+SO-004714,2026-11-16,CUST-005,Murugan Auto Garage & Works,Small Commercial,BR-01,EMP-002,1603.2,288.58,1891.78,Invoiced
+SO-004715,2026-11-16,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,644.0,115.92,759.92,Invoiced
+SO-004716,2026-11-17,CUST-033,Suresh Babu (Villa Construction),Residential / B2C,BR-02,EMP-006,2237.2,402.7,2639.9,Invoiced
+SO-004717,2026-11-17,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,17610.0,3169.8,20779.8,Invoiced
+SO-004718,2026-11-17,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-002,414.0,74.52,488.52,Invoiced
+SO-004719,2026-11-17,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-007,5500.0,990.0,6490.0,Invoiced
+SO-004720,2026-11-17,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-006,5506.0,991.08,6497.08,Invoiced
+SO-004721,2026-11-18,CUST-004,Sri Ramakrishna Builders & Infra,Builder / Commercial,BR-01,EMP-002,100731.4,18131.65,118863.05,Invoiced
+SO-004722,2026-11-18,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-006,235980.0,42476.4,278456.4,Invoiced
+SO-004723,2026-11-18,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-012,112137.0,20184.66,132321.66,Invoiced
+SO-004724,2026-11-18,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-003,406.0,73.08,479.08,Invoiced
+SO-004725,2026-11-18,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-002,83400.4,15012.08,98412.48,Invoiced
+SO-004726,2026-11-18,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-003,1030.0,185.4,1215.4,Invoiced
+SO-004727,2026-11-19,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-006,114996.0,20699.28,135695.28,Invoiced
+SO-004728,2026-11-19,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-007,57094.0,10276.92,67370.92,Invoiced
+SO-004729,2026-11-19,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-007,3783.0,680.94,4463.94,Invoiced
+SO-004730,2026-11-19,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-009,1880.0,338.4,2218.4,Invoiced
+SO-004731,2026-11-19,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-003,440.0,79.2,519.2,Invoiced
+SO-004732,2026-11-19,CUST-005,Murugan Auto Garage & Works,Small Commercial,BR-01,EMP-002,5845.0,1052.1,6897.1,Invoiced
+SO-004733,2026-11-20,CUST-017,Apex Manufacturing Solutions,Small Commercial,BR-01,EMP-003,3580.0,644.4,4224.4,Invoiced
+SO-004734,2026-11-20,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-006,8509.6,1531.73,10041.33,Invoiced
+SO-004735,2026-11-20,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-007,360671.0,64920.78,425591.78,Invoiced
+SO-004736,2026-11-20,CUST-035,Gowda Electrical Repairs,Electrician,BR-02,EMP-006,33279.0,5990.22,39269.22,Invoiced
+SO-004737,2026-11-21,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-007,3110.0,559.8,3669.8,Invoiced
+SO-004738,2026-11-21,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-009,41773.0,7519.14,49292.14,Invoiced
+SO-004739,2026-11-21,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-012,700.8,126.14,826.94,Invoiced
+SO-004740,2026-11-21,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,7711.8,1388.12,9099.92,Invoiced
+SO-004741,2026-11-21,CUST-033,Suresh Babu (Villa Construction),Residential / B2C,BR-02,EMP-007,2742.0,493.56,3235.56,Invoiced
+SO-004742,2026-11-21,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-002,3880.0,698.4,4578.4,Invoiced
+SO-004743,2026-11-21,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,5385.0,969.3,6354.3,Invoiced
+SO-004744,2026-11-23,CUST-021,Mohammed Riyaz (Home Renovation),Residential / B2C,BR-01,EMP-002,1215.0,218.7,1433.7,Invoiced
+SO-004745,2026-11-23,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-003,31600.0,5688.0,37288.0,Invoiced
+SO-004746,2026-11-23,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-006,45815.4,8246.77,54062.17,Invoiced
+SO-004747,2026-11-23,CUST-044,Mani Bros Electricals (Mani),Electrician,BR-03,EMP-010,7517.2,1353.1,8870.3,Invoiced
+SO-004748,2026-11-23,CUST-017,Apex Manufacturing Solutions,Small Commercial,BR-01,EMP-002,195.0,35.1,230.1,Invoiced
+SO-004749,2026-11-24,CUST-038,Marutham Electrical & Power Agency,Retailer / Trader,BR-03,EMP-012,14499.0,2609.82,17108.82,Invoiced
+SO-004750,2026-11-24,CUST-041,Kongu Builders & Real Estate,Builder / Commercial,BR-03,EMP-009,63895.0,11501.1,75396.1,Invoiced
+SO-004751,2026-11-24,CUST-044,Mani Bros Electricals (Mani),Electrician,BR-03,EMP-012,5974.0,1075.32,7049.32,Invoiced
+SO-004752,2026-11-24,CUST-035,Gowda Electrical Repairs,Electrician,BR-02,EMP-007,35729.6,6431.33,42160.93,Invoiced
+SO-004753,2026-11-24,CUST-038,Marutham Electrical & Power Agency,Retailer / Trader,BR-03,EMP-009,135718.0,24429.24,160147.24,Invoiced
+SO-004754,2026-11-24,CUST-006,Dr. Priya Sundaram (Home Clinic),Residential / B2C,BR-01,EMP-002,1440.0,259.2,1699.2,Invoiced
+SO-004755,2026-11-24,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-009,2640.0,475.2,3115.2,Invoiced
+SO-004756,2026-11-24,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-002,2840.0,511.2,3351.2,Invoiced
+SO-004757,2026-11-25,CUST-005,Murugan Auto Garage & Works,Small Commercial,BR-01,EMP-002,165.0,29.7,194.7,Invoiced
+SO-004758,2026-11-25,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-003,387.0,69.66,456.66,Invoiced
+SO-004759,2026-11-25,CUST-035,Gowda Electrical Repairs,Electrician,BR-02,EMP-006,8897.8,1601.6,10499.4,Invoiced
+SO-004760,2026-11-25,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-009,63438.6,11418.95,74857.55,Invoiced
+SO-004761,2026-11-26,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-006,2950.0,531.0,3481.0,Invoiced
+SO-004762,2026-11-26,CUST-038,Marutham Electrical & Power Agency,Retailer / Trader,BR-03,EMP-009,27082.0,4874.76,31956.76,Invoiced
+SO-004763,2026-11-26,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-002,720.0,129.6,849.6,Invoiced
+SO-004764,2026-11-26,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-003,404.8,72.86,477.66,Invoiced
+SO-004765,2026-11-26,CUST-035,Gowda Electrical Repairs,Electrician,BR-02,EMP-007,27576.0,4963.68,32539.68,Invoiced
+SO-004766,2026-11-26,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-002,68755.0,12375.9,81130.9,Invoiced
+SO-004767,2026-11-26,CUST-037,Kovai Textile Mills Facility Team,Small Commercial,BR-03,EMP-009,2426.8,436.82,2863.62,Invoiced
+SO-004768,2026-11-26,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-010,1895.0,341.1,2236.1,Invoiced
+SO-004769,2026-11-26,CUST-023,Kalam Brothers Electrical Store,Retailer / Trader,BR-01,EMP-002,25598.4,4607.71,30206.11,Invoiced
+SO-004770,2026-11-27,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-006,2430.0,437.4,2867.4,Invoiced
+SO-004771,2026-11-27,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-012,1210.0,217.8,1427.8,Invoiced
+SO-004772,2026-11-27,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-003,11845.0,2132.1,13977.1,Invoiced
+SO-004773,2026-11-27,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-002,2301.2,414.22,2715.42,Invoiced
+SO-004774,2026-11-28,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-010,644.0,115.92,759.92,Invoiced
+SO-004775,2026-11-28,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-009,173473.2,31225.18,204698.38,Invoiced
+SO-004776,2026-11-28,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-002,1273.2,229.18,1502.38,Invoiced
+SO-004777,2026-11-28,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-007,66228.0,11921.04,78149.04,Invoiced
+SO-004778,2026-11-28,CUST-033,Suresh Babu (Villa Construction),Residential / B2C,BR-02,EMP-006,543.0,97.74,640.74,Invoiced
+SO-004779,2026-11-28,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-006,34849.2,6272.86,41122.06,Invoiced
+SO-004780,2026-11-28,CUST-037,Kovai Textile Mills Facility Team,Small Commercial,BR-03,EMP-009,322.0,57.96,379.96,Invoiced
+SO-004781,2026-11-28,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-009,775.0,139.5,914.5,Invoiced
+SO-004782,2026-11-30,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-002,101.2,18.22,119.42,Invoiced
+SO-004783,2026-11-30,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-002,202.4,36.43,238.83,Invoiced
+SO-004784,2026-11-30,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-002,72086.6,12975.59,85062.19,Invoiced
+SO-004785,2026-11-30,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-012,30.0,5.4,35.4,Invoiced
+SO-004786,2026-11-30,CUST-046,Annamalai Agro Processing Unit,Small Commercial,BR-03,EMP-012,2333.0,419.94,2752.94,Invoiced
+SO-004787,2026-11-30,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-006,135220.0,24339.6,159559.6,Invoiced
+SO-004788,2026-11-30,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-002,3402.4,612.43,4014.83,Invoiced
+SO-004789,2026-11-30,CUST-027,InnoTech Coworking Hub,Small Commercial,BR-02,EMP-006,1541.6,277.49,1819.09,Invoiced
+SO-004790,2026-12-01,CUST-022,Global Smart Solutions (P) Ltd,Contractor,BR-01,EMP-003,48167.0,8670.06,56837.06,Invoiced
+SO-004791,2026-12-01,CUST-005,Murugan Auto Garage & Works,Small Commercial,BR-01,EMP-003,2995.0,539.1,3534.1,Invoiced
+SO-004792,2026-12-01,CUST-040,Sri Krishna Engineering College Hostel,Institution,BR-03,EMP-010,1878.0,338.04,2216.04,Invoiced
+SO-004793,2026-12-01,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-002,2568.0,462.24,3030.24,Invoiced
+SO-004794,2026-12-01,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-009,6850.0,1233.0,8083.0,Invoiced
+SO-004795,2026-12-01,CUST-021,Mohammed Riyaz (Home Renovation),Residential / B2C,BR-01,EMP-002,418.0,75.24,493.24,Invoiced
+SO-004796,2026-12-02,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-002,60858.0,10954.44,71812.44,Invoiced
+SO-004797,2026-12-02,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,1694.0,304.92,1998.92,Invoiced
+SO-004798,2026-12-02,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-007,93691.2,16864.42,110555.62,Invoiced
+SO-004799,2026-12-02,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-009,1335.0,240.3,1575.3,Invoiced
+SO-004800,2026-12-02,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,9050.0,1629.0,10679.0,Invoiced
+SO-004801,2026-12-02,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-002,4278.0,770.04,5048.04,Invoiced
+SO-004802,2026-12-02,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-002,6833.0,1229.94,8062.94,Invoiced
+SO-004803,2026-12-02,CUST-039,Rangasamy Electrician Workshop,Electrician,BR-03,EMP-010,4424.0,796.32,5220.32,Invoiced
+SO-004804,2026-12-02,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-003,850.0,153.0,1003.0,Invoiced
+SO-004805,2026-12-03,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-002,2350.0,423.0,2773.0,Invoiced
+SO-004806,2026-12-03,CUST-006,Dr. Priya Sundaram (Home Clinic),Residential / B2C,BR-01,EMP-002,6895.0,1241.1,8136.1,Invoiced
+SO-004807,2026-12-03,CUST-021,Mohammed Riyaz (Home Renovation),Residential / B2C,BR-01,EMP-002,45.0,8.1,53.1,Invoiced
+SO-004808,2026-12-03,CUST-046,Annamalai Agro Processing Unit,Small Commercial,BR-03,EMP-012,1770.0,318.6,2088.6,Invoiced
+SO-004809,2026-12-03,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-002,167162.8,30089.3,197252.1,Invoiced
+SO-004810,2026-12-03,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-003,5888.0,1059.84,6947.84,Invoiced
+SO-004811,2026-12-03,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-002,2886.0,519.48,3405.48,Invoiced
+SO-004812,2026-12-04,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-003,11028.2,1985.08,13013.28,Invoiced
+SO-004813,2026-12-04,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-002,1410.0,253.8,1663.8,Invoiced
+SO-004814,2026-12-04,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-010,1307.0,235.26,1542.26,Invoiced
+SO-004815,2026-12-04,CUST-023,Kalam Brothers Electrical Store,Retailer / Trader,BR-01,EMP-002,105790.8,19042.34,124833.14,Invoiced
+SO-004816,2026-12-04,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-003,2380.0,428.4,2808.4,Invoiced
+SO-004817,2026-12-04,CUST-044,Mani Bros Electricals (Mani),Electrician,BR-03,EMP-010,4922.4,886.03,5808.43,Invoiced
+SO-004818,2026-12-04,CUST-003,Saravana Electric Works (Govindaraj),Electrician,BR-01,EMP-002,3852.0,693.36,4545.36,Invoiced
+SO-004819,2026-12-04,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-006,468.2,84.27,552.47,Invoiced
+SO-004820,2026-12-05,CUST-006,Dr. Priya Sundaram (Home Clinic),Residential / B2C,BR-01,EMP-002,7743.0,1393.74,9136.74,Invoiced
+SO-004821,2026-12-05,CUST-004,Sri Ramakrishna Builders & Infra,Builder / Commercial,BR-01,EMP-003,13947.0,2510.46,16457.46,Invoiced
+SO-004822,2026-12-05,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,7128.0,1283.04,8411.04,Invoiced
+SO-004823,2026-12-05,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-007,3092.4,556.63,3649.03,Invoiced
+SO-004824,2026-12-07,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-003,138.0,24.84,162.84,Invoiced
+SO-004825,2026-12-07,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-003,85613.0,15410.34,101023.34,Invoiced
+SO-004826,2026-12-07,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,410.0,73.8,483.8,Invoiced
+SO-004827,2026-12-07,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-009,850.0,153.0,1003.0,Invoiced
+SO-004828,2026-12-08,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-002,111372.6,20047.07,131419.67,Invoiced
+SO-004829,2026-12-08,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,5832.0,1049.76,6881.76,Invoiced
+SO-004830,2026-12-08,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-002,44566.8,8022.02,52588.82,Invoiced
+SO-004831,2026-12-08,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-006,37515.0,6752.7,44267.7,Invoiced
+SO-004832,2026-12-08,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-006,2200.0,396.0,2596.0,Invoiced
+SO-004833,2026-12-08,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-002,2150.0,387.0,2537.0,Invoiced
+SO-004834,2026-12-09,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-009,2350.0,423.0,2773.0,Invoiced
+SO-004835,2026-12-09,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-002,958.6,172.55,1131.15,Invoiced
+SO-004836,2026-12-09,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-003,1242.0,223.56,1465.56,Invoiced
+SO-004837,2026-12-09,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-010,1039.0,187.02,1226.02,Invoiced
+SO-004838,2026-12-10,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,2488.0,447.84,2935.84,Invoiced
+SO-004839,2026-12-10,CUST-033,Suresh Babu (Villa Construction),Residential / B2C,BR-02,EMP-006,1015.0,182.7,1197.7,Invoiced
+SO-004840,2026-12-10,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-003,2215.0,398.7,2613.7,Invoiced
+SO-004841,2026-12-10,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-003,1262.0,227.16,1489.16,Invoiced
+SO-004842,2026-12-10,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-003,4861.0,874.98,5735.98,Invoiced
+SO-004843,2026-12-11,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-010,902.4,162.43,1064.83,Invoiced
+SO-004844,2026-12-11,CUST-023,Kalam Brothers Electrical Store,Retailer / Trader,BR-01,EMP-002,15739.2,2833.06,18572.26,Invoiced
+SO-004845,2026-12-11,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-002,2430.0,437.4,2867.4,Invoiced
+SO-004846,2026-12-11,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-002,405.0,72.9,477.9,Invoiced
+SO-004847,2026-12-11,CUST-041,Kongu Builders & Real Estate,Builder / Commercial,BR-03,EMP-012,22179.2,3992.26,26171.46,Invoiced
+SO-004848,2026-12-11,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-009,274223.0,49360.14,323583.14,Invoiced
+SO-004849,2026-12-11,CUST-021,Mohammed Riyaz (Home Renovation),Residential / B2C,BR-01,EMP-002,207.0,37.26,244.26,Invoiced
+SO-004850,2026-12-12,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-002,6483.0,1166.94,7649.94,Invoiced
+SO-004851,2026-12-12,CUST-040,Sri Krishna Engineering College Hostel,Institution,BR-03,EMP-012,720.0,129.6,849.6,Invoiced
+SO-004852,2026-12-12,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-007,280.0,50.4,330.4,Invoiced
+SO-004853,2026-12-12,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,27026.0,4864.68,31890.68,Invoiced
+SO-004854,2026-12-12,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-003,927.0,166.86,1093.86,Invoiced
+SO-004855,2026-12-12,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-012,1188.6,213.95,1402.55,Invoiced
+SO-004856,2026-12-12,CUST-035,Gowda Electrical Repairs,Electrician,BR-02,EMP-006,33545.0,6038.1,39583.1,Invoiced
+SO-004857,2026-12-12,CUST-038,Marutham Electrical & Power Agency,Retailer / Trader,BR-03,EMP-012,66784.8,12021.26,78806.06,Invoiced
+SO-004858,2026-12-14,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-002,132878.0,23918.04,156796.04,Invoiced
+SO-004859,2026-12-14,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-002,53189.0,9574.02,62763.02,Invoiced
+SO-004860,2026-12-14,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-010,6450.0,1161.0,7611.0,Invoiced
+SO-004861,2026-12-14,CUST-046,Annamalai Agro Processing Unit,Small Commercial,BR-03,EMP-010,483.0,86.94,569.94,Invoiced
+SO-004862,2026-12-14,CUST-006,Dr. Priya Sundaram (Home Clinic),Residential / B2C,BR-01,EMP-002,2150.0,387.0,2537.0,Invoiced
+SO-004863,2026-12-14,CUST-020,Selvam Electrician Services,Electrician,BR-01,EMP-003,5424.0,976.32,6400.32,Invoiced
+SO-004864,2026-12-14,CUST-041,Kongu Builders & Real Estate,Builder / Commercial,BR-03,EMP-012,58077.6,10453.97,68531.57,Invoiced
+SO-004865,2026-12-14,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-009,242691.0,43684.38,286375.38,Invoiced
+SO-004866,2026-12-15,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-007,1023.6,184.25,1207.85,Invoiced
+SO-004867,2026-12-15,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-006,28525.0,5134.5,33659.5,Invoiced
+SO-004868,2026-12-15,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-006,8465.8,1523.84,9989.64,Invoiced
+SO-004869,2026-12-15,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-002,30.0,5.4,35.4,Invoiced
+SO-004870,2026-12-16,CUST-006,Dr. Priya Sundaram (Home Clinic),Residential / B2C,BR-01,EMP-003,2357.0,424.26,2781.26,Invoiced
+SO-004871,2026-12-16,CUST-003,Saravana Electric Works (Govindaraj),Electrician,BR-01,EMP-002,3900.0,702.0,4602.0,Invoiced
+SO-004872,2026-12-16,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-006,330.0,59.4,389.4,Invoiced
+SO-004873,2026-12-16,CUST-023,Kalam Brothers Electrical Store,Retailer / Trader,BR-01,EMP-002,31920.0,5745.6,37665.6,Invoiced
+SO-004874,2026-12-16,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-002,16216.0,2918.88,19134.88,Invoiced
+SO-004875,2026-12-16,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-012,1007.4,181.33,1188.73,Invoiced
+SO-004876,2026-12-16,CUST-006,Dr. Priya Sundaram (Home Clinic),Residential / B2C,BR-01,EMP-002,402.0,72.36,474.36,Invoiced
+SO-004877,2026-12-17,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,2480.4,446.47,2926.87,Invoiced
+SO-004878,2026-12-17,CUST-041,Kongu Builders & Real Estate,Builder / Commercial,BR-03,EMP-010,18583.0,3344.94,21927.94,Invoiced
+SO-004879,2026-12-17,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-006,148806.4,26785.15,175591.55,Invoiced
+SO-004880,2026-12-17,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-010,64522.2,11614.0,76136.2,Invoiced
+SO-004881,2026-12-17,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-003,14064.4,2531.59,16595.99,Invoiced
+SO-004882,2026-12-17,CUST-034,Silicon Valley PG Hostel Chain,Institution,BR-02,EMP-007,2300.0,414.0,2714.0,Invoiced
+SO-004883,2026-12-17,CUST-037,Kovai Textile Mills Facility Team,Small Commercial,BR-03,EMP-009,2570.8,462.74,3033.54,Invoiced
+SO-004884,2026-12-17,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-003,385.8,69.44,455.24,Invoiced
+SO-004885,2026-12-18,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-007,75017.0,13503.06,88520.06,Invoiced
+SO-004886,2026-12-18,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-002,4488.0,807.84,5295.84,Invoiced
+SO-004887,2026-12-18,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-003,1380.0,248.4,1628.4,Invoiced
+SO-004888,2026-12-18,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,495.0,89.1,584.1,Invoiced
+SO-004889,2026-12-18,CUST-003,Saravana Electric Works (Govindaraj),Electrician,BR-01,EMP-002,8027.0,1444.86,9471.86,Invoiced
+SO-004890,2026-12-18,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,15076.0,2713.68,17789.68,Invoiced
+SO-004891,2026-12-18,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-003,828.0,149.04,977.04,Invoiced
+SO-004892,2026-12-18,CUST-042,Velan Pump & Motor Spares Store,Retailer / Trader,BR-03,EMP-010,197924.8,35626.46,233551.26,Invoiced
+SO-004893,2026-12-18,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-003,1372.0,246.96,1618.96,Invoiced
+SO-004894,2026-12-19,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,3063.6,551.45,3615.05,Invoiced
+SO-004895,2026-12-19,CUST-037,Kovai Textile Mills Facility Team,Small Commercial,BR-03,EMP-009,4300.0,774.0,5074.0,Invoiced
+SO-004896,2026-12-19,CUST-044,Mani Bros Electricals (Mani),Electrician,BR-03,EMP-010,2630.0,473.4,3103.4,Invoiced
+SO-004897,2026-12-19,CUST-001,Balaji Electrical Contractors,Contractor,BR-01,EMP-002,20844.0,3751.92,24595.92,Invoiced
+SO-004898,2026-12-19,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-002,1640.0,295.2,1935.2,Invoiced
+SO-004899,2026-12-21,CUST-039,Rangasamy Electrician Workshop,Electrician,BR-03,EMP-012,10310.0,1855.8,12165.8,Invoiced
+SO-004900,2026-12-21,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-003,92684.0,16683.12,109367.12,Invoiced
+SO-004901,2026-12-21,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-002,69.0,12.42,81.42,Invoiced
+SO-004902,2026-12-21,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-003,59638.4,10734.91,70373.31,Invoiced
+SO-004903,2026-12-21,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-003,81463.0,14663.34,96126.34,Invoiced
+SO-004904,2026-12-21,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-012,5074.0,913.32,5987.32,Invoiced
+SO-004905,2026-12-21,CUST-014,Siva Shankaran (Individual Home),Residential / B2C,BR-01,EMP-003,3663.4,659.41,4322.81,Invoiced
+SO-004906,2026-12-21,CUST-007,TechPark Facility Maintenance Team,Institution,BR-01,EMP-003,457.8,82.4,540.2,Invoiced
+SO-004907,2026-12-21,CUST-010,Vels Vidyashram School Campus,Institution,BR-01,EMP-002,330.0,59.4,389.4,Invoiced
+SO-004908,2026-12-22,CUST-033,Suresh Babu (Villa Construction),Residential / B2C,BR-02,EMP-006,1050.0,189.0,1239.0,Invoiced
+SO-004909,2026-12-22,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-006,197168.0,35490.24,232658.24,Invoiced
+SO-004910,2026-12-22,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-002,106346.2,19142.32,125488.52,Invoiced
+SO-004911,2026-12-22,CUST-045,Karthika Departmental Store,Small Commercial,BR-03,EMP-009,220.8,39.74,260.54,Invoiced
+SO-004912,2026-12-22,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-007,3450.0,621.0,4071.0,Invoiced
+SO-004913,2026-12-22,CUST-030,Dr. Arvind Rao Dental Clinic,Small Commercial,BR-02,EMP-007,161.0,28.98,189.98,Invoiced
+SO-004914,2026-12-23,CUST-004,Sri Ramakrishna Builders & Infra,Builder / Commercial,BR-01,EMP-003,147336.0,26520.48,173856.48,Invoiced
+SO-004915,2026-12-23,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-006,560.0,100.8,660.8,Invoiced
+SO-004916,2026-12-23,CUST-009,Devi Agency & Lighting Store,Retailer / Trader,BR-01,EMP-002,90550.0,16299.0,106849.0,Invoiced
+SO-004917,2026-12-23,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-009,2597.4,467.53,3064.93,Invoiced
+SO-004918,2026-12-24,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-012,924.6,166.43,1091.03,Invoiced
+SO-004919,2026-12-24,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-006,517.0,93.06,610.06,Invoiced
+SO-004920,2026-12-24,CUST-043,Sundaram Hospital Maintenance,Institution,BR-03,EMP-012,2775.0,499.5,3274.5,Invoiced
+SO-004921,2026-12-24,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-007,51994.6,9359.03,61353.63,Invoiced
+SO-004922,2026-12-24,CUST-004,Sri Ramakrishna Builders & Infra,Builder / Commercial,BR-01,EMP-002,92198.0,16595.64,108793.64,Invoiced
+SO-004923,2026-12-24,CUST-019,Poompuhar Handicrafts Store,Small Commercial,BR-01,EMP-002,414.0,74.52,488.52,Invoiced
+SO-004924,2026-12-25,CUST-041,Kongu Builders & Real Estate,Builder / Commercial,BR-03,EMP-009,6707.8,1207.4,7915.2,Invoiced
+SO-004925,2026-12-25,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-007,1731.6,311.69,2043.29,Invoiced
+SO-004926,2026-12-25,CUST-029,Raghavendra Infrastructure Developers,Builder / Commercial,BR-02,EMP-007,49680.8,8942.54,58623.34,Invoiced
+SO-004927,2026-12-25,CUST-039,Rangasamy Electrician Workshop,Electrician,BR-03,EMP-009,1030.0,185.4,1215.4,Invoiced
+SO-004928,2026-12-25,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-002,26935.0,4848.3,31783.3,Invoiced
+SO-004929,2026-12-25,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-003,2590.0,466.2,3056.2,Invoiced
+SO-004930,2026-12-25,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-003,990.0,178.2,1168.2,Invoiced
+SO-004931,2026-12-25,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-002,125208.0,22537.44,147745.44,Invoiced
+SO-004932,2026-12-26,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-007,5198.0,935.64,6133.64,Invoiced
+SO-004933,2026-12-26,CUST-040,Sri Krishna Engineering College Hostel,Institution,BR-03,EMP-012,210.0,37.8,247.8,Invoiced
+SO-004934,2026-12-26,CUST-017,Apex Manufacturing Solutions,Small Commercial,BR-01,EMP-003,702.0,126.36,828.36,Invoiced
+SO-004935,2026-12-26,CUST-027,InnoTech Coworking Hub,Small Commercial,BR-02,EMP-006,575.0,103.5,678.5,Invoiced
+SO-004936,2026-12-26,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-007,28515.0,5132.7,33647.7,Invoiced
+SO-004937,2026-12-28,CUST-039,Rangasamy Electrician Workshop,Electrician,BR-03,EMP-009,6378.0,1148.04,7526.04,Invoiced
+SO-004938,2026-12-28,CUST-026,Manjunatha Electrical Works,Electrician,BR-02,EMP-006,2918.0,525.24,3443.24,Invoiced
+SO-004939,2026-12-28,CUST-021,Mohammed Riyaz (Home Renovation),Residential / B2C,BR-01,EMP-002,161.0,28.98,189.98,Invoiced
+SO-004940,2026-12-28,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-003,110129.2,19823.26,129952.46,Invoiced
+SO-004941,2026-12-28,CUST-031,Nandini Milk Parlour & Mart,Small Commercial,BR-02,EMP-007,330.0,59.4,389.4,Invoiced
+SO-004942,2026-12-28,CUST-006,Dr. Priya Sundaram (Home Clinic),Residential / B2C,BR-01,EMP-002,15.0,2.7,17.7,Invoiced
+SO-004943,2026-12-28,CUST-032,Cauvery Engineering Contractors,Contractor,BR-02,EMP-006,131621.0,23691.78,155312.78,Invoiced
+SO-004944,2026-12-28,CUST-022,Global Smart Solutions (P) Ltd,Contractor,BR-01,EMP-003,20682.0,3722.76,24404.76,Invoiced
+SO-004945,2026-12-29,CUST-005,Murugan Auto Garage & Works,Small Commercial,BR-01,EMP-002,5140.0,925.2,6065.2,Invoiced
+SO-004946,2026-12-29,CUST-015,Srinivasan & Sons Contractor,Contractor,BR-01,EMP-002,141232.0,25421.76,166653.76,Invoiced
+SO-004947,2026-12-29,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-002,84861.2,15275.02,100136.22,Invoiced
+SO-004948,2026-12-29,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-007,86500.0,15570.0,102070.0,Invoiced
+SO-004949,2026-12-29,CUST-013,Metro Supermarket Tambaram,Small Commercial,BR-01,EMP-003,2315.0,416.7,2731.7,Invoiced
+SO-004950,2026-12-29,CUST-003,Saravana Electric Works (Govindaraj),Electrician,BR-01,EMP-002,6315.0,1136.7,7451.7,Invoiced
+SO-004951,2026-12-29,CUST-046,Annamalai Agro Processing Unit,Small Commercial,BR-03,EMP-012,662.4,119.23,781.63,Invoiced
+SO-004952,2026-12-29,CUST-018,Lakshmi Vilas Sweets & Bakery,Small Commercial,BR-01,EMP-003,330.0,59.4,389.4,Invoiced
+SO-004953,2026-12-29,CUST-012,Karthik Residential Apartment Owner,Residential / B2C,BR-01,EMP-003,1246.2,224.32,1470.52,Invoiced
+SO-004954,2026-12-30,CUST-008,Anbu Electricals (Anbazhagan),Electrician,BR-01,EMP-002,9285.0,1671.3,10956.3,Invoiced
+SO-004955,2026-12-30,CUST-047,Kovai Elite Residency Hotel,Small Commercial,BR-03,EMP-010,1290.0,232.2,1522.2,Invoiced
+SO-004956,2026-12-30,CUST-002,Kalaivani Hardware & Paints,Retailer / Trader,BR-01,EMP-002,160257.0,28846.26,189103.26,Invoiced
+SO-004957,2026-12-30,CUST-041,Kongu Builders & Real Estate,Builder / Commercial,BR-03,EMP-010,26104.2,4698.76,30802.96,Invoiced
+SO-004958,2026-12-30,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-003,67420.0,12135.6,79555.6,Invoiced
+SO-004959,2026-12-30,CUST-011,Victory Housing Projects Phase 2,Builder / Commercial,BR-01,EMP-002,208188.0,37473.84,245661.84,Invoiced
+SO-004960,2026-12-31,CUST-016,Royal Comfort Residency Hotel,Small Commercial,BR-01,EMP-002,2322.0,417.96,2739.96,Invoiced
+SO-004961,2026-12-31,CUST-048,Ramachandran (Individual House Owner),Residential / B2C,BR-03,EMP-012,3070.0,552.6,3622.6,Invoiced
+SO-004962,2026-12-31,CUST-036,Urban Spaces Interior Studio,Contractor,BR-02,EMP-007,118927.4,21406.93,140334.33,Invoiced
+SO-004963,2026-12-31,CUST-033,Suresh Babu (Villa Construction),Residential / B2C,BR-02,EMP-007,4300.0,774.0,5074.0,Invoiced
+SO-004964,2026-12-31,CUST-025,Brigade Vista Apartment Owners Assn,Residential / B2C,BR-02,EMP-007,5680.0,1022.4,6702.4,Invoiced
+SO-004965,2026-12-31,CUST-028,Sri Venkateshwara Hardware & Electricals,Retailer / Trader,BR-02,EMP-006,68076.0,12253.68,80329.68,Invoiced

@@ -1,0 +1,190 @@
+{
+  "enterprise": {
+    "name": "Vidyut Electricals & Power Solutions",
+    "description": "Indian micro-enterprise trading in electrical equipment, lighting, switchgear, wires & appliances across South India.",
+    "branches_count": 3,
+    "employees_count": 12,
+    "products_count": 38,
+    "customers_count": 48,
+    "suppliers_count": 8,
+    "historical_period": "2024-01-01 to 2026-09-30",
+    "holdout_period": "2026-10-01 to 2026-12-31"
+  },
+  "tables": [
+    {
+      "name": "branches",
+      "category": "master",
+      "file": "data/master/branches.csv",
+      "grain": "branch",
+      "description": "Branch locations & showrooms"
+    },
+    {
+      "name": "employees",
+      "category": "master",
+      "file": "data/master/employees.csv",
+      "grain": "employee",
+      "description": "Staff roster, roles, and branch assignments"
+    },
+    {
+      "name": "suppliers",
+      "category": "master",
+      "file": "data/master/suppliers.csv",
+      "grain": "supplier",
+      "description": "Approved vendor list, lead times, and payment terms"
+    },
+    {
+      "name": "products",
+      "category": "master",
+      "file": "data/master/products.csv",
+      "grain": "product SKU",
+      "description": "Product catalog, pricing, tax rates, and reorder levels"
+    },
+    {
+      "name": "customers",
+      "category": "master",
+      "file": "data/master/customers.csv",
+      "grain": "customer",
+      "description": "B2B contractors, electricians, retailers, institutions, B2C clients"
+    },
+    {
+      "name": "sales_orders",
+      "category": "sales",
+      "file": "data/sales/sales_orders.csv",
+      "grain": "order",
+      "description": "Header sales orders with dates, branches, and totals"
+    },
+    {
+      "name": "sales_order_items",
+      "category": "sales",
+      "file": "data/sales/sales_order_items.csv",
+      "grain": "order line item",
+      "description": "Line item sales with quantities, prices, and discounts"
+    },
+    {
+      "name": "invoices",
+      "category": "sales",
+      "file": "data/sales/invoices.csv",
+      "grain": "invoice",
+      "description": "Tax invoices issued to customers with due dates and payment status"
+    },
+    {
+      "name": "customer_payments",
+      "category": "sales",
+      "file": "data/sales/customer_payments.csv",
+      "grain": "payment transaction",
+      "description": "Cash, UPI, and bank receipts from customers"
+    },
+    {
+      "name": "sales_returns",
+      "category": "sales",
+      "file": "data/sales/sales_returns.csv",
+      "grain": "return event",
+      "description": "Customer return records and warranty defect claims"
+    },
+    {
+      "name": "credit_notes",
+      "category": "sales",
+      "file": "data/sales/credit_notes.csv",
+      "grain": "credit note",
+      "description": "Credit notes issued for return refunds and ledger adjustments"
+    },
+    {
+      "name": "purchase_orders",
+      "category": "procurement",
+      "file": "data/procurement/purchase_orders.csv",
+      "grain": "purchase order",
+      "description": "Supplier purchase orders with dates and expected delivery"
+    },
+    {
+      "name": "purchase_order_items",
+      "category": "procurement",
+      "file": "data/procurement/purchase_order_items.csv",
+      "grain": "PO line item",
+      "description": "Items ordered from suppliers with quantities and costs"
+    },
+    {
+      "name": "goods_receipts",
+      "category": "procurement",
+      "file": "data/procurement/goods_receipts.csv",
+      "grain": "goods receipt note",
+      "description": "Warehouse receipts and inspection notes"
+    },
+    {
+      "name": "goods_receipt_items",
+      "category": "procurement",
+      "file": "data/procurement/goods_receipt_items.csv",
+      "grain": "GRN line item",
+      "description": "Items received from suppliers with condition status"
+    },
+    {
+      "name": "inventory_opening_balances",
+      "category": "inventory",
+      "file": "data/inventory/inventory_opening_balances.csv",
+      "grain": "branch-SKU opening count",
+      "description": "Initial stock count as of 2024-01-01"
+    },
+    {
+      "name": "inventory_movements",
+      "category": "inventory",
+      "file": "data/inventory/inventory_movements.csv",
+      "grain": "stock transaction",
+      "description": "Continuous stock ledger movements with running balances"
+    },
+    {
+      "name": "stock_transfers",
+      "category": "inventory",
+      "file": "data/inventory/stock_transfers.csv",
+      "grain": "transfer event",
+      "description": "Inter-branch stock replenishments from Chennai Central Hub"
+    },
+    {
+      "name": "stock_adjustments",
+      "category": "inventory",
+      "file": "data/inventory/stock_adjustments.csv",
+      "grain": "adjustment event",
+      "description": "Physical count reconciliations and damage write-offs"
+    },
+    {
+      "name": "expenses",
+      "category": "finance",
+      "file": "data/finance/expenses.csv",
+      "grain": "expense voucher",
+      "description": "Operating expenses: rent, salaries, utilities, freight, supplies"
+    },
+    {
+      "name": "cash_transactions",
+      "category": "finance",
+      "file": "data/finance/cash_transactions.csv",
+      "grain": "cash/bank transaction",
+      "description": "Cash and bank flow ledger with inflows and outflows"
+    },
+    {
+      "name": "deliveries",
+      "category": "operations",
+      "file": "data/operations/deliveries.csv",
+      "grain": "delivery shipment",
+      "description": "Logistics dispatch records with promised and actual dates"
+    },
+    {
+      "name": "salesperson_targets",
+      "category": "operations",
+      "file": "data/operations/salesperson_targets.csv",
+      "grain": "employee-month quota",
+      "description": "Monthly sales targets assigned to sales executives"
+    },
+    {
+      "name": "product_price_history",
+      "category": "pricing",
+      "file": "data/pricing/product_price_history.csv",
+      "grain": "price revision event",
+      "description": "Historical price changes with effective dates and reasons"
+    },
+    {
+      "name": "promotions",
+      "category": "marketing",
+      "file": "data/marketing/promotions.csv",
+      "grain": "promotional campaign",
+      "description": "Marketing discount promotions and seasonal festival campaigns"
+    }
+  ]
+}

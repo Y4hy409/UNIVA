@@ -1,0 +1,50 @@
+price_change_id,product_id,sku,effective_date,purchase_price,selling_price,change_reason,approval_status
+PH-0001,PRD-001,LED-BULB-09W,2021-04-01,42.0,75.0,Initial Launch Catalog Price,Approved
+PH-0002,PRD-001,LED-BULB-09W,2025-07-01,37.8,69.0,LED Semiconductor Cost Reduction Revision,Approved
+PH-0003,PRD-002,LED-BULB-12W,2021-04-01,58.0,110.0,Initial Launch Catalog Price,Approved
+PH-0004,PRD-002,LED-BULB-12W,2025-07-01,52.2,101.2,LED Semiconductor Cost Reduction Revision,Approved
+PH-0005,PRD-003,LED-BULB-18W,2022-01-15,95.0,175.0,Initial Launch Catalog Price,Approved
+PH-0006,PRD-003,LED-BULB-18W,2025-07-01,85.5,161.0,LED Semiconductor Cost Reduction Revision,Approved
+PH-0007,PRD-004,LED-BAT-20W,2021-06-01,145.0,240.0,Initial Launch Catalog Price,Approved
+PH-0008,PRD-004,LED-BAT-20W,2025-07-01,130.5,220.8,LED Semiconductor Cost Reduction Revision,Approved
+PH-0009,PRD-005,LED-BAT-36W,2022-03-10,280.0,450.0,Initial Launch Catalog Price,Approved
+PH-0010,PRD-005,LED-BAT-36W,2025-07-01,252.0,414.0,LED Semiconductor Cost Reduction Revision,Approved
+PH-0011,PRD-006,LED-PNL-15W,2022-05-01,160.0,280.0,Initial Launch Catalog Price,Approved
+PH-0012,PRD-007,LED-PNL-24W,2023-01-20,520.0,850.0,Initial Launch Catalog Price,Approved
+PH-0013,PRD-008,LED-FL-50W,2023-04-10,650.0,1100.0,Initial Launch Catalog Price,Approved
+PH-0014,PRD-009,INC-BLB-60W,2021-04-01,12.0,22.0,Initial Launch Catalog Price,Approved
+PH-0015,PRD-010,FAN-CEIL-1200,2021-04-01,1350.0,2150.0,Initial Launch Catalog Price,Approved
+PH-0016,PRD-011,FAN-BLDC-1200,2024-03-01,2200.0,3450.0,Initial Launch Catalog Price,Approved
+PH-0017,PRD-012,FAN-EXH-150,2021-08-15,620.0,1050.0,Initial Launch Catalog Price,Approved
+PH-0018,PRD-013,FAN-WALL-400,2022-02-20,1480.0,2350.0,Initial Launch Catalog Price,Approved
+PH-0019,PRD-014,SW-MOD-6A,2021-04-01,18.0,35.0,Initial Launch Catalog Price,Approved
+PH-0020,PRD-015,SW-MOD-16A,2021-04-01,42.0,78.0,Initial Launch Catalog Price,Approved
+PH-0021,PRD-016,SOC-MOD-6A,2021-04-01,36.0,68.0,Initial Launch Catalog Price,Approved
+PH-0022,PRD-017,SOC-MOD-16A,2021-04-01,65.0,115.0,Initial Launch Catalog Price,Approved
+PH-0023,PRD-018,REG-MOD-FAN,2021-06-10,140.0,240.0,Initial Launch Catalog Price,Approved
+PH-0024,PRD-019,PLT-MOD-4M,2021-04-01,48.0,90.0,Initial Launch Catalog Price,Approved
+PH-0025,PRD-020,PLT-MOD-8M,2021-04-01,85.0,155.0,Initial Launch Catalog Price,Approved
+PH-0026,PRD-021,WIR-FR-100,2021-04-01,880.0,1320.0,Initial Launch Catalog Price,Approved
+PH-0027,PRD-021,WIR-FR-100,2025-02-01,1012.0,1478.4,Copper Commodity Global Price Surge Revision,Approved
+PH-0028,PRD-022,WIR-FR-150,2021-04-01,1250.0,1850.0,Initial Launch Catalog Price,Approved
+PH-0029,PRD-022,WIR-FR-150,2025-02-01,1437.5,2072.0,Copper Commodity Global Price Surge Revision,Approved
+PH-0030,PRD-023,WIR-FR-250,2021-04-01,1950.0,2850.0,Initial Launch Catalog Price,Approved
+PH-0031,PRD-023,WIR-FR-250,2025-02-01,2242.5,3192.0,Copper Commodity Global Price Surge Revision,Approved
+PH-0032,PRD-024,WIR-FR-400,2021-07-01,3100.0,4450.0,Initial Launch Catalog Price,Approved
+PH-0033,PRD-024,WIR-FR-400,2025-02-01,3565.0,4984.0,Copper Commodity Global Price Surge Revision,Approved
+PH-0034,PRD-025,WIR-FR-600,2022-01-10,4600.0,6500.0,Initial Launch Catalog Price,Approved
+PH-0035,PRD-025,WIR-FR-600,2025-02-01,5290.0,7280.0,Copper Commodity Global Price Surge Revision,Approved
+PH-0036,PRD-026,CBL-ARM-4C10,2022-08-01,185.0,260.0,Initial Launch Catalog Price,Approved
+PH-0037,PRD-026,CBL-ARM-4C10,2025-02-01,212.75,291.2,Copper Commodity Global Price Surge Revision,Approved
+PH-0038,PRD-027,MCB-SP-10A,2021-04-01,82.0,145.0,Initial Launch Catalog Price,Approved
+PH-0039,PRD-028,MCB-SP-16A,2021-04-01,85.0,150.0,Initial Launch Catalog Price,Approved
+PH-0040,PRD-029,MCB-SP-32A,2021-04-01,95.0,170.0,Initial Launch Catalog Price,Approved
+PH-0041,PRD-030,MCB-DP-32A,2021-05-15,220.0,380.0,Initial Launch Catalog Price,Approved
+PH-0042,PRD-031,RCCB-4P-40A,2022-04-01,1250.0,2100.0,Initial Launch Catalog Price,Approved
+PH-0043,PRD-032,DB-SPN-08W,2021-09-01,450.0,780.0,Initial Launch Catalog Price,Approved
+PH-0044,PRD-033,DB-TPN-04W,2022-11-01,1650.0,2650.0,Initial Launch Catalog Price,Approved
+PH-0045,PRD-034,EXT-SPIKE-4W,2021-04-01,210.0,360.0,Initial Launch Catalog Price,Approved
+PH-0046,PRD-035,CON-PVC-25MM,2021-04-01,38.0,65.0,Initial Launch Catalog Price,Approved
+PH-0047,PRD-036,TAP-ELEC-BLK,2021-04-01,7.5,15.0,Initial Launch Catalog Price,Approved
+PH-0048,PRD-037,LUG-COP-16MM,2022-05-10,140.0,240.0,Initial Launch Catalog Price,Approved
+PH-0049,PRD-038,TST-VOLT-DIG,2023-06-01,90.0,165.0,Initial Launch Catalog Price,Approved

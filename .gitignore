@@ -1,0 +1,67 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.pyo
+
+# Virtual Environments
+venv/
+backend/venv/
+.venv/
+env/
+ENV/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+
+# Scratch & Temporary Logs
+backend/scratch/
+data/temp/
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Local Databases, Vector Stores & Runtime Artifacts
+*.db
+*.duckdb
+*.db.tmp
+*.wal
+*.sqlite
+*.sqlite3
+backend/data/
+backend/chroma_db/
+data/clarius.db
+data/jobs.db
+
+# Licenses & Local Secrets
+*.lic
+backend/config/*.lic
+data/*.lic
+.env
+.env.*
+!.env.example
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# Node / Frontend Artifacts
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+.npm/
+.yarn/
+
+# IDEs and Operating Systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+.agents/

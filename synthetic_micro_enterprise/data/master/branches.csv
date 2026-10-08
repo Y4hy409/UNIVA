@@ -1,0 +1,4 @@
+branch_id,branch_code,branch_name,city,area,branch_type,opening_date,status
+BR-01,HQ-CHN,Vidyut Central Hub & Showroom,Chennai,"Parrys Corner, George Town",Hub & Retail,2021-04-01,Active
+BR-02,BLR-EC,Vidyut Electronic City Retail Branch,Bangalore,Electronic City Phase 1,Retail Outlet,2023-01-15,Active
+BR-03,CBE-TH,Vidyut Coimbatore Townhall Branch,Coimbatore,Town Hall Cross Cut Road,Retail Outlet,2023-08-01,Active

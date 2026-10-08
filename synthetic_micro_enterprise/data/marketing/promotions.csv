@@ -1,0 +1,9 @@
+promo_id,promo_name,start_date,end_date,target_category,discount_pct,description,eligible_branches,status
+PROMO-001,Diwali Festive Lighting Mega Sale 2024,2024-10-15,2024-11-05,Lighting,10.0,Bulk purchase discount on LED bulbs and panel lights,"BR-01,BR-02,BR-03",Completed
+PROMO-002,Summer Cooling Fan Festival 2024,2024-04-01,2024-05-31,Appliances,8.0,Special installer discount on ceiling and exhaust fans,"BR-01,BR-02,BR-03",Completed
+PROMO-003,Monsoon Contractor Wire Bonanza 2024,2024-07-01,2024-08-15,Wires & Cables,5.0,5% instant rebate on purchases above 5 coils,BR-01,Completed
+PROMO-004,New Year Renovation Special 2025,2025-01-01,2025-01-20,Switches,7.5,Discount on modular plates and sockets combo,"BR-01,BR-02,BR-03",Completed
+PROMO-005,Summer Cooling Fan Extravaganza 2025,2025-03-15,2025-05-31,Appliances,10.0,Heavy discount on Zephyr BLDC smart fans,"BR-01,BR-02,BR-03",Completed
+PROMO-006,Diwali Grand Sparkle Lighting 2025,2025-10-10,2025-11-02,Lighting,12.0,Flat 12% off on 10+ LED batten and downlight packs,"BR-01,BR-02,BR-03",Completed
+PROMO-007,Summer Cooling Beat-The-Heat 2026,2026-03-20,2026-05-31,Appliances,12.0,Early summer fan discount & free tester pen,"BR-01,BR-02,BR-03",Completed
+PROMO-008,Independence Contractor Appreciation 2026,2026-08-01,2026-08-20,Wires & Cables,6.0,Special loyalty points + 6% discount on Orbit wires,"BR-01,BR-02,BR-03",Completed

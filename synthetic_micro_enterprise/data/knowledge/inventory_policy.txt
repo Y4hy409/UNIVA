@@ -1,0 +1,18 @@
+VIDYUT ELECTRICALS & POWER SOLUTIONS
+INVENTORY MANAGEMENT, STOCK AUDIT & REORDER POLICY
+Document Ref: POL-INV-2024-V1
+Effective Date: 2024-01-01
+
+1. Inventory Valuation Method
+- Inventory is tracked and valued on a Weighted Average Cost (WAC) basis in accordance with Indian Accounting Standards.
+
+2. Reorder Levels & Stockout Prevention
+- Fast-Moving SKUs (9W LED Bulbs, 1.5/2.5 sq mm Wires, 6A Switches, 16A MCBs): Minimum 2 weeks buffer stock must be maintained at Central Hub (BR-01).
+- Reorder triggers are initiated automatically when stock levels fall below designated Reorder Level (RL).
+
+3. Physical Stock Verification Cadence
+- Monthly cycle count of Top 10 High-Value SKUs (Wires and Distribution Panels).
+- Full Annual Physical Stocktake conducted on March 31 of each financial year.
+
+4. Inter-Branch Stock Replenishment
+- Bangalore (BR-02) and Coimbatore (BR-03) branches receive weekly consolidated supply transfers from the Chennai Central Hub (BR-01) every Thursday.
